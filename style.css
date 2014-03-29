@@ -1,0 +1,114 @@
+
+	* {
+		margin:0px;
+		padding:0px;
+	}
+
+	/*	LEFT BAR 	*/
+
+	.leftbar {
+		display:block;
+		position: fixed;
+		top:0px;
+		left:0px;
+		width:400px;
+		height:100%;
+		font-family: arial;
+		background-color:rgb(240,240,240);
+		overflow:hidden;
+		padding:20px 0px 0px 20px;
+	}
+
+	.leftbar h1 {
+		font-size:24px;
+		padding-left:20px;
+		font-weight: normal;
+	}
+
+	#numerictab,
+	#nametab {
+		font-size:24px;
+		padding:20px;
+		cursor:pointer;
+		background-color:rgb(230,230,230);
+	}
+
+	#showclick {
+		margin: 30px 20px 40px 20px;
+		width:340px;
+		overflow: visible;
+		border:1px solid rgb(60,60,60);
+	}
+
+	#showclick .showclickleft {
+		width:300px;
+		padding: 20px 0px;
+		text-align: center;
+		display: inline;
+		font-size:40px;
+		color:rgb(230,230,230);
+		background-color:rgb(60,60,60);
+	}
+
+	#showclick input {
+		background-color:white;
+		color:rgb(60,60,60);
+		width: 200px;
+		padding:20px;
+		text-align: center;
+		font-size:40px;
+		border:0px;
+		display: inline;
+	}
+
+	.inputarea {
+		font-size:20px;
+		padding-left:20px;
+		margin-top: 40px;
+	}
+
+	.inputarea input {
+		font-size:20px;
+		background-color:white;
+		color:rgb(60,60,60);
+		padding:4px;
+		border:1px solid rgb(230,230,230);
+	}
+
+	/*	RIGHT AREA 	*/
+
+	#content {
+		padding:20px;
+		margin-left:420px;
+	}
+
+	#symboltable {
+		font-size:24px;
+		font-family:sans-serif;
+		border-collapse: collapse;
+		width:80%;
+	}
+
+	#symboltable td {
+		border:1px solid rgb(240,240,240);
+		text-align: center;
+	}
+
+	.symbol {
+		padding:.2em;
+		text-align:center;
+		cursor:pointer;
+		background-color:white;
+		color:rgb(60,60,60);
+	}
+
+	.symbol:hover {
+		background-color:rgb(200,240,250);
+		color:black;
+	}
+
+	.label {
+		background-color:rgb(240,240,240);
+		font-size:.8em;
+		color:rgb(127,127,127);	
+	}

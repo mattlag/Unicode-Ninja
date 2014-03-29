@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML Character Codes</title>
+<link rel='stylesheet' type='text/css' href='style.css'>
+<script type='text/javascript' src='script.js'></script>
+</head>
+<body onload='init();'>
+	<div id='content'></div>
+	<div class='leftbar'>
+		<h1>HTML Character Codes</h1>
+		<div id='showclick'></div>
+		<div id='nametab' onclick='tab(true);'>Named Codes</div>
+		<div id='numerictab' onclick='tab(false);'>Numeric Codes</div>
+		<table class='inputarea'>
+			<tr><td>font-size:&nbsp;&nbsp;</td><td><input type='text' value='24' onchange='changeFontSize(this.value);'></td></tr>
+			<tr><td>font-family:&nbsp;&nbsp;</td><td><input type='text' value='sans-serif' onchange='changeFontFamily(this.value);'></td></tr>
+		</table>
+		</div>
+	</div>
+</body>
+</html>
