@@ -2,6 +2,7 @@
 	* {
 		margin:0px;
 		padding:0px;
+		font-family: arial;
 	}
 
 	/*	LEFT BAR 	*/
@@ -13,7 +14,6 @@
 		left:0px;
 		width:400px;
 		height:100%;
-		font-family: arial;
 		background-color:rgb(240,240,240);
 		overflow:hidden;
 		padding:20px 0px 0px 20px;
@@ -36,29 +36,29 @@
 	#showclick {
 		margin: 30px 20px 40px 20px;
 		width:340px;
+		height:100px;
 		overflow: visible;
 		border:1px solid rgb(60,60,60);
 	}
 
-	#showclick .showclickleft {
-		width:300px;
-		padding: 20px 0px;
-		text-align: center;
-		display: inline;
+	#showclick input {
+		height: 100px;
 		font-size:40px;
+		text-align: center;
+		vertical-align: middle;
+		border:0;
+	}
+
+	#showclick .showclickleft {
+		width:100px;
 		color:rgb(230,230,230);
 		background-color:rgb(60,60,60);
 	}
 
-	#showclick input {
+	#showclick .showclickright {
 		background-color:white;
 		color:rgb(60,60,60);
-		width: 200px;
-		padding:20px;
-		text-align: center;
-		font-size:40px;
-		border:0px;
-		display: inline;
+		width: 240px;
 	}
 
 	.inputarea {
@@ -109,6 +109,6 @@
 
 	.label {
 		background-color:rgb(240,240,240);
-		font-size:.8em;
+		font-size:.4em;
 		color:rgb(127,127,127);	
 	}

@@ -1,6 +1,7 @@
 
 	var nametable = false;
 	var numtable = false;
+	var numtabledone = false;
 	var numrow = "";
 
 	function init(){
@@ -9,6 +10,8 @@
 
 		numrow = "<td class='label'>&nbsp;</td>";
 		for(var r=0; r<16; r++){ numrow += "<td class='label'>"+decToHex(r).charAt(3)+"</td>"; }
+
+		setTimeout(makeNumericTable, 50);
 	}
 
 	function popNameTab(){
@@ -24,24 +27,26 @@
 
 	function popNumericTab(){
 		document.getElementById('content').innerHTML = "<div style='width:100%'>Loading 65,535 character codes...</div>";
-		if(numtable){
-			document.getElementById('content').innerHTML = numtable;
+		console.log("popNumericTab - numtabledone = " + numtabledone);
+		if(numtabledone){
+			setTimeout(function(){document.getElementById('content').innerHTML = numtable;}, 50);
 		} else {
-			var makeNumericTable = function(){
-				numtable = "<table id='symboltable'><tr>";
-
-				for(var n=0x0000; n<=0x0FFF; n++){
-					if(n%0x100===0) numtable += "</tr><tr>"+numrow;
-					if(n%0x10===0) numtable += "</tr><tr><td class='label'>x"+decToHex(n)+"</td>";
-					numtable += "<td>"+makeOneSquare("#x"+decToHex(n))+"</td>";
-				}
-
-				numtable += "</tr></table>";
-				document.getElementById('content').innerHTML = numtable;
-			};
-
-			setTimeout(makeNumericTable,50);
+			setTimeout(popNumericTab, 500);
 		}
+	}
+
+	function makeNumericTable(){
+		numtable = "<table id='symboltable'><tr>";
+
+		for(var n=0x0000; n<=(0xFFFF); n++){
+			if(n%0x1000===0) console.log("makeNumericTable - done through " + decToHex(n));
+			if(n%0x100===0) numtable += "</tr><tr>"+numrow;
+			if(n%0x10===0) numtable += "</tr><tr><td class='label'>x"+decToHex(n)+"</td>";
+			numtable += "<td>"+makeOneSquare("#x"+decToHex(n))+"</td>";
+		}
+		numtable += "</tr></table>";
+
+		numtabledone = true;
 	}
 
 	function decToHex(d) { var dr = Number(d).toString(16); while(dr.length < 4) { dr = "0"+dr; } return dr.toUpperCase(); }
@@ -64,7 +69,7 @@
 	}
 
 	function clickSymbol(sym){
-		var re = "<table><tr><td class='showclickleft'>&"+sym+";</td><td class='showclickright'><input type='text' value='&amp;"+sym+";'></td></tr></table>";
+		var re = "<input class='showclickleft' value='&"+sym+";'><input class='showclickright' type='text' value='&amp;"+sym+";'>";
 		document.getElementById("showclick").innerHTML = re;
 	}
 
