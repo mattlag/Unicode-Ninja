@@ -2,35 +2,40 @@
 	* {
 		margin:0px;
 		padding:0px;
-		font-family: arial;
 	}
 
 	/*	LEFT BAR 	*/
 
 	.leftbar {
+		font-family: arial;
 		display:block;
 		position: fixed;
 		top:0px;
 		left:0px;
 		width:400px;
 		height:100%;
-		background-color:rgb(240,240,240);
+		background-color:rgb(235,241,245);
 		overflow:hidden;
 		padding:20px 0px 0px 20px;
 	}
 
 	.leftbar h1 {
-		font-size:24px;
+		font-size:28px;
 		padding-left:20px;
 		font-weight: normal;
+		color:rgb(0,90,136);
 	}
 
-	#numerictab,
-	#nametab {
-		font-size:24px;
-		padding:20px;
+	.tab {
+		font-size:18px;
+		padding:12px 0px 12px 20px;
 		cursor:pointer;
-		background-color:rgb(230,230,230);
+		background-color:rgb(225,234,240);
+		border-bottom: 1px solid rgb(200,200,200);
+	}
+
+	.tab:hover {
+		color:rgb(0,90,136);
 	}
 
 	#showclick {
@@ -103,12 +108,12 @@
 	}
 
 	.symbol:hover {
-		background-color:rgb(200,240,250);
+		background-color:rgb(204,244,255);
 		color:black;
 	}
 
 	.label {
 		background-color:rgb(240,240,240);
 		font-size:.4em;
-		color:rgb(127,127,127);	
+		color:rgb(127,127,127);
 	}
