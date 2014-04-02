@@ -40,8 +40,7 @@
 
 	#showclick {
 		margin: 30px 20px 40px 20px;
-		width:340px;
-		height:100px;
+		width:350px;
 		overflow: visible;
 		border:1px solid rgb(60,60,60);
 	}
@@ -55,7 +54,7 @@
 	}
 
 	#showclick .showclickleft {
-		width:100px;
+		width:110px;
 		color:rgb(230,230,230);
 		background-color:rgb(60,60,60);
 	}
@@ -64,6 +63,16 @@
 		background-color:white;
 		color:rgb(60,60,60);
 		width: 240px;
+	}
+
+	#showclick .showbottomclick {
+		color:rgb(230,230,230);
+		background-color:rgb(60,60,60);		
+		width:350px;
+		text-align: center;
+		font-size: 16px;
+		height: 30px;
+		text-transform: lowercase;
 	}
 
 	.inputarea {
@@ -78,6 +87,11 @@
 		color:rgb(60,60,60);
 		padding:4px;
 		border:1px solid rgb(230,230,230);
+	}
+
+	.infoarea {
+		font-size:12px;
+		margin:40px 0px 0px 20px;
 	}
 
 	/*	RIGHT AREA 	*/
