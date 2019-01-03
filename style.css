@@ -3,27 +3,53 @@
 	margin:0px;
 	padding:0px;
 	font-family: sans-serif;
+	box-sizing: border-box;
 }
 
 body {
+	height: 100vh;
+	max-height: 100vh;
+}
+
+.wrapper {
 	display: grid;
-	grid-template-columns: 400px 1fr 200px;
+	grid-template-columns: auto 1fr;
 	background-color: white;
+	height: 100vh;
+	max-height: 100vh;
+	overflow: hidden;
 }
 
 #leftbar {
 	grid-column: 1;
-	background-color: rgba(0, 0, 0, 0.1)
+	background-color: rgba(0, 0, 0, 0.1);
+	color: rgba(0, 0, 0, 0.7);
+	padding: 10px;
+	font-size: 12px;
+	height: 100vh;
+	max-height: 100vh;
+	overflow-y: scroll;
 }
 
 #content {
 	grid-column: 2;
-	background-color: rgba(0, 0, 0, 0.05)
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 10px;
+	height: 100vh;
+	max-height: 100vh;
+	overflow-y: scroll;
 }
 
 #detail {
-	grid-column: 3;
-	background-color: rgba(0, 0, 0, 0.05)
+	background-color: rgba(0, 0, 0, 0.05);
+	position: absolute;
+	display: hidden;
+}
+
+table,
+tr, 
+td {
+	border-collapse: collapse;
 }
 
 pre {
@@ -31,4 +57,27 @@ pre {
 	font-family: monospace;
 	padding: 2px 4px;
 	border-radius: 3px;
+}
+
+input[type=checkbox] {
+	margin: 5px 0px 6px 0px;
+}
+
+label {
+	cursor: pointer;
+	padding: 0px 10px 1px 4px;
+	width: 100vw;
+}
+
+label:hover {
+	color: black;
+}
+
+.charTile {
+	width: 36px;
+	height: 36px;
+	background-color: white;
+	text-align: center;
+	line-height: 36px;
+	margin: 0px 1px 1px 0px;
 }

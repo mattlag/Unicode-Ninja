@@ -10,12 +10,14 @@
 
 	function makeRangeChooser() {
 		let con = '<table>';
+		let name;
 
 		for(let r=0; r<unicodeBlocks.length; r++){
+			name = unicodeBlocks[r].name;
 			con += 
 			`<tr>
-				<td><input type="checkbox"/></td>
-				<td>${unicodeBlocks[r].name}</td>
+				<td><input type="checkbox" id="checkbox_${name}" onchange="checkboxOnChange('${name}');"/></td>
+				<td><label for="checkbox_${name}">${name}&emsp;</td>
 				<td><pre>${decToHex(unicodeBlocks[r].begin)}</pre></td>
 				<td>to</td>
 				<td><pre>${decToHex(unicodeBlocks[r].end)}</pre></td>
@@ -26,6 +28,10 @@
 		return con;
 	}
 
+	function checkboxOnChange(rangeName){
+
+	}
+	
 	function getNamedCharsTable() {
 		if(UI.rangeCache.namedChars) return UI.rangeCache.namedChars;
 
