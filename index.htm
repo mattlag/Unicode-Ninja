@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HTML Character Codes</title>
+    <title>Unicode Explorer</title>
     <meta charset="utf-8" />
 
     <script src="script.js"></script>
@@ -9,14 +9,16 @@
     <script src="unicodeNamesList.js"></script>
     <script src="unicodeBlocks.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="fontImports.css">
+    <link rel="stylesheet" type="text/css" href="allNoto.css">
+    <link rel="stylesheet" type="text/css" href="notoEarlyAccess.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <body onload="init();">
 	<div class="wrapper">
 		<div id="chooser"></div>
-		<div id="content"></div>
+		<div id="content">loading...</div>
 		<div id="detail"></div>
 	</div>
 </body>
