@@ -1,6 +1,7 @@
 	let app = {
 		rangeCache: {},
-		selectedRanges: []
+        selectedRanges: [],
+        groupChooser: true,
 	};
 
 	function init(){
@@ -8,10 +9,13 @@
         selectRange('0080-00FF');
         // selectRange('0800-083F');
 
-        // app.selectedRanges = unicodeBlocks;
+        let con = `
+            <div id="chooser">${makeChooser()}</div>
+            <div id="content">${makeContent()}</div>
+            <div id="detail"></div>
+        `;
 
-		document.getElementById('chooser').innerHTML = makeChooser();
-		document.getElementById('content').innerHTML = makeContent();
+		document.getElementById('wrapper').innerHTML = con;
 	}
 
     /*
@@ -48,27 +52,80 @@
     */
 
 	function makeChooser() {
+        return app.groupChooser? makeGroupedChooser() : makeFlatChooser();
+    }
+
+    function makeFlatChooser() {
 		let con = '<h1>Unicode Explorer</h1><table>';
-		let name;
 
 		for(let rid in unicodeBlocks){ if(unicodeBlocks.hasOwnProperty(rid)) {
-            name = unicodeBlocks[rid].name;
-			con += 
-			`<tr>
-                <td><input 
-                    type="checkbox" 
-                    id="checkbox_${name}" 
-                    onchange="checkboxOnChange(\'${rid}\');" 
-                    ${isRangeSelected(rid)? 'checked' : ''}
-                /></td>
-				<td><label for="checkbox_${name}">${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;</td>
-                <td><pre>${rid}</pre></td>
-			</tr>`;
+			con += makeSingleRangeRow(rid, unicodeBlocks[rid].nam);
 		}}
 
 		con += '</table><br><br>';
 		return con;
 	}
+
+    function makeGroupedChooser() {
+        function makeArea(area){
+            let con = '<table>';
+            for(let section in area){
+            if(area.hasOwnProperty(section)) {
+                con += `<tr><td colspan="4"><h2>${section}</h2></td></tr>`;
+                for(let group in area[section]){
+                if(area[section].hasOwnProperty(group)) {
+                    if(typeof area[section][group] === 'string') {
+                        con += makeSingleRangeRow(area[section][group], group);
+                    } else {
+                        con += `
+                            <tr>
+                                <td>
+                                    <input type="checkbox"/>
+                                </td>
+                                <td colspan="3">
+                                    <h3>&ensp;${group}</h3>
+                                </td>
+                            </tr>
+                        `;
+                        for(let block in area[section][group]){
+                        if(area[section][group].hasOwnProperty(block)) {
+                            con += makeSingleRangeRow(area[section][group][block], block, true);
+                        }}
+                    }
+                }}
+            }}
+            con += '</table><br><br>';
+            return con;
+        }
+
+        return `
+            <h1>Unicode Scripts</h1>
+            ${makeArea(organizedScripts)}
+            '<h1>Unicode Symbols</h1>
+            ${makeArea(organizedSymbols)}
+        `;
+    }
+
+    function makeSingleRangeRow(rid, name, indent) {
+        return `<tr>
+            ${indent? '<td>&emsp;</td><td>' : '<td>'}
+                <input 
+                    type="checkbox" 
+                    id="checkbox_${name}" 
+                    onchange="checkboxOnChange(\'${rid}\');" 
+                    ${isRangeSelected(rid)? 'checked' : ''}
+                />
+            </td>
+            <td${indent? '': ' colspan="2"'}>
+                <label for="checkbox_${name}">
+                    ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;
+                </label>
+            </td>
+            <td>
+                <pre>${rid}</pre>
+            </td>
+        </tr>`;
+    }
 
     function makeContent() {
         let con = '';
