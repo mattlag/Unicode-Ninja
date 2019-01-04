@@ -1,57 +1,80 @@
-	let UI = {
+	let app = {
 		rangeCache: {},
 		selectedRanges: []
 	};
 
 	function init(){
-        UI.selectedRanges.push({begin: 0x0000, end: 0x007F, name: 'Basic Latin'});
-        UI.selectedRanges.push({begin: 0x0080, end: 0x00FF, name: 'Latin-1 Supplement'});
-        // UI.selectedRanges.push({begin: 0x0800, end: 0x083F, name: 'Samaritan', noto: ''});
+        selectRange('0000-007F');
+        selectRange('0080-00FF');
+        // selectRange('0800-083F');
 
-        // UI.selectedRanges = unicodeBlocks;
+        // app.selectedRanges = unicodeBlocks;
 
 		document.getElementById('chooser').innerHTML = makeChooser();
 		document.getElementById('content').innerHTML = makeContent();
 	}
 
+    /*
+        Range Selection
+    */
+
+    function getRange(rid) {
+        if(!unicodeBlocks[rid]) console.warn(`Unknown range: ${rid}`);
+        return unicodeBlocks[rid];
+    }
+
+    function isRangeSelected(rid) {
+        return app.selectedRanges.includes(rid);
+    }
+
+    function selectRange(rid) {
+        if(!isRangeSelected(rid)) app.selectedRanges.push(rid);
+    }
+    
+    function deselectRange(rid) {
+        let i = app.selectedRanges.indexOf(rid);
+        if(i > -1) app.selectedRanges.splice(i, 1);
+    }
+    
+    function sortSelectedRanges() {
+        app.selectedRanges.sort(function (a, b) {
+            return parseInt(a.substr(0, 4), 16) - parseInt(b.substr(0, 4), 16);
+        });        
+    }
+
+
+    /*
+        Making UI Content
+    */
+
 	function makeChooser() {
-		let con = '<h1>Unicode Range Explorer</h1><table>';
+		let con = '<h1>Unicode Explorer</h1><table>';
 		let name;
 
-		for(let r=0; r<unicodeBlocks.length; r++){
-			name = unicodeBlocks[r].name;
+		for(let rid in unicodeBlocks){ if(unicodeBlocks.hasOwnProperty(rid)) {
+            name = unicodeBlocks[rid].name;
 			con += 
 			`<tr>
                 <td><input 
                     type="checkbox" 
                     id="checkbox_${name}" 
-                    onchange='checkboxOnChange(${JSON.stringify(unicodeBlocks[r])});' 
-                    ${isRangeSelected(unicodeBlocks[r])? 'checked' : ''}
+                    onchange="checkboxOnChange(\'${rid}\');" 
+                    ${isRangeSelected(rid)? 'checked' : ''}
                 /></td>
 				<td><label for="checkbox_${name}">${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;</td>
-				<td><pre>${decToHex(unicodeBlocks[r].begin)}</pre></td>
-				<td>&ensp;to&ensp;</td>
-				<td><pre>${decToHex(unicodeBlocks[r].end)}</pre></td>
+                <td><pre>${rid}</pre></td>
 			</tr>`;
-		}
+		}}
 
 		con += '</table><br><br>';
 		return con;
 	}
 
-    function isRangeSelected(range) {
-        for(let r=0; r<UI.selectedRanges.length; r++) {
-            if(range.name === UI.selectedRanges[r].name) return true;
-        }
-
-        return false;
-    }
-
     function makeContent() {
         let con = '';
 
-        for(let s=0; s<UI.selectedRanges.length; s++){
-            con += getRangeContent(UI.selectedRanges[s]);
+        for(let s=0; s<app.selectedRanges.length; s++){
+            con += getRangeContent(app.selectedRanges[s]);
         }
 
         if (con === '') con = 'no ranges selected';
@@ -61,12 +84,13 @@
         return con;
     }
 
-    function getRangeContent(range) {
-        if (!UI.rangeCache[range.name]) UI.rangeCache[range.name] = makeRangeContent(range);
-        return UI.rangeCache[range.name];
+    function getRangeContent(rid) {
+        if (!app.rangeCache[rid]) app.rangeCache[rid] = makeRangeContent(rid);
+        return app.rangeCache[rid];
     }
 
-    function makeRangeContent(range) {
+    function makeRangeContent(rid) {
+        let range = getRange(rid);
         let con = `
             <h3>${range.name}</h3>
             <table class="rangeTable">
@@ -98,7 +122,7 @@
                 con += `
                     </tr>
                     <tr>
-                        <td><pre>${decToHex(c).substring(0, 5)}-</pre></td>
+                        <td><pre>${decToHex(c).substr(2, 3)}-</pre></td>
                 `;
             }
 
@@ -125,26 +149,36 @@
         `;
     }
 
-	function checkboxOnChange(range){
-        // console.log('checkboxOnChange');
-        // console.log(range);
+    function getNamedCharsTable() {
+        if(app.rangeCache.namedChars) return app.rangeCache.namedChars;
 
+        let con = '<table><tr>';
+        for(let c=0; c<htmlNamedChars.length; c++){
+            if(c%16===0 && c!==0) con += '</tr><tr>';
+            con += `<td>${makeTile(htmlNamedChars[c])}</td>`;
+        }
+        con += '</tr></table>';
+        app.rangeCache.namedChars = con;
+        return con;
+    }
+
+
+    /*
+        Event Handlers
+    */
+
+	function checkboxOnChange(rid){
+        // console.log('checkboxOnChange');
+        // console.log(rid);
+        let range = getRange(rid);
         let selected = document.getElementById('checkbox_'+range.name).checked;
 
         if(selected) {
             // console.log('is selected');
-            UI.selectedRanges.push(range);
-            UI.selectedRanges.sort(function (a, b) {
-                return a.begin - b.begin;
-            });
+            selectRange(rid);
         } else {
             // console.log('is NOT selected');
-            for(let r=0; r<UI.selectedRanges.length; r++) {
-                if(range.name === UI.selectedRanges[r].name) {
-                    // console.log('... and being removed');
-                    UI.selectedRanges.splice(r, 1);
-                }
-            }
+            deselectRange(rid)
         }
 
 		document.getElementById('content').innerHTML = makeContent();
@@ -155,6 +189,11 @@
 
     }
     
+
+    /*
+        Helper Functions
+    */
+
 	function decToHex(d) { 
         let dr = Number(d).toString(16);
 		while(dr.length < 4) { dr = '0'+dr; }
@@ -169,19 +208,3 @@
             return c;
 		}
 	}
-    
-    /**
-     * HTML Named Characters
-     */
-    function getNamedCharsTable() {
-        if(UI.rangeCache.namedChars) return UI.rangeCache.namedChars;
-
-        let con = '<table><tr>';
-        for(let c=0; c<htmlNamedChars.length; c++){
-            if(c%16===0 && c!==0) con += '</tr><tr>';
-            con += `<td>${makeTile(htmlNamedChars[c])}</td>`;
-        }
-        con += '</tr></table>';
-        UI.rangeCache.namedChars = con;
-        return con;
-    }
