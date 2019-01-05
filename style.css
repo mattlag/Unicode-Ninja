@@ -1,3 +1,15 @@
+:root {
+    --dark-bg-dark: hsl(210, 15%, 10%);
+    --dark-bg-light: hsl(210, 15%, 20%);
+    --dark-text-resting: hsl(210, 5%, 80%);
+    --dark-text-active: hsl(210, 5%, 95%);
+
+    --light-bg-dark: hsl(210, 5%, 80%);
+    --light-bg-light: hsl(210, 5%, 90%);
+    --light-text-resting: hsl(210, 5%, 10%);
+    --light-text-active: hsl(210, 5%, 5%);
+}
+
 * {
 	margin:0px;
 	padding:0px;
@@ -22,25 +34,45 @@ body {
 #tabs {
     grid-row: 1;
     grid-column: 1;
-    background-color: rgba(20, 25, 30, 0.9);
+    background-color: var(--dark-bg-dark);
+}
+
+#tabs button {
+    background-color: var(--dark-bg-dark);
+    color: var(--dark-text-resting);
+    border: 0;
+    font-size: 1.2em;
+    padding: 10px;
+    position: relative;
+    bottom: 0px;
+}
+
+#tabs .selected {
+    background-color: var(--dark-bg-light);
+    color: var(--dark-text-active);
 }
 
 #header {
     grid-row: 1;
     grid-column: 2;
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: 0px 0px 20px 20px;
+    background-color: var(--light-bg-dark);
+    border-left: 2px solid var(--dark-bg-dark);
+    color: var(--light-text-active);
+    padding-left: 20px;
+}
+
+#header h1 {
+    font-weight: normal;
+    margin: 10px 0px 10px 0px;
 }
 
 #chooser {
     grid-row: 2;
 	grid-column: 1;
-	background-color: rgba(20, 25, 30, 0.9);
-	color: rgba(255, 255, 255, 0.7);
+	background-color: var(--dark-bg-light);
+	color: var(--dark-text-resting);
 	padding: 0px 20px;
 	font-size: 12px;
-	height: 100vh;
-	max-height: 100vh;
 	overflow-y: scroll;
 }
 
@@ -49,7 +81,7 @@ body {
     font-weight: normal;
     font-style: italic;
     margin: 16px 0px 8px 0px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--dark-text-resting);
 }
 
 #chooser label {
@@ -59,7 +91,7 @@ body {
 }
 
 #chooser label:hover {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--dark-text-active);
 }
 
 .group {
@@ -70,10 +102,9 @@ body {
 #content {
     grid-row: 2;
 	grid-column: 2;
-	background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--light-bg-light);
+    border-left: 2px solid var(--dark-bg-light);
 	padding: 0px 0px 20px 20px;
-	height: 100vh;
-	max-height: 100vh;
 	overflow-y: scroll;
 }
 
@@ -83,7 +114,7 @@ body {
     font-weight: normal;
     font-style: italic;
     margin: 10px 0px 8px 0px;
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--light-text-resting);
 }
 
 table,
@@ -94,11 +125,17 @@ td {
 }
 
 pre {
-	background-color: rgba(0, 0, 0, 0.05);
-	font-family: monospace;
-	padding: 2px 4px;
+    background-color: var(--light-bg-dark);
+    color: var(--light-text-resting);
+    font-family: monospace;
+    padding: 2px 4px;
     border-radius: 3px;
     text-align: center;
+}
+
+#chooser pre {
+    background-color: var(--dark-bg-dark);
+    color: var(--dark-text-resting);
 }
 
 input[type=checkbox] {
@@ -114,7 +151,8 @@ input[type=checkbox] {
 	width: 48px;
     height: 48px;
     font-size: 28px;
-	background-color: white;
+    background-color: white;
+    color: black;
 	text-align: center;
 	line-height: 48px;
     margin: 0px 1px 1px 0px;
