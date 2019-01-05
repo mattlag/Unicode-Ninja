@@ -45,11 +45,41 @@ body {
     padding: 10px;
     position: relative;
     bottom: 0px;
+    height: 100%;
+}
+
+#tabs button:hover {
+    cursor: pointer;
+    color: var(--dark-text-active);
 }
 
 #tabs .selected {
     background-color: var(--dark-bg-light);
     color: var(--dark-text-active);
+    transform: perspective(20px);
+}
+
+.triangle {
+    border-style: solid;
+    border-width: 50px 50px 50px 50px;
+    position: relative;
+    top: -28px;
+    height: 0px !important;
+    width: 0px !important;
+    line-height: 0px;
+    border-top-color: var(--dark-bg-dark);
+    border-bottom-color: var(--dark-bg-light);
+    box-sizing: content-box;
+}
+
+.left {
+    border-right-color: var(--dark-bg-dark);
+    border-left-color: var(--dark-bg-light);
+}
+
+.right {
+    border-right-color: var(--dark-bg-light);
+    border-left-color: var(--dark-bg-dark);
 }
 
 #header {

@@ -53,15 +53,16 @@ function sortSelectedRanges() {
 */
 
 function makeTabs() {
+    let grouped = app.selectedTab === 'Grouped';
+
     return `
         <button 
-            class="${app.selectedTab === 'Grouped'? 'selected' : ''}" 
+            class="${grouped? 'selected' : ''}" 
             onclick="selectTab('Grouped');"
         >
             Grouped
-        </button>
-        <button 
-            class="${app.selectedTab === 'Sorted'? 'selected' : ''}" 
+        </button><span class="triangle ${grouped? 'left' : 'right'}"></span><button 
+            class="${grouped? '' : 'selected'}" 
             onclick="selectTab('Sorted');"
         >
             Sorted
