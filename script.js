@@ -10,9 +10,10 @@
         // selectRange('0800-083F');
 
         let con = `
+            <div id="tabs">tabs!</div>
+            <div id="header"><h1>unicode.ninja</h1></div>
             <div id="chooser">${makeChooser()}</div>
             <div id="content">${makeContent()}</div>
-            <div id="detail"></div>
         `;
 
 		document.getElementById('wrapper').innerHTML = con;
@@ -77,16 +78,7 @@
                     if(typeof area[section][group] === 'string') {
                         con += makeSingleRangeRow(area[section][group], group);
                     } else {
-                        con += `
-                            <tr>
-                                <td>
-                                    <input type="checkbox"/>
-                                </td>
-                                <td colspan="3">
-                                    <h3>&ensp;${group}</h3>
-                                </td>
-                            </tr>
-                        `;
+                        con += makeSingleRangeRow('', group, false, true);
                         for(let block in area[section][group]){
                         if(area[section][group].hasOwnProperty(block)) {
                             con += makeSingleRangeRow(area[section][group][block], block, true);
@@ -101,12 +93,14 @@
         return `
             <h1>Unicode Scripts</h1>
             ${makeArea(organizedScripts)}
-            '<h1>Unicode Symbols</h1>
+            <h1>Unicode Symbols</h1>
             ${makeArea(organizedSymbols)}
         `;
     }
 
-    function makeSingleRangeRow(rid, name, indent) {
+    function makeSingleRangeRow(rid, name, indent, big) {
+        if(big) console.log('big for ', name);
+
         return `<tr>
             ${indent? '<td>&emsp;</td><td>' : '<td>'}
                 <input 
@@ -117,7 +111,7 @@
                 />
             </td>
             <td${indent? '': ' colspan="2"'}>
-                <label for="checkbox_${name}">
+                <label for="checkbox_${name}"${big? ' class="group"' : ''}>
                     ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;
                 </label>
             </td>

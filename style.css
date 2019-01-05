@@ -11,7 +11,7 @@ body {
 }
 
 #wrapper {
-	display: grid;
+    display: grid;
 	grid-template-columns: auto 1fr;
 	background-color: white;
 	height: 100vh;
@@ -19,18 +19,56 @@ body {
 	overflow: hidden;
 }
 
+#tabs {
+    grid-row: 1;
+    grid-column: 1;
+    background-color: rgba(20, 25, 30, 0.9);
+}
+
+#header {
+    grid-row: 1;
+    grid-column: 2;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0px 0px 20px 20px;
+}
+
 #chooser {
+    grid-row: 2;
 	grid-column: 1;
-	background-color: rgba(0, 0, 0, 0.15);
-	color: rgba(0, 0, 0, 0.7);
-	padding: 0px 10px;
+	background-color: rgba(20, 25, 30, 0.9);
+	color: rgba(255, 255, 255, 0.7);
+	padding: 0px 20px;
 	font-size: 12px;
 	height: 100vh;
 	max-height: 100vh;
 	overflow-y: scroll;
 }
 
+#chooser h1,
+#chooser h2 {
+    font-weight: normal;
+    font-style: italic;
+    margin: 16px 0px 8px 0px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#chooser label {
+    cursor: pointer;
+    padding: 0px 10px 1px 0px;
+    width: 100vw;
+}
+
+#chooser label:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.group {
+    font-size: 1.2em;
+    font-style: italic;
+}
+
 #content {
+    grid-row: 2;
 	grid-column: 2;
 	background-color: rgba(0, 0, 0, 0.05);
 	padding: 0px 0px 20px 20px;
@@ -39,13 +77,9 @@ body {
 	overflow-y: scroll;
 }
 
-#detail {
-	background-color: rgba(0, 0, 0, 0.05);
-	position: absolute;
-	display: hidden;
-}
-
-h1, h2, h3 {
+#content h1,
+#content h2,
+#content h3 {
     font-weight: normal;
     font-style: italic;
     margin: 10px 0px 8px 0px;
@@ -55,7 +89,8 @@ h1, h2, h3 {
 table,
 tr, 
 td {
-	border-collapse: collapse;
+    border-collapse: collapse;
+    /* border: 1px solid gray; */
 }
 
 pre {
@@ -67,18 +102,9 @@ pre {
 }
 
 input[type=checkbox] {
-	margin: 5px 0px 6px 0px;
+	margin: 5px 5px 5px 0px;
 }
 
-label {
-	cursor: pointer;
-	padding: 0px 10px 1px 4px;
-	width: 100vw;
-}
-
-label:hover {
-	color: black;
-}
 
 .rangeTable {
     margin-bottom: 20px;
