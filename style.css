@@ -93,6 +93,22 @@ label:hover {
     margin: 0px 1px 1px 0px;
 }
 
+.wiki {
+    font-size: 0.6em;
+    font-family: 'Times New Roman', Times, serif;
+    opacity: 0.4;
+    text-decoration: none;
+    margin-left: 10px;
+    font-style: normal;
+}
+
+.wiki:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+
+
 .allNoto {
     font-family: 'Noto Sans',
     'Noto Sans Kannada',

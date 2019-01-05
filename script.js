@@ -149,7 +149,15 @@
     function makeRangeContent(rid) {
         let range = getRange(rid);
         let con = `
-            <h3>${range.name}</h3>
+            <h3>
+                ${range.name}
+                <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
+                    target="_new" 
+                    title="Wikipedia Link"
+                    class="wiki">
+                        Wikipedia
+                </a>
+            </h3>
             <table class="rangeTable">
                 <thead>
                     <td></td>
