@@ -85,12 +85,17 @@ label:hover {
 }
 
 .charTile {
-	width: 36px;
-	height: 36px;
+	width: 48px;
+    height: 48px;
+    font-size: 28px;
 	background-color: white;
 	text-align: center;
-	line-height: 36px;
+	line-height: 48px;
     margin: 0px 1px 1px 0px;
+}
+
+.charTile:hover {
+    cursor: text;
 }
 
 .wiki {
