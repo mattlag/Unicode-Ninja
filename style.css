@@ -25,7 +25,7 @@ body {
 #wrapper {
     display: grid;
 	grid-template-columns: auto 1fr;
-	background-color: white;
+	background-color: var(--dark-bg-dark);
 	height: 100vh;
 	max-height: 100vh;
 	overflow: hidden;
@@ -35,17 +35,22 @@ body {
     grid-row: 1;
     grid-column: 1;
     background-color: var(--dark-bg-dark);
+    overflow: hidden;
+    vertical-align: bottom;
 }
 
 #tabs button {
+    display: inline-block;
     background-color: var(--dark-bg-dark);
     color: var(--dark-text-resting);
     border: 0;
-    font-size: 1.2em;
-    padding: 10px;
+    font-size: 1.1em;
+    padding: 10px 15px 5px 15px;
+    margin-left: 10px;
+    height: 55%;
     position: relative;
-    bottom: 0px;
-    height: 100%;
+    top: 45%;
+    border-radius: 10px 10px 0px 0px;
 }
 
 #tabs button:hover {
@@ -59,41 +64,21 @@ body {
     transform: perspective(20px);
 }
 
-.triangle {
-    border-style: solid;
-    border-width: 50px 50px 50px 50px;
-    position: relative;
-    top: -28px;
-    height: 0px !important;
-    width: 0px !important;
-    line-height: 0px;
-    border-top-color: var(--dark-bg-dark);
-    border-bottom-color: var(--dark-bg-light);
-    box-sizing: content-box;
-}
-
-.left {
-    border-right-color: var(--dark-bg-dark);
-    border-left-color: var(--dark-bg-light);
-}
-
-.right {
-    border-right-color: var(--dark-bg-light);
-    border-left-color: var(--dark-bg-dark);
-}
-
 #header {
     grid-row: 1;
     grid-column: 2;
     background-color: var(--light-bg-dark);
     border-left: 2px solid var(--dark-bg-dark);
-    color: var(--light-text-active);
     padding-left: 20px;
+    border-top-left-radius: 15px;
+    box-shadow: 0 5px 5px -1px black;
 }
 
 #header h1 {
-    font-weight: normal;
-    margin: 10px 0px 10px 0px;
+    font-weight: bold;
+    font-size: 48px;
+    color: hsl(340, 90%, 40%);
+    margin: 2px 0px 12px 0px;
 }
 
 #chooser {
@@ -101,27 +86,31 @@ body {
 	grid-column: 1;
 	background-color: var(--dark-bg-light);
 	color: var(--dark-text-resting);
-	padding: 0px 20px;
-	font-size: 12px;
+	padding: 20px;
+    font-size: 0.9em;
 	overflow-y: scroll;
 }
 
-#chooser h1,
-#chooser h2 {
+#chooser h2,
+#chooser h3 {
     font-weight: normal;
     font-style: italic;
-    margin: 16px 0px 8px 0px;
+    margin: 8px 0px 8px 0px;
     color: var(--dark-text-resting);
 }
 
 #chooser label {
     cursor: pointer;
-    padding: 0px 10px 1px 0px;
+    padding: 0px 10px 0px 0px;
     width: 100vw;
 }
 
 #chooser label:hover {
     color: var(--dark-text-active);
+}
+
+#chooser td {
+    padding-bottom: 4px;
 }
 
 .group {
@@ -134,7 +123,7 @@ body {
 	grid-column: 2;
     background-color: var(--light-bg-light);
     border-left: 2px solid var(--dark-bg-light);
-	padding: 0px 0px 20px 20px;
+	padding: 10px 0px 20px 20px;
 	overflow-y: scroll;
 }
 

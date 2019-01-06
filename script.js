@@ -11,7 +11,7 @@ function init(){
 
     let con = `
         <div id="tabs">${makeTabs()}</div>
-        <div id="header"><h1>unicode.ninja</h1></div>
+        <div id="header"><h1>u͈n͈i͈c͈o͈d͈e͈.n͈i͈n͈ĵa͈</h1></div>
         <div id="chooser">${makeChooser()}</div>
         <div id="content">${makeContent()}</div>
     `;
@@ -56,15 +56,10 @@ function makeTabs() {
     let grouped = app.selectedTab === 'Grouped';
 
     return `
-        <button 
-            class="${grouped? 'selected' : ''}" 
-            onclick="selectTab('Grouped');"
-        >
+        <button class="${grouped? 'selected' : ''}" onclick="selectTab('Grouped');">
             Grouped
-        </button><span class="triangle ${grouped? 'left' : 'right'}"></span><button 
-            class="${grouped? '' : 'selected'}" 
-            onclick="selectTab('Sorted');"
-        >
+        </button>
+        <button class="${grouped? '' : 'selected'}" onclick="selectTab('Sorted');">
             Sorted
         </button>
     `;
@@ -81,7 +76,7 @@ function makeChooser() {
 }
 
 function makeFlatChooser() {
-    let con = '<h1>Unicode Explorer</h1><table>';
+    let con = '<h2>Unicode</h2><table>';
 
     for(let rid in unicodeBlocks){
     if(unicodeBlocks.hasOwnProperty(rid)) {
@@ -97,7 +92,7 @@ function makeGroupedChooser() {
         let con = '<table>';
         for(let section in area){
         if(area.hasOwnProperty(section)) {
-            con += `<tr><td colspan="4"><h2>${section}</h2></td></tr>`;
+            con += `<tr><td colspan="4"><h3>${section}</h3></td></tr>`;
             for(let group in area[section]){
             if(area[section].hasOwnProperty(group)) {
                 if(typeof area[section][group] === 'string') {
@@ -116,15 +111,15 @@ function makeGroupedChooser() {
     }
 
     return `
-        <h1>Unicode Scripts</h1>
+        <h2>Unicode Scripts</h2>
         ${makeArea(organizedScripts)}
-        <h1>Unicode Symbols</h1>
+        <h2>Unicode Symbols</h2>
         ${makeArea(organizedSymbols)}
     `;
 }
 
 function makeSingleRangeRow(rid, name, indent, big) {
-    if(big) console.log('big for ', name);
+    // if(big) console.log('big for ', name);
 
     return `<tr>
         ${indent? '<td>&emsp;</td><td>' : '<td>'}
@@ -140,8 +135,9 @@ function makeSingleRangeRow(rid, name, indent, big) {
                 ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;
             </label>
         </td>
+        ${app.selectedTab === 'Sorted'? '<td>&emsp;&ensp;</td>' : ''}
         <td>
-            <pre>${rid}</pre>
+            ${rid? `<pre>${rid}</pre>` : ''}
         </td>
     </tr>`;
 }
@@ -223,13 +219,12 @@ function makeRangeContent(rid) {
 }
 
 function makeTile(glyph) {
-    return `<div 
-        class="charTile allNoto" 
-        title="${getUnicodeName(glyph)}\n${glyph}"
-        onClick="tileClick('${glyph}');"
-        >
-            &#${glyph.substring(1)};
-        </div>
+    return `
+        <div 
+            class="charTile allNoto" 
+            title="${getUnicodeName(glyph)}\n${glyph}"
+            onClick="tileClick('${glyph}');"
+        >&#${glyph.substring(1)};</div>
     `;
 }
 
