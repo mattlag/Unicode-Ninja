@@ -1,13 +1,14 @@
 :root {
     --dark-bg-dark: hsl(210, 15%, 10%);
     --dark-bg-light: hsl(210, 15%, 20%);
-    --dark-text-resting: hsl(210, 5%, 80%);
-    --dark-text-active: hsl(210, 5%, 95%);
+    --dark-text-dark: hsl(210, 5%, 80%);
+    --dark-text-light: hsl(210, 5%, 95%);
 
     --light-bg-dark: hsl(210, 5%, 80%);
     --light-bg-light: hsl(210, 5%, 90%);
-    --light-text-resting: hsl(210, 5%, 10%);
-    --light-text-active: hsl(210, 5%, 5%);
+    --light-text-dark: hsl(210, 5%, 10%);
+    --light-text-light: hsl(210, 5%, 5%);
+    --light-accent:  hsl(340, 90%, 40%);
 }
 
 * {
@@ -24,7 +25,7 @@ body {
 
 #wrapper {
     display: grid;
-	grid-template-columns: auto 1fr;
+	grid-template-columns: 450px 1fr;
 	background-color: var(--dark-bg-dark);
 	height: 100vh;
 	max-height: 100vh;
@@ -42,7 +43,7 @@ body {
 #tabs button {
     display: inline-block;
     background-color: var(--dark-bg-dark);
-    color: var(--dark-text-resting);
+    color: var(--dark-text-dark);
     border: 0;
     font-size: 1.1em;
     padding: 10px 15px 5px 15px;
@@ -55,12 +56,12 @@ body {
 
 #tabs button:hover {
     cursor: pointer;
-    color: var(--dark-text-active);
+    color: var(--dark-text-light);
 }
 
 #tabs .selected {
     background-color: var(--dark-bg-light);
-    color: var(--dark-text-active);
+    color: var(--dark-text-light);
     transform: perspective(20px);
 }
 
@@ -71,21 +72,51 @@ body {
     border-left: 2px solid var(--dark-bg-dark);
     padding-left: 20px;
     border-top-left-radius: 15px;
-    box-shadow: 0 5px 5px -1px black;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    overflow-y: visible;
+    z-index: 1000;
 }
 
 #header h1 {
     font-weight: bold;
     font-size: 48px;
-    color: hsl(340, 90%, 40%);
+    color: var(--light-accent);
     margin: 2px 0px 12px 0px;
+    display: inline-block;
+}
+
+#tools {
+    width: 50%;
+    text-align: right;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+}
+
+.actionButton {
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--dark-bg-light);
+    color: var(--dark-text-dark);
+    font-size: 12px;
+    line-height: 100%;
+    padding: 4px;
+    text-align: center;
+    height: 22px;
+    width: 22px;
+}
+
+.actionButton:hover {
+    background-color: var(--light-accent);
+    color: white;
+    cursor: pointer;
 }
 
 #chooser {
     grid-row: 2;
 	grid-column: 1;
 	background-color: var(--dark-bg-light);
-	color: var(--dark-text-resting);
+	color: var(--dark-text-dark);
 	padding: 20px;
     font-size: 0.9em;
 	overflow-y: scroll;
@@ -96,7 +127,7 @@ body {
     font-weight: normal;
     font-style: italic;
     margin: 8px 0px 8px 0px;
-    color: var(--dark-text-resting);
+    color: var(--dark-text-dark);
 }
 
 #chooser label {
@@ -106,7 +137,7 @@ body {
 }
 
 #chooser label:hover {
-    color: var(--dark-text-active);
+    color: var(--dark-text-light);
 }
 
 #chooser td {
@@ -124,7 +155,7 @@ body {
     background-color: var(--light-bg-light);
     border-left: 2px solid var(--dark-bg-light);
 	padding: 10px 0px 20px 20px;
-	overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 #content h1,
@@ -133,7 +164,7 @@ body {
     font-weight: normal;
     font-style: italic;
     margin: 10px 0px 8px 0px;
-    color: var(--light-text-resting);
+    color: var(--light-text-dark);
 }
 
 table,
@@ -145,16 +176,17 @@ td {
 
 pre {
     background-color: var(--light-bg-dark);
-    color: var(--light-text-resting);
+    color: var(--light-text-dark);
     font-family: monospace;
     padding: 2px 4px;
     border-radius: 3px;
     text-align: center;
+    display: inline-block;
 }
 
 #chooser pre {
     background-color: var(--dark-bg-dark);
-    color: var(--dark-text-resting);
+    color: var(--dark-text-dark);
 }
 
 input[type=checkbox] {
@@ -164,6 +196,14 @@ input[type=checkbox] {
 
 .rangeTable {
     margin-bottom: 20px;
+}
+
+.hex {
+    background-color: var(--light-bg-dark);
+    color: var(--light-text-light);
+    font-family: monospace;
+    padding: 4px;
+    text-align: center;
 }
 
 .charTile {
@@ -195,6 +235,62 @@ input[type=checkbox] {
     opacity: 1;
 }
 
+#dialog {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+#dialogContent {
+    padding: 0px 20px 30px 30px;
+    margin: 10vh auto 0px auto;
+    max-height: 80vh;
+    width: 700px;
+    background-color: var(--light-bg-light);
+    text-align: left;
+    border: 1px solid var(--dark-bg-light);
+}
+
+#dialogContent h1,
+#dialogContent h2,
+#dialogContent h3 {
+    color: var(--light-text-light);
+    font-weight: normal;
+    margin-bottom: 6px;
+}
+
+#dialog .actionButton {
+    position: relative;
+    left: 660px;
+    top: -10px;
+}
+
+.keyvalue {
+    display: grid;
+    grid-template-columns: repeat(1fr 2);
+    grid-row-gap: 4px;
+    grid-column-gap: 10px;
+    width: 70%;
+}
+
+.key {
+    color: var(--light-text-light);
+    grid-column: 1;
+}
+
+.value {
+    color: var(--light-text-dark);
+    grid-column: 2;
+}
+
+.light {
+    opacity: 0.5;
+}
 
 
 .allNoto {

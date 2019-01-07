@@ -1,19 +1,27 @@
 let app = {
+    version: '2.0',
+    releaseDate: 1546820000000,
     selectedRanges: [],
     selectedTab: 'Grouped',
     rangeCache: {},
 };
 
 function init(){
-    selectRange('0000-007F');
-    selectRange('0080-00FF');
-    // selectRange('0800-083F');
+    selectRange('r-0000-007F');
 
     let con = `
         <div id="tabs">${makeTabs()}</div>
-        <div id="header"><h1>u͈n͈i͈c͈o͈d͈e͈.n͈i͈n͈ĵa͈</h1></div>
+        <div id="header">
+            <h1>u͈n͈i͈c͈o͈d͈e͈.n͈i͈n͈ĵa͈</h1>
+            <div id="tools">
+                <button class="actionButton" onclick="openDialog('{{info}}');">?</button>
+            </div>
+        </div>
         <div id="chooser">${makeChooser()}</div>
         <div id="content">${makeContent()}</div>
+        <div id="dialog" onclick="closeDialog();">
+            <div id="dialogContent"></div>
+        </div>
     `;
 
     document.getElementById('wrapper').innerHTML = con;
@@ -33,12 +41,26 @@ function isRangeSelected(rid) {
 }
 
 function selectRange(rid) {
-    if(!isRangeSelected(rid)) app.selectedRanges.push(rid);
+    // if(typeof rid === 'string') rid = [rid];
+    rid = rid.split('_');
+    
+    rid.forEach(id => {
+        if(!isRangeSelected(id)) app.selectedRanges.push(id);
+    });
+
+    sortSelectedRanges();
 }
 
 function deselectRange(rid) {
-    let i = app.selectedRanges.indexOf(rid);
-    if(i > -1) app.selectedRanges.splice(i, 1);
+    // if(typeof rid === 'string') rid = [rid];
+    rid = rid.split('_');
+
+    rid.forEach(id => {
+        let i = app.selectedRanges.indexOf(id);
+        if(i > -1) app.selectedRanges.splice(i, 1);
+    });
+
+    sortSelectedRanges();
 }
 
 function sortSelectedRanges() {
@@ -90,6 +112,7 @@ function makeFlatChooser() {
 function makeGroupedChooser() {
     function makeArea(area){
         let con = '<table>';
+        let subcon, multisel;
         for(let section in area){
         if(area.hasOwnProperty(section)) {
             con += `<tr><td colspan="4"><h3>${section}</h3></td></tr>`;
@@ -98,11 +121,15 @@ function makeGroupedChooser() {
                 if(typeof area[section][group] === 'string') {
                     con += makeSingleRangeRow(area[section][group], group);
                 } else {
-                    con += makeSingleRangeRow('', group, false, true);
+                    subcon = '';
+                    multisel = [];
                     for(let block in area[section][group]){
                     if(area[section][group].hasOwnProperty(block)) {
-                        con += makeSingleRangeRow(area[section][group][block], block, true);
+                        subcon += makeSingleRangeRow(area[section][group][block], block, true);
+                        multisel.push(area[section][group][block]);
                     }}
+                    con += makeSingleRangeRow(multisel.join('_'), group, false, true);
+                    con += subcon;
                 }
             }}
         }}
@@ -118,26 +145,30 @@ function makeGroupedChooser() {
     `;
 }
 
-function makeSingleRangeRow(rid, name, indent, big) {
-    // if(big) console.log('big for ', name);
+function makeSingleRangeRow(rid, name, indent, group) {
+    console.log('makeSingleRow');
+    console.log(`\t rid: ${typeof rid} ${rid}`);
+    
+    let cbid = `checkbox_${group? 'g_' : ''}${name.replace(/ /gi, '_')}`;
 
     return `<tr>
         ${indent? '<td>&emsp;</td><td>' : '<td>'}
             <input 
                 type="checkbox" 
-                id="checkbox_${name}" 
-                onchange="checkboxOnChange(\'${rid}\');" 
+                id="${cbid}" 
+                data-range="${rid}" 
+                onchange='checkboxOnChange(this);'  
                 ${isRangeSelected(rid)? 'checked' : ''}
             />
         </td>
         <td${indent? '': ' colspan="2"'}>
-            <label for="checkbox_${name}"${big? ' class="group"' : ''}>
+            <label for="${cbid}"${group? ' class="group"' : ''}>
                 ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;
             </label>
         </td>
         ${app.selectedTab === 'Sorted'? '<td>&emsp;&ensp;</td>' : ''}
         <td>
-            ${rid? `<pre>${rid}</pre>` : ''}
+            ${group? '' : `<pre>${rid.substr(2)}</pre>`}
         </td>
     </tr>`;
 }
@@ -148,9 +179,8 @@ function makeContent() {
     for(let s=0; s<app.selectedRanges.length; s++){
         con += getRangeContent(app.selectedRanges[s]);
     }
-
-    if (con === '') con = 'no ranges selected';
-
+    
+    con += '<i class="light">add or remove ranges using the checkboxes on the left</i>';
     con += '<br><br>';
 
     return con;
@@ -175,23 +205,23 @@ function makeRangeContent(rid) {
         </h3>
         <table class="rangeTable">
             <thead>
-                <td></td>
-                <td><pre>0</pre></td>
-                <td><pre>1</pre></td>
-                <td><pre>2</pre></td>
-                <td><pre>3</pre></td>
-                <td><pre>4</pre></td>
-                <td><pre>5</pre></td>
-                <td><pre>6</pre></td>
-                <td><pre>7</pre></td>
-                <td><pre>8</pre></td>
-                <td><pre>9</pre></td>
-                <td><pre>A</pre></td>
-                <td><pre>B</pre></td>
-                <td><pre>C</pre></td>
-                <td><pre>D</pre></td>
-                <td><pre>E</pre></td>
-                <td><pre>F</pre></td>
+                <td class="hex"></td>
+                <td class="hex">0</td>
+                <td class="hex">1</td>
+                <td class="hex">2</td>
+                <td class="hex">3</td>
+                <td class="hex">4</td>
+                <td class="hex">5</td>
+                <td class="hex">6</td>
+                <td class="hex">7</td>
+                <td class="hex">8</td>
+                <td class="hex">9</td>
+                <td class="hex">A</td>
+                <td class="hex">B</td>
+                <td class="hex">C</td>
+                <td class="hex">D</td>
+                <td class="hex">E</td>
+                <td class="hex">F</td>
             </thead>
             <tbody>
             <tr>
@@ -202,7 +232,7 @@ function makeRangeContent(rid) {
             con += `
                 </tr>
                 <tr>
-                    <td><pre>${decToHex(c).substr(2, 3)}-</pre></td>
+                    <td class="hex">${decToHex(c).substr(2, 3)}-</td>
             `;
         }
 
@@ -228,6 +258,48 @@ function makeTile(glyph) {
     `;
 }
 
+function openDialog(content) {
+    if(content === '{{info}}') {
+        content = `
+            <h2>unicode.ninja</h2>
+            A tool to help explore the Unicode® Basic Multilingual Plane <pre>0000-ffff</pre>. 
+            Unicode is a registered trademark of Unicode, Inc.  More information can be found at 
+            <a href="https://www.unicode.org/" target="_new">unicode.org</a>.
+
+            <br><br>
+
+            <h3>Created by Matt LaGrandeur</h3>
+            Questions or comments? Email <a href="mailto:matt@mattlag.com">matt@mattlag.com</a>. 
+            This app is an open source project - more information about the project can be found 
+            on the <a href="https://github.com/mattlag/UnicodeNinja" target="_new">unicode.ninja GitHub page</a>.
+            
+            <br><br>
+
+            <h3>App Information</h3>
+            <div class="keyvalue">
+                <span class="key light">App Version:</span>
+                <span class="value">${app.version}</span>
+                
+                <span class="key light">App released on:</span>
+                <span class="value">${new Date(app.releaseDate).toLocaleDateString()}</span>
+                
+                <span class="key light">Unicode data version:</span>
+                <span class="value">v11.0.0 - 2018 June 5th</span>
+            </div>
+        `;
+    }
+
+    let closeButton = '<div onclick="closeDialog();" class="actionButton">✖</div>';
+
+    document.getElementById('dialogContent').innerHTML = closeButton + content;
+    document.getElementById('dialog').style.display = 'block';
+}
+
+function closeDialog() {
+    document.getElementById('dialogContent').innerHTML = '';
+    document.getElementById('dialog').style.display = 'none';
+}
+
 function getNamedCharsTable() {
     if(app.rangeCache.namedChars) return app.rangeCache.namedChars;
 
@@ -246,21 +318,23 @@ function getNamedCharsTable() {
     Event Handlers
 */
 
-function checkboxOnChange(rid){
-    // console.log('checkboxOnChange');
-    // console.log(rid);
-    let range = getRange(rid);
-    let selected = document.getElementById('checkbox_'+range.name).checked;
+function checkboxOnChange(elem){
+    console.log('checkboxOnChange');
+    console.log(elem.dataset.range);
+    // let selected = document.getElementById('checkbox_'+range.name).checked;
 
-    if(selected) {
+    if(elem.checked) {
         // console.log('is selected');
-        selectRange(rid);
+        selectRange(elem.dataset.range);
     } else {
         // console.log('is NOT selected');
-        deselectRange(rid)
+        deselectRange(elem.dataset.range)
     }
 
     document.getElementById('content').innerHTML = makeContent();
+    document.getElementById('chooser').innerHTML = makeChooser();
+
+    document.getElementById(elem.id).checked = elem.checked;
 
 }
 
