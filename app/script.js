@@ -1,6 +1,6 @@
 let app = {
-    version: '2.0',
-    releaseDate: 1546820000000,
+    version: '2.0.1',
+    releaseDate: 1546900000000,
     selectedRanges: [],
     selectedTab: 'Grouped',
     rangeCache: {},
@@ -146,8 +146,8 @@ function makeGroupedChooser() {
 }
 
 function makeSingleRangeRow(rid, name, indent, group) {
-    console.log('makeSingleRow');
-    console.log(`\t rid: ${typeof rid} ${rid}`);
+    // console.log('makeSingleRow');
+    // console.log(`\t rid: ${typeof rid} ${rid}`);
     
     let cbid = `checkbox_${group? 'g_' : ''}${name.replace(/ /gi, '_')}`;
 
@@ -319,8 +319,8 @@ function getNamedCharsTable() {
 */
 
 function checkboxOnChange(elem){
-    console.log('checkboxOnChange');
-    console.log(elem.dataset.range);
+    // console.log('checkboxOnChange');
+    // console.log(elem.dataset.range);
     // let selected = document.getElementById('checkbox_'+range.name).checked;
 
     if(elem.checked) {
@@ -360,4 +360,11 @@ function getUnicodeName(c) {
     } else {
         return c;
     }
+}
+
+function getShipDate(){
+    let time = '' + (new Date().getTime());
+    let prefix = parseInt(time.substr(0, 5)) * 100000000;
+    let day = (parseInt(time.charAt(5)) + 1) * 10000000;
+    return prefix + day;
 }
