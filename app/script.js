@@ -1,5 +1,5 @@
 let app = {
-    version: '2.0.1',
+    version: '2.1.0',
     releaseDate: 1546900000000,
     selectedRanges: [],
     selectedTab: 'Grouped',
@@ -32,7 +32,7 @@ function init(){
 */
 
 function getRange(rid) {
-    if(!unicodeBlocks[rid]) console.warn(`Unknown range: ${rid}`);
+    // if(!unicodeBlocks[rid]) console.warn(`Unknown range: ${rid}`);
     return unicodeBlocks[rid];
 }
 
@@ -63,6 +63,11 @@ function deselectRange(rid) {
     sortSelectedRanges();
 }
 
+function deselectAllRanges() {
+    app.selectedRanges = [];
+    redraw();
+}
+
 function sortSelectedRanges() {
     app.selectedRanges.sort(function (a, b) {
         return parseInt(a.substr(0, 4), 16) - parseInt(b.substr(0, 4), 16);
@@ -73,6 +78,12 @@ function sortSelectedRanges() {
 /*
     Making UI Content
 */
+
+function redraw() {
+    document.getElementById('tabs').innerHTML = makeTabs();
+    document.getElementById('chooser').innerHTML = makeChooser();
+    document.getElementById('content').innerHTML = makeContent();
+}
 
 function makeTabs() {
     let grouped = app.selectedTab === 'Grouped';
@@ -89,12 +100,15 @@ function makeTabs() {
 
 function selectTab(tab) {
     app.selectedTab = tab;
-    document.getElementById('tabs').innerHTML = makeTabs();
-    document.getElementById('chooser').innerHTML = makeChooser();
+    redraw();
 }
 
 function makeChooser() {
-    return app.selectedTab === 'Grouped'? makeGroupedChooser() : makeFlatChooser();
+    let con = app.selectedTab === 'Grouped'? makeGroupedChooser() : makeFlatChooser();
+
+    if(app.selectedRanges.length) con += '<button class="dark" onClick="deselectAllRanges();">de-select all ranges</button><br><br>';
+
+    return con;
 }
 
 function makeFlatChooser() {
@@ -150,6 +164,7 @@ function makeSingleRangeRow(rid, name, indent, group) {
     // console.log(`\t rid: ${typeof rid} ${rid}`);
     
     let cbid = `checkbox_${group? 'g_' : ''}${name.replace(/ /gi, '_')}`;
+    let range = getRange(rid) || false;
 
     return `<tr>
         ${indent? '<td>&emsp;</td><td>' : '<td>'}
@@ -167,6 +182,9 @@ function makeSingleRangeRow(rid, name, indent, group) {
             </label>
         </td>
         ${app.selectedTab === 'Sorted'? '<td>&emsp;&ensp;</td>' : ''}
+        <td class="count">
+            ${range? (parseInt(range.end) - parseInt(range.begin)) : ''}
+        </td>
         <td>
             ${group? '' : `<pre>${rid.substr(2)}</pre>`}
         </td>
@@ -194,37 +212,46 @@ function getRangeContent(rid) {
 function makeRangeContent(rid) {
     let range = getRange(rid);
     let con = `
-        <h3>
-            ${range.name}
-            <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
-                target="_new" 
-                title="Wikipedia Link"
-                class="wiki">
-                    Wikipedia
-            </a>
-        </h3>
-        <table class="rangeTable">
-            <thead>
-                <td class="hex"></td>
-                <td class="hex">0</td>
-                <td class="hex">1</td>
-                <td class="hex">2</td>
-                <td class="hex">3</td>
-                <td class="hex">4</td>
-                <td class="hex">5</td>
-                <td class="hex">6</td>
-                <td class="hex">7</td>
-                <td class="hex">8</td>
-                <td class="hex">9</td>
-                <td class="hex">A</td>
-                <td class="hex">B</td>
-                <td class="hex">C</td>
-                <td class="hex">D</td>
-                <td class="hex">E</td>
-                <td class="hex">F</td>
-            </thead>
-            <tbody>
+        <table>
             <tr>
+                <td>
+                    <h3>
+                        ${range.name}
+                        <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
+                            target="_new" 
+                            title="Wikipedia Link"
+                            class="wiki">
+                            Wikipedia
+                        </a>
+                    </h3>
+                </td><td style="text-align: right;">
+                    ${makeCloseButton(`clickRangeClose('${rid}');`)}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table class="rangeTable">
+                        <thead>
+                            <td class="hex"></td>
+                            <td class="hex">0</td>
+                            <td class="hex">1</td>
+                            <td class="hex">2</td>
+                            <td class="hex">3</td>
+                            <td class="hex">4</td>
+                            <td class="hex">5</td>
+                            <td class="hex">6</td>
+                            <td class="hex">7</td>
+                            <td class="hex">8</td>
+                            <td class="hex">9</td>
+                            <td class="hex">A</td>
+                            <td class="hex">B</td>
+                            <td class="hex">C</td>
+                            <td class="hex">D</td>
+                            <td class="hex">E</td>
+                            <td class="hex">F</td>
+                        </thead>
+                        <tbody>
+                        <tr>
     `;
 
     for(let c=(range.begin*1); c<=(range.end*1); c++){
@@ -240,12 +267,20 @@ function makeRangeContent(rid) {
     }
 
     con += `
+            </tr>
+            </tbody>
+            </table>
+        </td>
         </tr>
-        </tbody>
         </table>
     `;
 
     return con;
+}
+
+function clickRangeClose(rid) {
+    deselectRange(rid);
+    redraw();
 }
 
 function makeTile(glyph) {
@@ -289,10 +324,12 @@ function openDialog(content) {
         `;
     }
 
-    let closeButton = '<div onclick="closeDialog();" class="actionButton">✖</div>';
-
-    document.getElementById('dialogContent').innerHTML = closeButton + content;
+    document.getElementById('dialogContent').innerHTML = makeCloseButton('closeDialog();') + content;
     document.getElementById('dialog').style.display = 'block';
+}
+
+function makeCloseButton(func) {
+    return `<button onclick="${func}" class="actionButton">✖</button>`;
 }
 
 function closeDialog() {
@@ -331,8 +368,7 @@ function checkboxOnChange(elem){
         deselectRange(elem.dataset.range)
     }
 
-    document.getElementById('content').innerHTML = makeContent();
-    document.getElementById('chooser').innerHTML = makeChooser();
+    redraw();
 
     document.getElementById(elem.id).checked = elem.checked;
 

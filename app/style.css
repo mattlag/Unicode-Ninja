@@ -1,14 +1,19 @@
 :root {
     --dark-bg-dark: hsl(210, 15%, 10%);
     --dark-bg-light: hsl(210, 15%, 20%);
+    --dark-bg-lighter: hsl(210, 15%, 40%);
+    --dark-text-darker: hsl(210, 5%, 60%);
     --dark-text-dark: hsl(210, 5%, 80%);
     --dark-text-light: hsl(210, 5%, 95%);
+    --dark-accent:  hsl(340, 95%, 30%);
 
+    --light-bg-darker: hsl(210, 5%, 60%);
     --light-bg-dark: hsl(210, 5%, 80%);
     --light-bg-light: hsl(210, 5%, 90%);
-    --light-text-dark: hsl(210, 5%, 10%);
-    --light-text-light: hsl(210, 5%, 5%);
-    --light-accent:  hsl(340, 90%, 40%);
+    --light-text-dark: hsl(210, 5%, 5%);
+    --light-text-light: hsl(210, 5%, 10%);
+    --light-text-lighter: hsl(210, 5%, 20%);
+    --light-accent:  hsl(340, 80%, 40%);
 }
 
 * {
@@ -21,6 +26,18 @@
 body {
 	height: 100vh;
 	max-height: 100vh;
+}
+
+button {
+    padding: 4px 12px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: var(--light-bg-darker);
+    border-radius: 4px;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 #wrapper {
@@ -44,14 +61,16 @@ body {
     display: inline-block;
     background-color: var(--dark-bg-dark);
     color: var(--dark-text-dark);
-    border: 0;
+    border-style: solid;
+    border-width: 3px 0px 0px 0px;
+    border-color: transparent;
     font-size: 1.1em;
-    padding: 10px 15px 5px 15px;
+    padding: 5px 15px 5px 15px;
     margin-left: 10px;
-    height: 55%;
+    height: 50%;
     position: relative;
-    top: 45%;
-    border-radius: 10px 10px 0px 0px;
+    top: 50%;
+    border-radius: 4px 4px 0px 0px;
 }
 
 #tabs button:hover {
@@ -62,7 +81,7 @@ body {
 #tabs .selected {
     background-color: var(--dark-bg-light);
     color: var(--dark-text-light);
-    transform: perspective(20px);
+    border-color: var(--dark-accent);
 }
 
 #header {
@@ -94,14 +113,15 @@ body {
 }
 
 .actionButton {
+    display: inline-block;
     border: 0;
     border-radius: 50%;
-    background-color: var(--dark-bg-light);
+    background-color: var(--dark-bg-lighter);
     color: var(--dark-text-dark);
-    font-size: 12px;
-    line-height: 100%;
+    font-size: 13px;
     padding: 4px;
     text-align: center;
+    line-height: 0px;
     height: 22px;
     width: 22px;
 }
@@ -147,6 +167,22 @@ body {
 .group {
     font-size: 1.2em;
     font-style: italic;
+}
+
+.count {
+    padding-right: 4px;
+    text-align: right;
+    color: var(--dark-text-darker);
+}
+
+#chooser button {
+    background-color: var(--dark-bg-dark);
+    color: var(--dark-text-dark);
+}
+
+#chooser button:hover {
+    background-color: var(--dark-accent);
+    color: var(--dark-text-light);
 }
 
 #content {
@@ -254,13 +290,14 @@ input[type=checkbox] {
     width: 700px;
     background-color: var(--light-bg-light);
     text-align: left;
-    border: 1px solid var(--dark-bg-light);
+    border: 1px solid var(--dark-bg-lighter);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 #dialogContent h1,
 #dialogContent h2,
 #dialogContent h3 {
-    color: var(--light-text-light);
+    color: var(--light-text-lighter);
     font-weight: normal;
     margin-bottom: 6px;
 }

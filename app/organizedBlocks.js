@@ -79,7 +79,7 @@ let organizedScripts = {
         'Samaritan': 'r-0800-083F',
         'Syriac': {
             'Syriac': 'r-0700-074F',
-            'Syriac Supplement': 'r-0860–086F',
+            'Syriac Supplement': 'r-0860-086F',
         },
     },
 
@@ -282,7 +282,8 @@ let organizedSymbols = {
     },
 
     'Surrogates': {
-        'High Surrogates': 'r-D800-DBFF',
+        'High Surrogates': 'r-D800-DB7F',
+        'High Private Use Surrogates': 'r-DB80-DBFF',
         'Low Surrogates': 'r-DC00-DFFF',
     },
 };
