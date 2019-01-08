@@ -178,15 +178,18 @@ function makeSingleRangeRow(rid, name, indent, group) {
         </td>
         <td${indent? '': ' colspan="2"'}>
             <label for="${cbid}"${group? ' class="group"' : ''}>
-                ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}&ensp;
+                ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}
             </label>
+            ${(range && range.noglyphs)? '<span class="note" title="Range contains no characters\nwith visible shapes.">⊝</span>' : ''}
+            ${(range && range.nonstandard)? '<span class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</span>' : ''}
+            &emsp;
         </td>
         ${app.selectedTab === 'Sorted'? '<td>&emsp;&ensp;</td>' : ''}
-        <td class="count">
+        <td class="count" title="Character count">
             ${range? (parseInt(range.end) - parseInt(range.begin)) : ''}
         </td>
         <td>
-            ${group? '' : `<pre>${rid.substr(2)}</pre>`}
+            ${group? '' : `<pre title="Character range">${rid.substr(2)}</pre>`}
         </td>
     </tr>`;
 }
@@ -212,7 +215,7 @@ function getRangeContent(rid) {
 function makeRangeContent(rid) {
     let range = getRange(rid);
     let con = `
-        <table>
+        <table class="rangeTable">
             <tr>
                 <td>
                     <h3>
@@ -230,7 +233,7 @@ function makeRangeContent(rid) {
             </tr>
             <tr>
                 <td colspan="2">
-                    <table class="rangeTable">
+                    <table>
                         <thead>
                             <td class="hex"></td>
                             <td class="hex">0</td>
@@ -284,13 +287,20 @@ function clickRangeClose(rid) {
 }
 
 function makeTile(glyph) {
-    return `
-        <div 
-            class="charTile allNoto" 
-            title="${getUnicodeName(glyph)}\n${glyph}"
-            onClick="tileClick('${glyph}');"
-        >&#${glyph.substring(1)};</div>
-    `;
+    let name = getUnicodeName(glyph);
+    let con = `<div class="charTile noChar" title="No character encoded\nat this code point">&nbsp;</div>`;
+
+    if(name !== '{{no name found}}'){
+        con = `
+            <div 
+                class="charTile allNoto" 
+                title="${getUnicodeName(glyph)}\n${glyph}"
+                onClick="tileClick('${glyph}');"
+            >&#${glyph.substring(1)};</div>
+        `;
+    }
+
+    return con;
 }
 
 function openDialog(content) {
@@ -329,7 +339,7 @@ function openDialog(content) {
 }
 
 function makeCloseButton(func) {
-    return `<button onclick="${func}" class="actionButton">✖</button>`;
+    return `<button onclick="${func}" class="actionButton" title="Close">⨉</button>`;
 }
 
 function closeDialog() {
@@ -392,7 +402,7 @@ function decToHex(d) {
 function getUnicodeName(c) {
     c = c.replace('#','0');
     if(c.charAt(0) === '0'){
-        return fullUnicodeNameList[c] || '<no name found>';
+        return fullUnicodeNameList[c] || '{{no name found}}';
     } else {
         return c;
     }

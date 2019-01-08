@@ -6,6 +6,7 @@
     --dark-text-dark: hsl(210, 5%, 80%);
     --dark-text-light: hsl(210, 5%, 95%);
     --dark-accent:  hsl(340, 95%, 30%);
+    --dark-accent-light:  hsl(340, 40%, 50%);
 
     --light-bg-darker: hsl(210, 5%, 60%);
     --light-bg-dark: hsl(210, 5%, 80%);
@@ -14,13 +15,15 @@
     --light-text-light: hsl(210, 5%, 10%);
     --light-text-lighter: hsl(210, 5%, 20%);
     --light-accent:  hsl(340, 80%, 40%);
+    --light-accent-light:  hsl(340, 80%, 70%);
 }
 
 * {
 	margin:0px;
 	padding:0px;
 	font-family: sans-serif;
-	box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: default;
 }
 
 body {
@@ -36,13 +39,14 @@ button {
     border-radius: 4px;
 }
 
-button:hover {
+button:hover,
+a:hover {
     cursor: pointer;
 }
 
 #wrapper {
     display: grid;
-	grid-template-columns: 450px 1fr;
+	grid-template-columns: 500px 1fr;
 	background-color: var(--dark-bg-dark);
 	height: 100vh;
 	max-height: 100vh;
@@ -152,7 +156,7 @@ button:hover {
 
 #chooser label {
     cursor: pointer;
-    padding: 0px 10px 0px 0px;
+    padding: 0px 2px 0px 0px;
     width: 100vw;
 }
 
@@ -162,6 +166,27 @@ button:hover {
 
 #chooser td {
     padding-bottom: 4px;
+}
+
+.note {
+    color: var(--dark-accent-light);
+    display: inline-block;
+    opacity: 0.8;
+    background-color: transparent;
+    padding: 1px 1px 1px 0px;
+    border-radius: 2px;
+    width: 12px;
+    height: 12px;
+    line-height: 8px;
+    text-align: left;
+}
+
+.note:hover {
+    background-color: var(--dark-bg-lighter);
+    color: var(--light-text-dark);
+    color: var(--light-accent-light);
+    opacity: 1;
+    cursor: help;
 }
 
 .group {
@@ -190,7 +215,7 @@ button:hover {
 	grid-column: 2;
     background-color: var(--light-bg-light);
     border-left: 2px solid var(--dark-bg-light);
-	padding: 10px 0px 20px 20px;
+	padding: 10px 10px 20px 20px;
     overflow-y: scroll;
 }
 
@@ -229,9 +254,8 @@ input[type=checkbox] {
 	margin: 5px 5px 5px 0px;
 }
 
-
 .rangeTable {
-    margin-bottom: 20px;
+    margin: 0px 10px 20px 0px;
 }
 
 .hex {
@@ -255,6 +279,15 @@ input[type=checkbox] {
 
 .charTile:hover {
     cursor: text;
+}
+
+.noChar {
+    opacity: 0.4;
+    user-select: none;
+}
+
+.noChar:hover {
+    cursor: not-allowed;
 }
 
 .wiki {
