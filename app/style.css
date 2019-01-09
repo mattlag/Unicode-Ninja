@@ -314,6 +314,8 @@ input[type=checkbox] {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
     z-index: 1000;
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
 }
 
 #dialogContent {
@@ -325,6 +327,9 @@ input[type=checkbox] {
     text-align: left;
     border: 1px solid var(--dark-bg-lighter);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+    transition-delay: 100ms;
 }
 
 #dialogContent h1,

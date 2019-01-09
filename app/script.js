@@ -1,6 +1,6 @@
 let app = {
-    version: '2.1.0',
-    releaseDate: 1546900000000,
+    version: '2.1.1',
+    releaseDate: 1547000000000,
     selectedRanges: [],
     selectedTab: 'Grouped',
     rangeCache: {},
@@ -12,7 +12,7 @@ function init(){
     let con = `
         <div id="tabs">${makeTabs()}</div>
         <div id="header">
-            <h1>u͈n͈i͈c͈o͈d͈e͈.n͈i͈n͈ĵa͈</h1>
+            <h1 id="logo"></h1>
             <div id="tools">
                 <button class="actionButton" onclick="openDialog('{{info}}');">?</button>
             </div>
@@ -25,6 +25,7 @@ function init(){
     `;
 
     document.getElementById('wrapper').innerHTML = con;
+    animateLogo();
 }
 
 /*
@@ -70,7 +71,7 @@ function deselectAllRanges() {
 
 function sortSelectedRanges() {
     app.selectedRanges.sort(function (a, b) {
-        return parseInt(a.substr(0, 4), 16) - parseInt(b.substr(0, 4), 16);
+        return parseInt(a.substr(2, 4), 16) - parseInt(b.substr(2, 4), 16);
     });        
 }
 
@@ -336,6 +337,10 @@ function openDialog(content) {
 
     document.getElementById('dialogContent').innerHTML = makeCloseButton('closeDialog();') + content;
     document.getElementById('dialog').style.display = 'block';
+    window.setTimeout(function () {
+        document.getElementById('dialog').style.opacity = '1';
+        document.getElementById('dialogContent').style.opacity = '1';
+    }, 10);
 }
 
 function makeCloseButton(func) {
@@ -343,8 +348,17 @@ function makeCloseButton(func) {
 }
 
 function closeDialog() {
-    document.getElementById('dialogContent').innerHTML = '';
-    document.getElementById('dialog').style.display = 'none';
+    document.getElementById('dialogContent').style.opacity = '0';
+
+    window.setTimeout(function () {
+        document.getElementById('dialog').style.opacity = '0';
+
+        window.setTimeout(function () {
+            document.getElementById('dialog').style.display = 'none';
+            document.getElementById('dialogContent').innerHTML = '';
+        }, 150);
+
+    }, 350);
 }
 
 function getNamedCharsTable() {
@@ -358,6 +372,54 @@ function getNamedCharsTable() {
     con += '</tr></table>';
     app.rangeCache.namedChars = con;
     return con;
+}
+
+function animateLogo() {
+    let delta = 0;
+    let delay = 50;
+
+    // let fancy = {
+    //     car: 'unicode.ninja'.split(''),
+    //     jay: ['j', 'ĵ', 'ǰ', 'ɉ'],
+    //     sub: ['̥', '̪', '͈', '̬', '̯', '͙', '̭', '', '̺', '͓', '̮', '͈', '͚']
+    // };
+
+    let fancy = {
+        car: 'unicode.ninja'.split(''),
+        jay: ['j', 'ĵ', 'ǰ', 'ɉ'],
+        sub: ['̥', '̪', '͈', '̬', '̯', '͙', '̭', '', '̺', '͓', '̮', '͈', '͚', '','','','','','','','','','','','','',]
+    };
+
+    function makeLogo(delta) {
+        let mod = fancy.car.length;
+        re = '';
+    
+        for(let c=0; c<mod; c++) {
+            if(c === 7) {
+                re += '.';
+            
+            } else if (c === 11) {
+                re += fancy.jay[(c+delta) % fancy.jay.length];
+            
+            } else {
+                re += fancy.car[c];
+                re += fancy.sub[(c+delta) % fancy.sub.length];
+            }
+        }
+    
+        return re;
+    }
+
+    function updateLogo() {
+        document.getElementById('logo').innerHTML = makeLogo(delta);
+        if(delta < fancy.car.length) {
+            delta++;
+            delay *= 1.05;
+            window.setTimeout(updateLogo, delay);
+        }
+    }
+    
+    updateLogo();
 }
 
 
