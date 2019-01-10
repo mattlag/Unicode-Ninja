@@ -1,5 +1,6 @@
 var unicodeBlocks = {
-    'r-0000-007F': {begin: 0x0000, end: 0x007F, name: 'Basic Latin'},
+    'r-0000-001F': {begin: 0x0000, end: 0x001F, name: 'Basic Latin Controls'},
+    'r-0020-007F': {begin: 0x0020, end: 0x007F, name: 'Basic Latin'},
     'r-0080-00FF': {begin: 0x0080, end: 0x00FF, name: 'Latin-1 Supplement'},
     'r-0100-017F': {begin: 0x0100, end: 0x017F, name: 'Latin Extended-A'},
     'r-0180-024F': {begin: 0x0180, end: 0x024F, name: 'Latin Extended-B'},

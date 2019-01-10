@@ -2,7 +2,8 @@
 let organizedScripts = {
     'European Scripts': {
         'Latin': {
-            'Basic Latin': 'r-0000-007F',
+            'Basic Latin Controls': 'r-0000-001F',
+            'Basic Latin': 'r-0020-007F',
             'Latin-1 Supplement': 'r-0080-00FF',
             'Latin Extended-A': 'r-0100-017F',
             'Latin Extended-B': 'r-0180-024F',

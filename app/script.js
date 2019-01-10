@@ -1,26 +1,28 @@
 let app = {
-    version: '2.1.1',
-    releaseDate: 1547000000000,
+    version: '2.2.0',
+    releaseDate: 1547090000000,
     selectedRanges: [],
     selectedTab: 'Grouped',
+    fontFamily: 'sans-serif',
     rangeCache: {},
 };
 
 function init(){
-    selectRange('r-0000-007F');
+    selectRange('r-0020-007F');
 
     let con = `
         <div id="tabs">${makeTabs()}</div>
         <div id="header">
             <h1 id="logo"></h1>
             <div id="tools">
-                <button class="actionButton" onclick="openDialog('{{info}}');">?</button>
+                <button class="actionButton" onclick="openSettingsDialog();">⛭</button>
+                <button class="actionButton" onclick="openInfoDialog();">?</button>
             </div>
         </div>
         <div id="chooser">${makeChooser()}</div>
         <div id="content">${makeContent()}</div>
         <div id="dialog" onclick="closeDialog();">
-            <div id="dialogContent"></div>
+            <div id="dialogContent" onclick="nothing(event);"></div>
         </div>
     `;
 
@@ -28,13 +30,42 @@ function init(){
     animateLogo();
 }
 
+function testNoGlyph() {
+    document.getElementById('content').innerHTML +=`<br><br>
+        <div class="charTile" id="testnoglyph">&#x10FFFF;</div><br>
+        <textarea id="testtext"></textarea><br>
+        <canvas id="testcanvas"></canvas>
+    `;
+
+    let ng = document.getElementById('testnoglyph').innerHTML;
+    document.getElementById('testtext').innerHTML = ng;
+    let ctx = document.getElementById('testcanvas').getContext('2d');
+    ctx.font = "120px Arial";
+    ctx.fillText(ng, 0, 120);
+}
+
 /*
-    Range Selection
+    Range and Character data
 */
 
 function getRange(rid) {
     // if(!unicodeBlocks[rid]) console.warn(`Unknown range: ${rid}`);
     return unicodeBlocks[rid];
+}
+
+function getRangeForChar(hex) {
+    hex = parseInt(hex, 16);
+    for(let r in unicodeBlocks) {
+        if(unicodeBlocks.hasOwnProperty(r)) {
+            if(hex >= unicodeBlocks[r].begin && hex <= unicodeBlocks[r].end)
+                return unicodeBlocks[r];
+    }}
+
+    return false;
+}
+
+function getDataForChar(hex) {
+    hex = ''+hex;
 }
 
 function isRangeSelected(rid) {
@@ -80,9 +111,9 @@ function sortSelectedRanges() {
     Making UI Content
 */
 
-function redraw() {
-    document.getElementById('tabs').innerHTML = makeTabs();
-    document.getElementById('chooser').innerHTML = makeChooser();
+function redraw(onlyContent) {
+    !onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
+    !onlyContent? document.getElementById('chooser').innerHTML = makeChooser() : false;
     document.getElementById('content').innerHTML = makeContent();
 }
 
@@ -287,60 +318,132 @@ function clickRangeClose(rid) {
     redraw();
 }
 
-function makeTile(glyph) {
-    let name = getUnicodeName(glyph);
+function makeTile(char) {
+    let name = getUnicodeName(char);
     let con = `<div class="charTile noChar" title="No character encoded\nat this code point">&nbsp;</div>`;
 
     if(name !== '{{no name found}}'){
         con = `
             <div 
-                class="charTile allNoto" 
-                title="${getUnicodeName(glyph)}\n${glyph}"
-                onClick="tileClick('${glyph}');"
-            >&#${glyph.substring(1)};</div>
+                class="charTile" 
+                style="font-family: ${app.fontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
+                title="${getUnicodeName(char)}\n${char}"
+                onClick="tileClick('${char}');"
+            >&#${char.substring(1)};</div>
         `;
     }
 
     return con;
 }
 
-function openDialog(content) {
-    if(content === '{{info}}') {
-        content = `
-            <h2>unicode.ninja</h2>
-            A tool to help explore the Unicode® Basic Multilingual Plane <pre>0000-ffff</pre>. 
-            Unicode is a registered trademark of Unicode, Inc.  More information can be found at 
-            <a href="https://www.unicode.org/" target="_new">unicode.org</a>.
+function makeCharDetail(char) {
+    // console.log(`makeCharDetail: ${typeof char} ${char}`);
 
-            <br><br>
+    let range = getRangeForChar(char);
+    // console.log(`range: ${range}`);
+    
+    let unicodeName = getUnicodeName(char).replace('<', '&lt;');
+    // console.log(`name: ${name}`);
 
-            <h3>Created by Matt LaGrandeur</h3>
-            Questions or comments? Email <a href="mailto:matt@mattlag.com">matt@mattlag.com</a>. 
-            This app is an open source project - more information about the project can be found 
-            on the <a href="https://github.com/mattlag/UnicodeNinja" target="_new">unicode.ninja GitHub page</a>.
+    let entityName = htmlEntityNameList[char];
+
+    let base = char.substr(2);
+
+    let con = `
+        <h2>${unicodeName}</h2>
+        <span 
+            class="bigCharTile"
+            style="font-family: ${app.fontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
+        >&#x${base};</span>
+        <br><br>
+        <h3>Related information</h3>
+        <div class="keyvalue">
+            <span class="key light">Unicode&nbsp;code&nbsp;point:</span>
+            <span class="value"><pre>U+${base}</pre></span>
+
+            <span class="key light">HTML&nbsp;hex&nbsp;entity:</span>
+            <span class="value"><pre>&amp;#x${parseInt(base, 16).toString(16)};</pre></span>
+
+            <span class="key light">HTML&nbsp;decimal&nbsp;entity:</span>
+            <span class="value"><pre>&amp;#x${parseInt(base, 16)};</pre></span>
+
+            ${entityName?
+                `<span class="key light">HTML&nbsp;named&nbsp;entity:</span>
+                <span class="value"><pre>&amp;${entityName};</pre></span>`
+                : ''
+            }
+
+            <span class="key light">Member&nbsp;of&nbsp;range:</span>
+            <span class="value">${range.name}&emsp;<pre>U+${decToHex(range.begin).substr(2)} - U+${decToHex(range.end).substr(2)}</pre></span>
+        </div>
+    `;
+
+    return con;
+}
+
+function openSettingsDialog() {
+    openDialog(`
+        <h2>Settings</h2>
+        <div class="keyvalue">
+            <span class="key">Character&nbsp;tile&nbsp;font&nbsp;family:</span>
+            <span class="value">
+                <select onchange="updateTileFontFamily(this.value);" style="width: 200px;">
+                    <option value="sans-serif">sans-serif</option>
+                    <option value="serif">serif</option>
+                </select>
+            </span>
+        </div>
+    `);
+}
+
+function updateTileFontFamily(value) {
+    app.fontFamily = value;
+    app.rangeCache = [];
+    redraw(true);
+}
+
+function openInfoDialog() {
+    openDialog(`
+        <h2>unicode.ninja</h2>
+        A tool to help explore the Unicode® Basic Multilingual Plane <pre>0000-ffff</pre>. 
+        Unicode is a registered trademark of Unicode, Inc.  More information can be found at 
+        <a href="https://www.unicode.org/" target="_new">unicode.org</a>.
+
+        <br><br>
+
+        <h3>Created by Matt LaGrandeur</h3>
+        Questions or comments? Email <a href="mailto:matt@mattlag.com">matt@mattlag.com</a>. 
+        This app is an open source project - more information about the project can be found 
+        on the <a href="https://github.com/mattlag/UnicodeNinja" target="_new">unicode.ninja GitHub page</a>.
+        
+        <br><br>
+
+        <h3>App Information</h3>
+        <div class="keyvalue">
+            <span class="key light">App&nbsp;Version:</span>
+            <span class="value">${app.version}</span>
             
-            <br><br>
+            <span class="key light">App&nbsp;released&nbsp;on:</span>
+            <span class="value">${new Date(app.releaseDate).toLocaleDateString()}</span>
+            
+            <span class="key light">Unicode&nbsp;data&nbsp;version:</span>
+            <span class="value">v11.0.0 - 2018 June 5th</span>
+        </div>
+    `);
+}
 
-            <h3>App Information</h3>
-            <div class="keyvalue">
-                <span class="key light">App Version:</span>
-                <span class="value">${app.version}</span>
-                
-                <span class="key light">App released on:</span>
-                <span class="value">${new Date(app.releaseDate).toLocaleDateString()}</span>
-                
-                <span class="key light">Unicode data version:</span>
-                <span class="value">v11.0.0 - 2018 June 5th</span>
-            </div>
-        `;
-    }
-
+function openDialog(content) {
     document.getElementById('dialogContent').innerHTML = makeCloseButton('closeDialog();') + content;
     document.getElementById('dialog').style.display = 'block';
     window.setTimeout(function () {
         document.getElementById('dialog').style.opacity = '1';
         document.getElementById('dialogContent').style.opacity = '1';
     }, 10);
+}
+
+function nothing(event) {
+    console.log(event);
+    event.stopPropagation();
 }
 
 function makeCloseButton(func) {
@@ -359,19 +462,6 @@ function closeDialog() {
         }, 150);
 
     }, 350);
-}
-
-function getNamedCharsTable() {
-    if(app.rangeCache.namedChars) return app.rangeCache.namedChars;
-
-    let con = '<table><tr>';
-    for(let c=0; c<htmlNamedChars.length; c++){
-        if(c%16===0 && c!==0) con += '</tr><tr>';
-        con += `<td>${makeTile(htmlNamedChars[c])}</td>`;
-    }
-    con += '</tr></table>';
-    app.rangeCache.namedChars = con;
-    return con;
 }
 
 function animateLogo() {
@@ -446,8 +536,8 @@ function checkboxOnChange(elem){
 
 }
 
-function tileClick(glyph) {
-
+function tileClick(char) {
+    openDialog(makeCharDetail(char));
 }
 
 
@@ -462,7 +552,6 @@ function decToHex(d) {
 }
 
 function getUnicodeName(c) {
-    c = c.replace('#','0');
     if(c.charAt(0) === '0'){
         return fullUnicodeNameList[c] || '{{no name found}}';
     } else {

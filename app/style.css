@@ -44,6 +44,10 @@ a:hover {
     cursor: pointer;
 }
 
+canvas {
+    background-color: white;
+}
+
 #wrapper {
     display: grid;
 	grid-template-columns: 500px 1fr;
@@ -267,9 +271,10 @@ input[type=checkbox] {
 }
 
 .charTile {
-	width: 48px;
+	min-width: 48px;
     height: 48px;
     font-size: 28px;
+    border: 1px solid white;
     background-color: white;
     color: black;
 	text-align: center;
@@ -278,6 +283,23 @@ input[type=checkbox] {
 }
 
 .charTile:hover {
+    cursor: pointer;
+    border-color: var(--light-accent-light);
+}
+
+.bigCharTile {
+    display: inline-block;
+    height: 120px;
+    min-width: 120px;
+    font-size: 96px;
+    background-color: white;
+    color: black;
+	text-align: center;
+	line-height: 120px;
+    margin: 0px 10px 10px 0px;
+}
+
+.bigCharTile:hover {
     cursor: text;
 }
 
@@ -288,6 +310,7 @@ input[type=checkbox] {
 
 .noChar:hover {
     cursor: not-allowed;
+    border-color: transparent;
 }
 
 .wiki {
@@ -348,10 +371,10 @@ input[type=checkbox] {
 
 .keyvalue {
     display: grid;
-    grid-template-columns: repeat(1fr 2);
-    grid-row-gap: 4px;
-    grid-column-gap: 10px;
-    width: 70%;
+    grid-template-columns: 1fr 100%;
+    grid-row-gap: 12px;
+    grid-column-gap: 12px;
+    margin-top: 12px;
 }
 
 .key {
@@ -368,6 +391,9 @@ input[type=checkbox] {
     opacity: 0.5;
 }
 
+select {
+    padding: 2px 0px 2px 2px;
+}
 
 .allNoto {
     font-family: 'Noto Sans',
