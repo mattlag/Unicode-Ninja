@@ -1,14 +1,17 @@
 let app = {
     version: '2.2.1',
     releaseDate: 1547090000000,
-    selectedRanges: [],
-    selectedTab: 'Grouped',
-    fontFamily: 'sans-serif',
     rangeCache: {},
+    settings: {
+        rememberSettings: false,
+        selectedTab: 'Grouped',
+        selectedRanges: ['r-0020-007F'],
+        fontFamily: 'sans-serif',
+    }
 };
 
 function init(){
-    selectRange('r-0020-007F');
+    loadSettings();
 
     let con = `
         <div id="tabs">${makeTabs()}</div>
@@ -28,6 +31,16 @@ function init(){
 
     document.getElementById('wrapper').innerHTML = con;
     animateLogo();
+}
+
+function loadSettings() {
+    let savedSettings = window.localStorage.getItem('unicode.ninja');
+    if(savedSettings) app.settings = JSON.parse(savedSettings);
+}
+
+function saveSettings() {
+    if(!app.settings.rememberSettings) return;
+    window.localStorage.setItem('unicode.ninja', JSON.stringify(app.settings));
 }
 
 function testNoGlyph() {
@@ -69,7 +82,7 @@ function getDataForChar(hex) {
 }
 
 function isRangeSelected(rid) {
-    return app.selectedRanges.includes(rid);
+    return app.settings.selectedRanges.includes(rid);
 }
 
 function selectRange(rid) {
@@ -77,10 +90,11 @@ function selectRange(rid) {
     rid = rid.split('_');
     
     rid.forEach(id => {
-        if(!isRangeSelected(id)) app.selectedRanges.push(id);
+        if(!isRangeSelected(id)) app.settings.selectedRanges.push(id);
     });
 
     sortSelectedRanges();
+    saveSettings();
 }
 
 function deselectRange(rid) {
@@ -88,20 +102,22 @@ function deselectRange(rid) {
     rid = rid.split('_');
 
     rid.forEach(id => {
-        let i = app.selectedRanges.indexOf(id);
-        if(i > -1) app.selectedRanges.splice(i, 1);
+        let i = app.settings.selectedRanges.indexOf(id);
+        if(i > -1) app.settings.selectedRanges.splice(i, 1);
     });
 
     sortSelectedRanges();
+    saveSettings();
 }
 
 function deselectAllRanges() {
-    app.selectedRanges = [];
+    app.settings.selectedRanges = [];
     redraw();
+    saveSettings();
 }
 
 function sortSelectedRanges() {
-    app.selectedRanges.sort(function (a, b) {
+    app.settings.selectedRanges.sort(function (a, b) {
         return parseInt(a.substr(2, 4), 16) - parseInt(b.substr(2, 4), 16);
     });        
 }
@@ -118,7 +134,7 @@ function redraw(onlyContent) {
 }
 
 function makeTabs() {
-    let grouped = app.selectedTab === 'Grouped';
+    let grouped = app.settings.selectedTab === 'Grouped';
 
     return `
         <button class="${grouped? 'selected' : ''}" onclick="selectTab('Grouped');">
@@ -131,14 +147,14 @@ function makeTabs() {
 }
 
 function selectTab(tab) {
-    app.selectedTab = tab;
+    app.settings.selectedTab = tab;
     redraw();
 }
 
 function makeChooser() {
-    let con = app.selectedTab === 'Grouped'? makeGroupedChooser() : makeFlatChooser();
+    let con = app.settings.selectedTab === 'Grouped'? makeGroupedChooser() : makeFlatChooser();
 
-    if(app.selectedRanges.length) con += '<button class="dark" onClick="deselectAllRanges();">de-select all ranges</button><br><br>';
+    if(app.settings.selectedRanges.length) con += '<button class="dark" onClick="deselectAllRanges();">de-select all ranges</button><br><br>';
 
     return con;
 }
@@ -219,17 +235,16 @@ function makeSingleRangeRow(rid, name, indent, group) {
     } else {
         return `
             ${indent? '<div style="grid-column: 1;">&emsp;</div>' : ''}
+            
             ${makeCheckbox()}
-            <div${indent? '': ' class="spantwo"'}>
-                <label for="${cbid}">
-                    ${labelName}
-                </label>
-                ${(range && range.noglyphs)? '<span class="note" title="Range contains no characters\nwith visible shapes.">⊝</span>' : ''}
-                ${(range && range.nonstandard)? '<span class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</span>' : ''}
-                &emsp;
-            </div>
+            
+            <label for="${cbid}" ${indent? '': ' class="spantwo"'}>
+                ${labelName}
+            </label>
 
             <div class="count" title="Character count">
+                ${(range && range.nonstandard)? '<div class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</div>' : ''}
+                ${(range && range.noglyphs)? '<div class="note" title="Range contains no characters\nwith visible shapes.">⊝</div>' : ''}
                 ${range? (parseInt(range.end) - parseInt(range.begin)) : ''}
             </div>
 
@@ -241,8 +256,8 @@ function makeSingleRangeRow(rid, name, indent, group) {
 function makeContent() {
     let con = '';
 
-    for(let s=0; s<app.selectedRanges.length; s++){
-        con += getRangeContent(app.selectedRanges[s]);
+    for(let s=0; s<app.settings.selectedRanges.length; s++){
+        con += getRangeContent(app.settings.selectedRanges[s]);
     }
     
     con += '<i class="light">add or remove ranges using the checkboxes on the left</i>';
@@ -330,7 +345,7 @@ function makeTile(char) {
         con = `
             <div 
                 class="charTile" 
-                style="font-family: ${app.fontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
+                style="font-family: ${app.settings.fontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
                 title="${getUnicodeName(char)}\n${char}"
                 onClick="tileClick('${char}');"
             >&#${char.substring(1)};</div>
@@ -345,10 +360,10 @@ function makeCharDetail(char) {
 
     let range = getRangeForChar(char);
     if(range.begin === 32) range.begin = 0x0000;
-    console.log(`range: ${JSON.stringify(range)}`);
+    // console.log(`range: ${JSON.stringify(range)}`);
 
     let rangeBeginBase = decToHex(range.begin).substr(2);
-    console.log(`rangeBeginBase: ${rangeBeginBase}`);
+    // console.log(`rangeBeginBase: ${rangeBeginBase}`);
     
     let unicodeName = getUnicodeName(char).replace('<', '&lt;');
     // console.log(`name: ${name}`);
@@ -363,7 +378,7 @@ function makeCharDetail(char) {
             <div class="colOne">
                 <span 
                     class="bigCharTile"
-                    style="font-family: ${app.fontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
+                    style="font-family: ${app.settings.fontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
                 >&#x${charBase};</span>
             </div>
             <div class="colTwo">
@@ -421,21 +436,42 @@ function openSettingsDialog() {
     openDialog(`
         <h2>Settings</h2>
         <div class="twoColumn">
+            <span class="key">Remember&nbsp;app&nbsp;settings:</span>
+            <span class="value">
+                <input 
+                    type="checkbox" 
+                    ${app.settings.rememberSettings? 'checked' : ''} 
+                    onchange="updateSetting('rememberSettings', this.checked);"
+                />
+            </span>
+        
             <span class="key">Character&nbsp;tile&nbsp;font&nbsp;family:</span>
             <span class="value">
-                <select onchange="updateTileFontFamily(this.value);" style="width: 200px;">
+                <select onchange="updateSetting('fontFamily', this.value);" style="width: 200px;">
                     <option value="sans-serif">sans-serif</option>
                     <option value="serif">serif</option>
                 </select>
             </span>
+
+
         </div>
     `);
 }
 
-function updateTileFontFamily(value) {
-    app.fontFamily = value;
-    app.rangeCache = [];
-    redraw(true);
+function updateSetting(key, value) {
+    console.log(`Setting ${key} to ${value}`);
+    app.settings[key] = value;
+
+    if(key === 'fontFamily') {
+        app.rangeCache = [];
+        redraw(true);
+    } if(key === 'rememberSettings' && !value) {
+        window.localStorage.removeItem('unicode.ninja');
+        window.localStorage.clear();
+        console.log('cleared local storage');
+    }
+
+    saveSettings();
 }
 
 function openInfoDialog() {
@@ -478,7 +514,7 @@ function openDialog(content) {
 }
 
 function nothing(event) {
-    console.log(event);
+    // console.log(event);
     event.stopPropagation();
 }
 
