@@ -1,4 +1,4 @@
-var htmlEntityNameList = {
+const htmlEntityNameList = {
 "0x0021":"exclamation",
 "0x0022":"quot",
 "0x0025":"percent",

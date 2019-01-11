@@ -1,5 +1,5 @@
 
-let organizedScripts = {
+const organizedScripts = {
     'European Scripts': {
         'Latin': {
             'Basic Latin Controls': 'r-0000-001F',

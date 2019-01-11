@@ -1,5 +1,5 @@
 let app = {
-    version: '2.2.0',
+    version: '2.2.1',
     releaseDate: 1547090000000,
     selectedRanges: [],
     selectedTab: 'Grouped',
@@ -144,24 +144,24 @@ function makeChooser() {
 }
 
 function makeFlatChooser() {
-    let con = '<h2>Unicode</h2><table>';
+    let con = '<h2>Unicode</h2>';
 
     for(let rid in unicodeBlocks){
     if(unicodeBlocks.hasOwnProperty(rid)) {
         con += makeSingleRangeRow(rid, unicodeBlocks[rid].name);
     }}
 
-    con += '</table><br><br>';
     return con;
 }
 
 function makeGroupedChooser() {
     function makeArea(area){
-        let con = '<table>';
+        let con = '';
         let subcon, multisel;
         for(let section in area){
         if(area.hasOwnProperty(section)) {
-            con += `<tr><td colspan="4"><h3>${section}</h3></td></tr>`;
+            con += '<div class="skiprow">&nbsp;</div>';
+            con += `<h3>${section}</h3>`;
             for(let group in area[section]){
             if(area[section].hasOwnProperty(group)) {
                 if(typeof area[section][group] === 'string') {
@@ -179,7 +179,7 @@ function makeGroupedChooser() {
                 }
             }}
         }}
-        con += '</table><br><br>';
+        con += '<br><br>';
         return con;
     }
 
@@ -197,33 +197,45 @@ function makeSingleRangeRow(rid, name, indent, group) {
     
     let cbid = `checkbox_${group? 'g_' : ''}${name.replace(/ /gi, '_')}`;
     let range = getRange(rid) || false;
+    let labelName = name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '').replace(/ /gi, '&nbsp;')
 
-    return `<tr>
-        ${indent? '<td>&emsp;</td><td>' : '<td>'}
-            <input 
-                type="checkbox" 
-                id="${cbid}" 
-                data-range="${rid}" 
-                onchange='checkboxOnChange(this);'  
-                ${isRangeSelected(rid)? 'checked' : ''}
-            />
-        </td>
-        <td${indent? '': ' colspan="2"'}>
-            <label for="${cbid}"${group? ' class="group"' : ''}>
-                ${name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '')}
+    function makeCheckbox() {
+        return `<input 
+            type="checkbox" 
+            id="${cbid}" 
+            data-range="${rid}" 
+            onchange='checkboxOnChange(this);'  
+            ${isRangeSelected(rid)? 'checked' : ''}
+        />`;
+    }
+
+    if(group) {
+        return `
+            ${makeCheckbox()}
+            <label for="${cbid}" class="group">
+                ${labelName}
             </label>
-            ${(range && range.noglyphs)? '<span class="note" title="Range contains no characters\nwith visible shapes.">⊝</span>' : ''}
-            ${(range && range.nonstandard)? '<span class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</span>' : ''}
-            &emsp;
-        </td>
-        ${app.selectedTab === 'Sorted'? '<td>&emsp;&ensp;</td>' : ''}
-        <td class="count" title="Character count">
-            ${range? (parseInt(range.end) - parseInt(range.begin)) : ''}
-        </td>
-        <td>
-            ${group? '' : `<pre title="Character range">${rid.substr(2)}</pre>`}
-        </td>
-    </tr>`;
+        `;
+    } else {
+        return `
+            ${indent? '<div style="grid-column: 1;">&emsp;</div>' : ''}
+            ${makeCheckbox()}
+            <div${indent? '': ' class="spantwo"'}>
+                <label for="${cbid}">
+                    ${labelName}
+                </label>
+                ${(range && range.noglyphs)? '<span class="note" title="Range contains no characters\nwith visible shapes.">⊝</span>' : ''}
+                ${(range && range.nonstandard)? '<span class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</span>' : ''}
+                &emsp;
+            </div>
+
+            <div class="count" title="Character count">
+                ${range? (parseInt(range.end) - parseInt(range.begin)) : ''}
+            </div>
+
+            <pre title="Character range">${rid.substr(2)}</pre>
+        `;
+    }
 }
 
 function makeContent() {
@@ -246,69 +258,61 @@ function getRangeContent(rid) {
 
 function makeRangeContent(rid) {
     let range = getRange(rid);
+
+    let rangeBeginBase = decToHex(range.begin).substr(2);
+    if(rangeBeginBase === '0020') rangeBeginBase = '0000';
+
     let con = `
-        <table class="rangeTable">
-            <tr>
-                <td>
-                    <h3>
-                        ${range.name}
-                        <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
-                            target="_new" 
-                            title="Wikipedia Link"
-                            class="wiki">
-                            Wikipedia
-                        </a>
-                    </h3>
-                </td><td style="text-align: right;">
-                    ${makeCloseButton(`clickRangeClose('${rid}');`)}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <table>
-                        <thead>
-                            <td class="hex"></td>
-                            <td class="hex">0</td>
-                            <td class="hex">1</td>
-                            <td class="hex">2</td>
-                            <td class="hex">3</td>
-                            <td class="hex">4</td>
-                            <td class="hex">5</td>
-                            <td class="hex">6</td>
-                            <td class="hex">7</td>
-                            <td class="hex">8</td>
-                            <td class="hex">9</td>
-                            <td class="hex">A</td>
-                            <td class="hex">B</td>
-                            <td class="hex">C</td>
-                            <td class="hex">D</td>
-                            <td class="hex">E</td>
-                            <td class="hex">F</td>
-                        </thead>
-                        <tbody>
-                        <tr>
+        <div class="contentCharBlock">
+            <h3 class="title">
+                ${range.name}
+                <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
+                    target="_new" 
+                    title="Wikipedia Link"
+                    class="titleLink">
+                    Wikipedia
+                    </a>
+                    <a href="https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf" 
+                    target="_new" 
+                    title="Unicode Link" 
+                    class="titleLink">
+                    Unicode
+                </a>
+            </h3>
+            <div class="actions">
+                ${makeCloseButton(`clickRangeClose('${rid}');`)}
+            </div>
+
+            <div class="hex">&ensp;</div>
+            <div class="hex">0</div>
+            <div class="hex">1</div>
+            <div class="hex">2</div>
+            <div class="hex">3</div>
+            <div class="hex">4</div>
+            <div class="hex">5</div>
+            <div class="hex">6</div>
+            <div class="hex">7</div>
+            <div class="hex">8</div>
+            <div class="hex">9</div>
+            <div class="hex">A</div>
+            <div class="hex">B</div>
+            <div class="hex">C</div>
+            <div class="hex">D</div>
+            <div class="hex">E</div>
+            <div class="hex">F</div>
     `;
 
     for(let c=(range.begin*1); c<=(range.end*1); c++){
         if(c%16===0) {
             con += `
-                </tr>
-                <tr>
-                    <td class="hex">${decToHex(c).substr(2, 3)}-</td>
+                <div class="hex"><span>${decToHex(c).substr(2, 3)}-</span></div>
             `;
         }
 
-        con += `<td>${makeTile(decToHex(c))}</td>`;
+        con += makeTile(decToHex(c));
     }
 
-    con += `
-            </tr>
-            </tbody>
-            </table>
-        </td>
-        </tr>
-        </table>
-    `;
+    con += `</div>`;
 
     return con;
 }
@@ -340,41 +344,73 @@ function makeCharDetail(char) {
     // console.log(`makeCharDetail: ${typeof char} ${char}`);
 
     let range = getRangeForChar(char);
-    // console.log(`range: ${range}`);
+    if(range.begin === 32) range.begin = 0x0000;
+    console.log(`range: ${JSON.stringify(range)}`);
+
+    let rangeBeginBase = decToHex(range.begin).substr(2);
+    console.log(`rangeBeginBase: ${rangeBeginBase}`);
     
     let unicodeName = getUnicodeName(char).replace('<', '&lt;');
     // console.log(`name: ${name}`);
 
     let entityName = htmlEntityNameList[char];
 
-    let base = char.substr(2);
+    let charBase = char.substr(2);
 
     let con = `
         <h2>${unicodeName}</h2>
-        <span 
-            class="bigCharTile"
-            style="font-family: ${app.fontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
-        >&#x${base};</span>
+        <div class="twoColumn">
+            <div class="colOne">
+                <span 
+                    class="bigCharTile"
+                    style="font-family: ${app.fontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
+                >&#x${charBase};</span>
+            </div>
+            <div class="colTwo">
+                <div class="twoColumn">
+                    <span class="key light">HTML&nbsp;hex&nbsp;entity:</span>
+                    <span class="value"><span class="copyCode">&amp;#x${parseInt(charBase, 16).toString(16)};</span></span>
+
+                    <span class="key light">HTML&nbsp;decimal&nbsp;entity:</span>
+                    <span class="value"><span class="copyCode">&amp;#x${parseInt(charBase, 16)};</span></span>
+
+                    ${entityName?
+                        `<span class="key light">HTML&nbsp;named&nbsp;entity:</span>
+                        <span class="value"><span class="copyCode">&amp;${entityName};</span></span>`
+                        : ''
+                    }
+                </div>
+            </div>
+        </div>
         <br><br>
-        <h3>Related information</h3>
-        <div class="keyvalue">
+        <h3>Unicode information</h3>
+        <div class="twoColumn">
             <span class="key light">Unicode&nbsp;code&nbsp;point:</span>
-            <span class="value"><pre>U+${base}</pre></span>
-
-            <span class="key light">HTML&nbsp;hex&nbsp;entity:</span>
-            <span class="value"><pre>&amp;#x${parseInt(base, 16).toString(16)};</pre></span>
-
-            <span class="key light">HTML&nbsp;decimal&nbsp;entity:</span>
-            <span class="value"><pre>&amp;#x${parseInt(base, 16)};</pre></span>
-
-            ${entityName?
-                `<span class="key light">HTML&nbsp;named&nbsp;entity:</span>
-                <span class="value"><pre>&amp;${entityName};</pre></span>`
-                : ''
-            }
+            <span class="value"><pre>U+${charBase}</pre></span>
 
             <span class="key light">Member&nbsp;of&nbsp;range:</span>
-            <span class="value">${range.name}&emsp;<pre>U+${decToHex(range.begin).substr(2)} - U+${decToHex(range.end).substr(2)}</pre></span>
+            <span class="value">
+                <pre>U+${decToHex(range.begin).substr(2)} - U+${decToHex(range.end).substr(2)}</pre>
+                <span style="vertical-align: bottom; margin:2px; 0px 0px 10px;">${range.name}</span>
+            </span>
+
+            <span class="key light">More&nbsp;Info&nbsp;from&nbsp;Wikipedia:</span>
+            <span class="value">
+                <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
+                    target="_new" 
+                    title="Wikipedia Link">
+                    wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)
+                </a>
+            </span>
+
+            <span class="key light">More&nbsp;Info&nbsp;from&nbsp;Unicode:</span>
+            <span class="value">
+                <a href="https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf" 
+                    target="_new" 
+                    title="Wikipedia Link">
+                    unicode.org/charts/PDF/U${rangeBeginBase}.pdf
+                </a>
+            </span>
         </div>
     `;
 
@@ -384,7 +420,7 @@ function makeCharDetail(char) {
 function openSettingsDialog() {
     openDialog(`
         <h2>Settings</h2>
-        <div class="keyvalue">
+        <div class="twoColumn">
             <span class="key">Character&nbsp;tile&nbsp;font&nbsp;family:</span>
             <span class="value">
                 <select onchange="updateTileFontFamily(this.value);" style="width: 200px;">
@@ -419,7 +455,7 @@ function openInfoDialog() {
         <br><br>
 
         <h3>App Information</h3>
-        <div class="keyvalue">
+        <div class="twoColumn">
             <span class="key light">App&nbsp;Version:</span>
             <span class="value">${app.version}</span>
             

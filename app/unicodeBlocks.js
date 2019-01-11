@@ -1,4 +1,4 @@
-var unicodeBlocks = {
+const unicodeBlocks = {
     'r-0000-001F': {begin: 0x0000, end: 0x001F, name: 'Basic Latin Controls'},
     'r-0020-007F': {begin: 0x0020, end: 0x007F, name: 'Basic Latin'},
     'r-0080-00FF': {begin: 0x0080, end: 0x00FF, name: 'Latin-1 Supplement'},

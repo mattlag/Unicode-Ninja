@@ -1,4 +1,4 @@
-var fullUnicodeNameList = {
+const fullUnicodeNameList = {
 "0x0000":"<control>",
 "0x0001":"<control>",
 "0x0002":"<control>",

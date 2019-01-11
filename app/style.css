@@ -142,20 +142,29 @@ canvas {
 
 #chooser {
     grid-row: 2;
-	grid-column: 1;
+    grid-column: 1;
 	background-color: var(--dark-bg-light);
 	color: var(--dark-text-dark);
 	padding: 20px;
     font-size: 0.9em;
+    display: grid;
+    grid-template-columns: 20px 20px 1fr 1fr 70px;
+    grid-row-gap: 4px;
+    grid-column-gap: 4px;
 	overflow-y: scroll;
+}
+
+.spantwo {
+    grid-column: span 2;
 }
 
 #chooser h2,
 #chooser h3 {
     font-weight: normal;
     font-style: italic;
-    margin: 8px 0px 8px 0px;
     color: var(--dark-text-dark);
+    grid-column-start: 1;
+    grid-column-end: 6;
 }
 
 #chooser label {
@@ -166,10 +175,6 @@ canvas {
 
 #chooser label:hover {
     color: var(--dark-text-light);
-}
-
-#chooser td {
-    padding-bottom: 4px;
 }
 
 .note {
@@ -196,6 +201,12 @@ canvas {
 .group {
     font-size: 1.2em;
     font-style: italic;
+    grid-column: 2 / span 3;
+}
+
+.skiprow {
+    grid-column: 1 / span 5;
+    font-size: 0.2em;
 }
 
 .count {
@@ -204,9 +215,30 @@ canvas {
     color: var(--dark-text-darker);
 }
 
+pre {
+    background-color: var(--light-bg-dark);
+    color: var(--light-text-dark);
+    font-family: monospace;
+    padding: 2px 4px;
+    border-radius: 3px;
+    text-align: center;
+    display: inline-block;
+}
+
+#chooser pre {
+    background-color: var(--dark-bg-dark);
+    color: var(--dark-text-dark);
+}
+
+input[type=checkbox] {
+	
+}
+
 #chooser button {
     background-color: var(--dark-bg-dark);
     color: var(--dark-text-dark);
+    margin: 12px 0px 20px 0px;
+    grid-column: 2 / span 3;
 }
 
 #chooser button:hover {
@@ -228,38 +260,39 @@ canvas {
 #content h3 {
     font-weight: normal;
     font-style: italic;
-    margin: 10px 0px 8px 0px;
     color: var(--light-text-dark);
 }
 
-table,
-tr, 
-td {
-    border-collapse: collapse;
-    /* border: 1px solid gray; */
-}
-
-pre {
-    background-color: var(--light-bg-dark);
-    color: var(--light-text-dark);
-    font-family: monospace;
-    padding: 2px 4px;
-    border-radius: 3px;
-    text-align: center;
+.copyCode {
     display: inline-block;
+    background-color: white;
+    color: var(--light-text-dark);
+    cursor: text;
+    padding: 4px;
+    font-family: monospace;
+    min-width: 80px;
 }
 
-#chooser pre {
-    background-color: var(--dark-bg-dark);
-    color: var(--dark-text-dark);
+.contentCharBlock {
+    margin: 12px 10px 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(17, 48px);
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
 }
 
-input[type=checkbox] {
-	margin: 5px 5px 5px 0px;
+.contentCharBlock .title {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 15;
+    margin-bottom: 4px;
 }
 
-.rangeTable {
-    margin: 0px 10px 20px 0px;
+.contentCharBlock .actions {
+    text-align: right;
+    grid-row: 1;
+    grid-column-start: 15;
+    grid-column-end: 18;
 }
 
 .hex {
@@ -267,7 +300,16 @@ input[type=checkbox] {
     color: var(--light-text-light);
     font-family: monospace;
     padding: 4px;
+    display: table;
     text-align: center;
+}
+
+.hex span {
+    background-color: var(--light-bg-dark);
+    color: var(--light-text-light);
+    display: table-cell;
+    font-family: monospace;
+    vertical-align: middle;
 }
 
 .charTile {
@@ -279,7 +321,6 @@ input[type=checkbox] {
     color: black;
 	text-align: center;
 	line-height: 48px;
-    margin: 0px 1px 1px 0px;
 }
 
 .charTile:hover {
@@ -295,8 +336,8 @@ input[type=checkbox] {
     background-color: white;
     color: black;
 	text-align: center;
-	line-height: 120px;
-    margin: 0px 10px 10px 0px;
+    line-height: 120px;
+    margin-right: 12px;
 }
 
 .bigCharTile:hover {
@@ -313,7 +354,7 @@ input[type=checkbox] {
     border-color: transparent;
 }
 
-.wiki {
+.titleLink {
     font-size: 0.6em;
     font-family: 'Times New Roman', Times, serif;
     opacity: 0.4;
@@ -322,7 +363,7 @@ input[type=checkbox] {
     font-style: normal;
 }
 
-.wiki:hover {
+.titleLink:hover {
     text-decoration: underline;
     opacity: 1;
 }
@@ -360,7 +401,7 @@ input[type=checkbox] {
 #dialogContent h3 {
     color: var(--light-text-lighter);
     font-weight: normal;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
 }
 
 #dialog .actionButton {
@@ -369,22 +410,29 @@ input[type=checkbox] {
     top: -10px;
 }
 
-.keyvalue {
+.twoColumn {
     display: grid;
-    grid-template-columns: 1fr 100%;
+    grid-template-columns: min-content 1fr;
     grid-row-gap: 12px;
     grid-column-gap: 12px;
-    margin-top: 12px;
 }
 
-.key {
-    color: var(--light-text-light);
+.colOne {
     grid-column: 1;
 }
 
-.value {
-    color: var(--light-text-dark);
+.colTwo {
     grid-column: 2;
+}
+
+.key {
+    grid-column: 1;
+    color: var(--light-text-light);
+}
+
+.value {
+    grid-column: 2;
+    color: var(--light-text-dark);
 }
 
 .light {
