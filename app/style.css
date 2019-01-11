@@ -151,7 +151,8 @@ canvas {
     grid-template-columns: 20px 20px 1fr 1fr 70px;
     grid-row-gap: 4px;
     grid-column-gap: 4px;
-	overflow-y: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .spantwo {

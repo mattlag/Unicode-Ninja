@@ -144,7 +144,7 @@ function makeChooser() {
 }
 
 function makeFlatChooser() {
-    let con = '<h2>Unicode</h2>';
+    let con = '<h2>Unicode</h2><div class="skiprow">&nbsp;</div>';
 
     for(let rid in unicodeBlocks){
     if(unicodeBlocks.hasOwnProperty(rid)) {
@@ -186,6 +186,10 @@ function makeGroupedChooser() {
     return `
         <h2>Unicode Scripts</h2>
         ${makeArea(organizedScripts)}
+        <div class="skiprow">&nbsp;</div>
+        <div class="skiprow">&nbsp;</div>
+        <div class="skiprow">&nbsp;</div>
+        <div class="skiprow">&nbsp;</div>
         <h2>Unicode Symbols</h2>
         ${makeArea(organizedSymbols)}
     `;
