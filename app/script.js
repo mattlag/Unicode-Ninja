@@ -1,12 +1,12 @@
 let app = {
-    version: '2.2.1',
-    releaseDate: 1547090000000,
+    version: '2.3.0',
+    releaseDate: 1547240000000,
     rangeCache: {},
     settings: {
         rememberSettings: false,
         selectedTab: 'Grouped',
         selectedRanges: ['r-0020-007F'],
-        fontFamily: 'sans-serif',
+        genericFontFamily: 'sans-serif',
     }
 };
 
@@ -349,7 +349,7 @@ function makeTile(char) {
         con = `
             <div 
                 class="charTile" 
-                style="font-family: ${app.settings.fontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
+                style="font-family: ${app.settings.genericFontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
                 title="${getUnicodeName(char)}\n${char}"
                 onClick="tileClick('${char}');"
             >&#${char.substring(1)};</div>
@@ -382,7 +382,7 @@ function makeCharDetail(char) {
             <div class="colOne">
                 <span 
                     class="bigCharTile"
-                    style="font-family: ${app.settings.fontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
+                    style="font-family: ${app.settings.genericFontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
                 >&#x${charBase};</span>
             </div>
             <div class="colTwo">
@@ -449,14 +449,17 @@ function openSettingsDialog() {
                 />
             </span>
         
-            <span class="key">Character&nbsp;tile&nbsp;font&nbsp;family:</span>
+            <span class="key">Generic&nbsp;character&nbsp;tile&nbsp;font&nbsp;family:</span>
             <span class="value">
-                <select onchange="updateSetting('fontFamily', this.value);" style="width: 200px;">
-                    <option value="sans-serif">sans-serif</option>
+                <select onchange="updateSetting('genericFontFamily', this.value);" style="width: 200px;">
                     <option value="serif">serif</option>
+                    <option value="sans-serif">sans-serif</option>
+                    <option value="monospace">monospace</option>
+                    <option value="system-ui">system-ui</option>
+                    <option value="cursive">cursive</option>
+                    <option value="fantasy">fantasy</option>
                 </select>
             </span>
-
 
         </div>
     `);
@@ -466,7 +469,7 @@ function updateSetting(key, value) {
     console.log(`Setting ${key} to ${value}`);
     app.settings[key] = value;
 
-    if(key === 'fontFamily') {
+    if(key === 'genericFontFamily') {
         app.rangeCache = [];
         redraw(true);
     } if(key === 'rememberSettings' && !value) {
