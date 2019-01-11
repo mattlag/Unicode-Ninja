@@ -149,7 +149,7 @@ canvas {
     font-size: 0.9em;
     display: grid;
     grid-template-columns: 20px 20px 1fr 1fr 70px;
-    grid-row-gap: 4px;
+    grid-row-gap: 6px;
     grid-column-gap: 4px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -168,14 +168,9 @@ canvas {
     grid-column-end: 6;
 }
 
-#chooser label {
-    cursor: pointer;
-    padding: 0px 2px 0px 0px;
-    width: 100vw;
-}
-
 #chooser label:hover {
     color: var(--dark-text-light);
+    cursor: pointer;
 }
 
 .note {
@@ -229,10 +224,6 @@ pre {
 #chooser pre {
     background-color: var(--dark-bg-dark);
     color: var(--dark-text-dark);
-}
-
-input[type=checkbox] {
-	
 }
 
 #chooser button {
@@ -434,6 +425,7 @@ input[type=checkbox] {
 .value {
     grid-column: 2;
     color: var(--light-text-dark);
+    text-align: left;
 }
 
 .light {
