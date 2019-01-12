@@ -11,6 +11,7 @@
     --light-bg-darker: hsl(210, 5%, 60%);
     --light-bg-dark: hsl(210, 5%, 80%);
     --light-bg-light: hsl(210, 5%, 90%);
+    --light-bg-lighter: hsl(210, 5%, 95%);
     --light-text-dark: hsl(210, 5%, 5%);
     --light-text-light: hsl(210, 5%, 10%);
     --light-text-lighter: hsl(210, 5%, 20%);
@@ -50,7 +51,7 @@ canvas {
 
 #wrapper {
     display: grid;
-	grid-template-columns: 500px 1fr;
+	grid-template-columns: min-content 1fr;
 	background-color: var(--dark-bg-dark);
 	height: 100vh;
 	max-height: 100vh;
@@ -257,23 +258,29 @@ pre {
     font-size: 1.5em;
     width: 30px;
     text-align: center;
-    color: var(--dark-bg-light);
+    color: var(--light-bg-dark);
 }
 
 #searchInput {
     font-size: 1.1em;
     color: var(--light-text-dark);
     border: 0px;
+    margin-left: 4px;
 }
 
 .charSearchBar .actionButton {
     margin: 4px 4px 0px 0px;
+    background-color: white;
+}
+
+.charSearchBar .actionButton:hover {
+    background-color: var(--light-accent-light);
 }
 
 .charSearchResults {
     display: grid;
-    grid-template-columns: 48px 1fr 1fr;
-    grid-column-gap: 10px;
+    grid-template-columns: 24px 1fr 1fr;
+    grid-column-gap: 2px;
     grid-row-gap: 2px;
 }
 
@@ -283,10 +290,14 @@ pre {
 
 .charSearchResults .charName {
     grid-column: 2;
+    background-color: var(--light-bg-lighter);
+    padding: 4px 0px 0px 4px;
 }
 
 .charSearchResults .rangeName {
     grid-column: 3;
+    background-color: var(--light-bg-lighter);
+    padding: 4px 0px 0px 4px;
 }
 
 #content {
@@ -356,14 +367,10 @@ pre {
 }
 
 .charTile {
-	min-width: 48px;
-    height: 48px;
-    font-size: 28px;
     border: 1px solid white;
     background-color: white;
     color: black;
 	text-align: center;
-	line-height: 48px;
 }
 
 .charTile:hover {
@@ -371,20 +378,32 @@ pre {
     border-color: var(--light-accent-light);
 }
 
-.bigCharTile {
+.charTile.small {
+    min-width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 22px;
+}
+
+.charTile.medium {
+    min-width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 28px;    
+}
+
+.charTile.large {
     display: inline-block;
     height: 120px;
     min-width: 120px;
     font-size: 96px;
-    background-color: white;
-    color: black;
-	text-align: center;
     line-height: 120px;
     margin-right: 12px;
 }
 
-.bigCharTile:hover {
+.charTile.large:hover {
     cursor: text;
+    border-color: white;
 }
 
 .noChar {

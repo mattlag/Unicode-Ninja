@@ -38,15 +38,13 @@ function makeRangeContent(rid) {
                 <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
                     target="_new" 
                     title="Wikipedia Link"
-                    class="titleLink">
-                    Wikipedia
-                    </a>
-                    <a href="https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf" 
+                    class="titleLink"
+                >Wikipedia</a>
+                <a href="https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf" 
                     target="_new" 
                     title="Unicode Link" 
-                    class="titleLink">
-                    Unicode
-                </a>
+                    class="titleLink"
+                >Unicode</a>
             </h3>
             <div class="actions">
                 ${makeCloseButton(`clickRangeClose('${rid}');`)}
@@ -91,17 +89,18 @@ function clickRangeClose(rid) {
     redraw();
 }
 
-function makeTile(char) {
+function makeTile(char, size) {
+    size = size || 'medium';
     let name = getUnicodeName(char);
-    let con = `<div class="charTile noChar" title="No character encoded\nat this code point">&nbsp;</div>`;
+    let con = `<div class="charTile ${size} noChar" title="No character encoded\nat this code point">&nbsp;</div>`;
 
     if(name !== '{{no name found}}'){
         con = `
             <div 
-                class="charTile" 
+                class="charTile ${size}" 
                 style="font-family: ${app.settings.genericFontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
                 title="${getUnicodeName(char)}\n${char}"
-                onClick="tileClick('${char}');"
+                ${size !== 'large'? `onClick="tileClick('${char}');"` : ''}
             >&#${char.substring(1)};</div>
         `;
     }
@@ -130,10 +129,7 @@ function makeCharDetail(char) {
         <h2>${unicodeName}</h2>
         <div class="twoColumn">
             <div class="colOne">
-                <span 
-                    class="bigCharTile"
-                    style="font-family: ${app.settings.genericFontFamily};${unicodeName === '&lt;control>'? ' color: #EEE;"' : '"'} 
-                >&#x${charBase};</span>
+                ${makeTile(char, 'large')}
             </div>
             <div class="colTwo">
                 <div class="twoColumn">
@@ -203,7 +199,9 @@ function makeCharSearchBar() {
             type="text" 
             id="searchInput" 
             value="${app.settings.charSearch}" 
-            onchange="updateCharSearch(this.value);"
+            onkeyup="updateCharSearch(this.value);"
+            onfocus="appFocus('searchInput');"
+            onblur="appFocus(false);"
         />
         ${makeCloseButton('clearSearch();')}
     </div>
@@ -217,17 +215,32 @@ function clearSearch() {
 }
 
 function makeCharSearchResults() {
+    console.time('makeCharSearchResults');
     let results = searchCharNames(app.settings.charSearch);
     let con = '<br/>';
-    // console.log(results);
-    con += `<h2>${results.length} results</h2><br>`;
-    con += '<div class="charSearchResults">';
+    let isMaxed = results.length === app.maxSearchResults;
+    con += 
+    `<h2>
+        ${isMaxed? 'Showing the first ' : ''}
+        ${results.length} results
+    </h2>
+    <br>`;
+
+    con += `
+        <div class="charSearchResults">
+            <div class="hex">&nbsp;</div>
+            <div class="hex">character name</div>
+            <div class="hex">range name</div>
+    `;
     results.map(function(value) {
-        con += makeTile(value.char);
-        con += `<div class="charName">${value.result}</div>`;
-        con += `<div class="rangeName">${getRangeForChar(value.char).name}</div>`;
+        con += `
+            ${makeTile(value.char, 'small')}
+            <div class="charName">${value.result}</div>
+            <div class="rangeName">${getRangeForChar(value.char).name}</div>
+        `;
     });
     con += '</div>';
+    console.timeEnd('makeCharSearchResults');
     return con;
 }
 
@@ -239,7 +252,6 @@ function updateCharSearch(term) {
 
 function searchCharNames(term) {
     term = term.toUpperCase();
-    let max = Infinity;
     let count = 0;
     let currName;
     let currPos;
@@ -248,7 +260,7 @@ function searchCharNames(term) {
 
     console.time('charNameSearch');
     for(let point in fullUnicodeNameList) {
-        if(count < max) {
+        if(count < app.maxSearchResults) {
             if(fullUnicodeNameList.hasOwnProperty(point)) {
                 currName = fullUnicodeNameList[point];
                 currPos = currName.indexOf(term);
@@ -267,11 +279,11 @@ function searchCharNames(term) {
                 }
             }
         } else {
+            console.timeEnd('charNameSearch');
             return results;
         }
     }
     console.timeEnd('charNameSearch');
-
     return results;
 }
 

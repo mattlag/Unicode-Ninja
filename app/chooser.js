@@ -7,6 +7,24 @@ function makeChooser() {
     return con;
 }
 
+function selectTab(tab) {
+    app.settings.selectedTab = tab;
+    redraw();
+}
+
+function makeTabs() {
+    let grouped = app.settings.selectedTab === 'Grouped';
+
+    return `
+        <button class="${grouped? 'selected' : ''}" onclick="selectTab('Grouped');">
+            Grouped
+        </button>
+        <button class="${grouped? '' : 'selected'}" onclick="selectTab('Sorted');">
+            Sorted
+        </button>
+    `;
+}
+
 function makeFlatChooser() {
     let con = '<h2>Unicode</h2><div class="skiprow">&nbsp;</div>';
 
@@ -65,12 +83,23 @@ function makeSingleRangeRow(rid, name, indent, group) {
     
     let cbid = `checkbox_${group? 'g_' : ''}${name.replace(/ /gi, '_')}`;
     let range = getRange(rid) || false;
-    let labelName = name.replace(/Extended/gi, 'Ext').replace(/Unified/gi, '').replace(/ /gi, '&nbsp;')
+
+    let labelName = name;
+    labelName = labelName.replace(/Extended/gi, 'Ext.');
+    labelName = labelName.replace(/Miscellaneous/gi, 'Misc.');
+    labelName = labelName.replace(/Supplemental/gi, 'Supp.');
+    labelName = labelName.replace(/Supplement/gi, 'Supp.');
+    labelName = labelName.replace(/Unified/gi, 'Uni.');
+    labelName = labelName.replace(/Characters/gi, 'Chars.');
+    labelName = labelName.replace(/Combining/gi, 'Combo.');
+    labelName = labelName.replace(/Canadian/gi, 'Can.');
+    labelName = labelName.replace(/ /gi, '&nbsp;');
 
     function makeCheckbox() {
         return `<input 
             type="checkbox" 
             id="${cbid}" 
+            title="${name}" 
             data-range="${rid}" 
             onchange='checkboxOnChange(this);'  
             ${isRangeSelected(rid)? 'checked' : ''}
@@ -80,9 +109,11 @@ function makeSingleRangeRow(rid, name, indent, group) {
     if(group) {
         return `
             ${makeCheckbox()}
-            <label for="${cbid}" class="group">
-                ${labelName}
-            </label>
+            <label 
+                for="${cbid}" 
+                title="${name}"  
+                class="group"
+            >${labelName}</label>
         `;
     } else {
         return `
@@ -90,9 +121,11 @@ function makeSingleRangeRow(rid, name, indent, group) {
             
             ${makeCheckbox()}
             
-            <label for="${cbid}" ${indent? '': ' class="spantwo"'}>
-                ${labelName}
-            </label>
+            <label 
+                for="${cbid}" 
+                ${indent? '': ' class="spantwo"'}
+                title="${name}" 
+            >${labelName}</label>
 
             <div class="count" title="Character count">
                 ${(range && range.nonstandard)? '<div class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</div>' : ''}

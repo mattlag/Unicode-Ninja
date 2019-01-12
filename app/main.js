@@ -2,6 +2,8 @@ let app = {
     version: '2.3.0',
     releaseDate: 1547240000000,
     rangeCache: {},
+    focusID: false,
+    maxSearchResults: 1000,
     settings: {
         charSearch: '',
         rememberSettings: false,
@@ -132,24 +134,19 @@ function redraw(onlyContent) {
     !onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
     !onlyContent? document.getElementById('chooser').innerHTML = makeChooser() : false;
     document.getElementById('content').innerHTML = makeContent();
+    
+    if(app.focusID){
+        let elem = document.getElementById(app.focusID);
+        let value = elem.value;
+        elem.focus();
+        elem.value = '';
+        elem.value = value;
+    }
 }
 
-function makeTabs() {
-    let grouped = app.settings.selectedTab === 'Grouped';
-
-    return `
-        <button class="${grouped? 'selected' : ''}" onclick="selectTab('Grouped');">
-            Grouped
-        </button>
-        <button class="${grouped? '' : 'selected'}" onclick="selectTab('Sorted');">
-            Sorted
-        </button>
-    `;
-}
-
-function selectTab(tab) {
-    app.settings.selectedTab = tab;
-    redraw();
+function appFocus(id) {
+    app.focusID = id;
+    console.log(`Focused on ${app.focusID}`);
 }
 
 function openSettingsDialog() {
