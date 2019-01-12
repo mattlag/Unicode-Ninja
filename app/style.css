@@ -238,6 +238,33 @@ pre {
     color: var(--dark-text-light);
 }
 
+
+/*
+    Content
+*/
+
+.charSearchBar {
+    background-color: white;
+    border-radius: 3px;
+    padding: 4px;
+    display: grid;
+    grid-template-columns: 30px max-content 20px;
+}
+
+.searchIcon {
+    transform: rotate(45deg);
+    font-size: 1.5em;
+    width: 30px;
+    text-align: center;
+    color: var(--dark-bg-light);
+}
+
+#searchInput {
+    font-size: 1.1em;
+    color: var(--light-text-dark);
+    border: 0px;
+}
+
 #content {
     grid-row: 2;
 	grid-column: 2;
@@ -358,6 +385,10 @@ pre {
 .titleLink:hover {
     text-decoration: underline;
     opacity: 1;
+}
+
+.highlight {
+    background-color: rgba(255, 255, 0, 0.5);
 }
 
 #dialog {

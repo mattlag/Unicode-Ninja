@@ -263,8 +263,8 @@ let organizedSymbols = {
     },
 
     'Emoji &amp; Pictographs': {
-        'Dingbats': 'r-2700-27BF',
         'Miscellaneous Symbols': 'r-2600-26FF',
+        'Dingbats': 'r-2700-27BF',
     },
 
     'Other Symbols': {
