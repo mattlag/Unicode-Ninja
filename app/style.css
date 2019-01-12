@@ -248,7 +248,8 @@ pre {
     border-radius: 3px;
     padding: 4px;
     display: grid;
-    grid-template-columns: 30px max-content 20px;
+    width: 360px;
+    grid-template-columns: 30px 300px 20px;
 }
 
 .searchIcon {
@@ -263,6 +264,29 @@ pre {
     font-size: 1.1em;
     color: var(--light-text-dark);
     border: 0px;
+}
+
+.charSearchBar .actionButton {
+    margin: 4px 4px 0px 0px;
+}
+
+.charSearchResults {
+    display: grid;
+    grid-template-columns: 48px 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 2px;
+}
+
+.charSearchResults .charTile {
+    grid-column: 1;
+}
+
+.charSearchResults .charName {
+    grid-column: 2;
+}
+
+.charSearchResults .rangeName {
+    grid-column: 3;
 }
 
 #content {

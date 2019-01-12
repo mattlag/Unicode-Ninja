@@ -203,7 +203,7 @@ function makeCharSearchBar() {
             type="text" 
             id="searchInput" 
             value="${app.settings.charSearch}" 
-            onkeyup="updateCharSearch(this.value);"
+            onchange="updateCharSearch(this.value);"
         />
         ${makeCloseButton('clearSearch();')}
     </div>
@@ -219,13 +219,15 @@ function clearSearch() {
 function makeCharSearchResults() {
     let results = searchCharNames(app.settings.charSearch);
     let con = '<br/>';
-    console.log(results);
-
+    // console.log(results);
+    con += `<h2>${results.length} results</h2><br>`;
+    con += '<div class="charSearchResults">';
     results.map(function(value) {
-        con += value.result;
-        con += '<br/>';
+        con += makeTile(value.char);
+        con += `<div class="charName">${value.result}</div>`;
+        con += `<div class="rangeName">${getRangeForChar(value.char).name}</div>`;
     });
-
+    con += '</div>';
     return con;
 }
 
@@ -237,13 +239,14 @@ function updateCharSearch(term) {
 
 function searchCharNames(term) {
     term = term.toUpperCase();
-    let max = 10;
+    let max = Infinity;
     let count = 0;
     let currName;
     let currPos;
     let results = [];
     let currResult;
 
+    console.time('charNameSearch');
     for(let point in fullUnicodeNameList) {
         if(count < max) {
             if(fullUnicodeNameList.hasOwnProperty(point)) {
@@ -267,6 +270,30 @@ function searchCharNames(term) {
             return results;
         }
     }
+    console.timeEnd('charNameSearch');
 
     return results;
+}
+
+function findLongestName() {
+    let max = 0;
+    let result = [];
+    let currName = '';
+
+    console.time('name');
+    for(let point in fullUnicodeNameList) {
+        if(fullUnicodeNameList.hasOwnProperty(point)) {
+            currName = fullUnicodeNameList[point];
+            if(!result[currName.length]) result[currName.length] = 1;
+            else result[currName.length]++
+
+            // if(currName.length > max) {
+            //     max = currName.length;
+            //     result.push({length: max, char: point, name: currName});
+            // }
+        }
+    }
+    console.timeEnd('name');
+
+    return result;
 }
