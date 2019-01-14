@@ -8,6 +8,9 @@ function makeContent() {
         con += makeCharSearchResults();
     
     } else {
+        // closing div for searchStatus area
+        con += '</div>';
+
         for(let s=0; s<app.settings.selectedRanges.length; s++){
             con += getRangeContent(app.settings.selectedRanges[s]);
         }
@@ -99,7 +102,7 @@ function makeTile(char, size) {
             <div 
                 class="charTile ${size}" 
                 style="font-family: ${app.settings.genericFontFamily};${name === '<control>'? ' color: #EEE;"' : '"'} 
-                title="${getUnicodeName(char)}\n${char}"
+                title="${getUnicodeName(char)}\n${char.replace('0x', 'U+')}"
                 ${size !== 'large'? `onClick="tileClick('${char}');"` : ''}
             >&#${char.substring(1)};</div>
         `;
@@ -133,14 +136,14 @@ function makeCharDetail(char) {
             </div>
             <div class="colTwo">
                 <div class="twoColumn">
-                    <span class="key light">HTML&nbsp;hex&nbsp;entity:</span>
+                    <span class="key light">${nbsp('HTML hex entity:')}</span>
                     <span class="value"><span class="copyCode">&amp;#x${parseInt(charBase, 16).toString(16)};</span></span>
 
-                    <span class="key light">HTML&nbsp;decimal&nbsp;entity:</span>
+                    <span class="key light">${nbsp('HTML decimal entity:')}</span>
                     <span class="value"><span class="copyCode">&amp;#x${parseInt(charBase, 16)};</span></span>
 
                     ${entityName?
-                        `<span class="key light">HTML&nbsp;named&nbsp;entity:</span>
+                        `<span class="key light">${nbsp('HTML named entity:')}</span>
                         <span class="value"><span class="copyCode">&amp;${entityName};</span></span>`
                         : ''
                     }
@@ -150,16 +153,16 @@ function makeCharDetail(char) {
         <br><br>
         <h3>Unicode information</h3>
         <div class="twoColumn">
-            <span class="key light">Unicode&nbsp;code&nbsp;point:</span>
+            <span class="key light">${nbsp('Unicode code point:')}</span>
             <span class="value"><pre>U+${charBase}</pre></span>
 
-            <span class="key light">Member&nbsp;of&nbsp;range:</span>
+            <span class="key light">${nbsp('Member of range:')}</span>
             <span class="value">
                 <pre>U+${decToHex(range.begin).substr(2)} - U+${decToHex(range.end).substr(2)}</pre>
                 <span style="vertical-align: bottom; margin:2px; 0px 0px 10px;">${range.name}</span>
             </span>
 
-            <span class="key light">More&nbsp;Info&nbsp;from&nbsp;Wikipedia:</span>
+            <span class="key light">${nbsp('More Info from Wikipedia:')}</span>
             <span class="value">
                 <a href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)" 
                     target="_new" 
@@ -168,7 +171,7 @@ function makeCharDetail(char) {
                 </a>
             </span>
 
-            <span class="key light">More&nbsp;Info&nbsp;from&nbsp;Unicode:</span>
+            <span class="key light">${nbsp('More Info from Unicode:')}</span>
             <span class="value">
                 <a href="https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf" 
                     target="_new" 
@@ -192,19 +195,21 @@ function tileClick(char) {
 //
 
 function makeCharSearchBar() {
+    // leave charSearchBar div open for searchStatus div in the grid
     return `
     <div class="charSearchBar">
-        <span class="searchIcon">⚲</span>
-        <input 
-            type="text" 
-            id="searchInput" 
-            value="${app.settings.charSearch}" 
-            onkeyup="updateCharSearch(this.value);"
-            onfocus="appFocus('searchInput');"
-            onblur="appFocus(false);"
-        />
-        ${makeCloseButton('clearSearch();')}
-    </div>
+        <div class="charSearchInputGroup">
+            <span class="searchIcon">⚲</span>
+            <input 
+                type="text" 
+                id="searchInput" 
+                value="${app.settings.charSearch}" 
+                onkeyup="updateCharSearch(this.value);"
+                onfocus="appFocus('searchInput');"
+                onblur="appFocus(false);"
+            />
+            ${makeCloseButton('clearSearch();')}
+        </div>
     `;
 }
 
@@ -215,32 +220,38 @@ function clearSearch() {
 }
 
 function makeCharSearchResults() {
-    console.time('makeCharSearchResults');
+    // console.time('makeCharSearchResults');
     let results = searchCharNames(app.settings.charSearch);
-    let con = '<br/>';
-    let isMaxed = results.length === app.maxSearchResults;
+    let con = '';
+    let isMaxed = results.length === parseInt(app.settings.maxSearchResults);
+    
+    // Close extra div from charSearchBar grid
     con += 
-    `<h2>
-        ${isMaxed? 'Showing the first ' : ''}
-        ${results.length} results
-    </h2>
-    <br>`;
+        `<div class="charSearchStatus">
+            ${isMaxed? 'Showing the first ' : ''}
+            ${results.length} result${results.length > 1? 's' : ''}
+        </div>
+    </div>`;
 
     con += `
         <div class="charSearchResults">
-            <div class="hex">&nbsp;</div>
-            <div class="hex">character name</div>
-            <div class="hex">range name</div>
+            <div class="columnHeader">&nbsp;</div>
+            <div class="columnHeader">${nbsp('character name')}</div>
+            <div class="columnHeader">${nbsp('code point')}</div>
+            <div class="columnHeader">${nbsp('range name')}</div>
     `;
     results.map(function(value) {
         con += `
+        <div class="rowWrapper" onclick="tileClick('${decToHex(value.char)}');">
             ${makeTile(value.char, 'small')}
-            <div class="charName">${value.result}</div>
-            <div class="rangeName">${getRangeForChar(value.char).name}</div>
+            <div class="charName">${nbsp(value.result)}</div>
+            <div class="codePoint"><pre>${value.char.replace('0x', 'U+')}</pre></div>
+            <div class="rangeName">${nbsp(getRangeForChar(value.char).name)}</div>
+        </div>
         `;
     });
     con += '</div>';
-    console.timeEnd('makeCharSearchResults');
+    // console.timeEnd('makeCharSearchResults');
     return con;
 }
 
@@ -258,9 +269,9 @@ function searchCharNames(term) {
     let results = [];
     let currResult;
 
-    console.time('charNameSearch');
+    // console.time('charNameSearch');
     for(let point in fullUnicodeNameList) {
-        if(count < app.maxSearchResults) {
+        if(count < app.settings.maxSearchResults) {
             if(fullUnicodeNameList.hasOwnProperty(point)) {
                 currName = fullUnicodeNameList[point];
                 currPos = currName.indexOf(term);
@@ -279,11 +290,11 @@ function searchCharNames(term) {
                 }
             }
         } else {
-            console.timeEnd('charNameSearch');
+            // console.timeEnd('charNameSearch');
             return results;
         }
     }
-    console.timeEnd('charNameSearch');
+    // console.timeEnd('charNameSearch');
     return results;
 }
 
@@ -292,7 +303,7 @@ function findLongestName() {
     let result = [];
     let currName = '';
 
-    console.time('name');
+    // console.time('name');
     for(let point in fullUnicodeNameList) {
         if(fullUnicodeNameList.hasOwnProperty(point)) {
             currName = fullUnicodeNameList[point];
@@ -305,7 +316,7 @@ function findLongestName() {
             // }
         }
     }
-    console.timeEnd('name');
+    // console.timeEnd('name');
 
     return result;
 }

@@ -1,12 +1,12 @@
 let app = {
-    version: '2.3.0',
-    releaseDate: 1547240000000,
+    version: '2.4.0',
+    releaseDate: 1547490000000,
     rangeCache: {},
     focusID: false,
-    maxSearchResults: 1000,
     settings: {
         charSearch: '',
         rememberSettings: false,
+        maxSearchResults: 1000,
         selectedTab: 'Grouped',
         selectedRanges: ['r-0020-007F'],
         genericFontFamily: 'sans-serif',
@@ -146,14 +146,14 @@ function redraw(onlyContent) {
 
 function appFocus(id) {
     app.focusID = id;
-    console.log(`Focused on ${app.focusID}`);
+    // console.log(`Focused on ${app.focusID}`);
 }
 
 function openSettingsDialog() {
     openDialog(`
         <h2>Settings</h2>
         <div class="twoColumn">
-            <span class="key">Remember&nbsp;app&nbsp;settings:</span>
+            <span class="key">${nbsp('Remember app settings:')}</span>
             <span class="value">
                 <input 
                     type="checkbox" 
@@ -162,7 +162,7 @@ function openSettingsDialog() {
                 />
             </span>
         
-            <span class="key">Generic&nbsp;character&nbsp;tile&nbsp;font&nbsp;family:</span>
+            <span class="key">${nbsp('Generic character tile font family:')}</span>
             <span class="value">
                 <select onchange="updateSetting('genericFontFamily', this.value);" style="width: 200px;">
                     <option value="serif">serif</option>
@@ -174,12 +174,17 @@ function openSettingsDialog() {
                 </select>
             </span>
 
+            <span class="key">${nbsp('Maximum search results:')}</span>
+            <span class="value">
+                <input type="number" value="${app.settings.maxSearchResults}" onchange="updateSetting('maxSearchResults', this.value);"/>
+            </span>
+
         </div>
     `);
 }
 
 function updateSetting(key, value) {
-    console.log(`Setting ${key} to ${value}`);
+    // console.log(`Setting ${key} to ${value}`);
     app.settings[key] = value;
 
     if(key === 'genericFontFamily') {
@@ -188,7 +193,7 @@ function updateSetting(key, value) {
     } if(key === 'rememberSettings' && !value) {
         window.localStorage.removeItem('unicode.ninja');
         window.localStorage.clear();
-        console.log('cleared local storage');
+        // console.log('cleared local storage');
     }
 
     saveSettings();
@@ -212,13 +217,13 @@ function openInfoDialog() {
 
         <h3>App Information</h3>
         <div class="twoColumn">
-            <span class="key light">App&nbsp;Version:</span>
+            <span class="key light">${nbsp('App Version:')}</span>
             <span class="value">${app.version}</span>
             
-            <span class="key light">App&nbsp;released&nbsp;on:</span>
+            <span class="key light">${nbsp('App released on:')}</span>
             <span class="value">${new Date(app.releaseDate).toLocaleDateString()}</span>
             
-            <span class="key light">Unicode&nbsp;data&nbsp;version:</span>
+            <span class="key light">${nbsp('Unicode data version:')}</span>
             <span class="value">v11.0.0 - 2018 June 5th</span>
         </div>
     `);
@@ -321,6 +326,10 @@ function getUnicodeName(c) {
     } else {
         return c;
     }
+}
+
+function nbsp(text) {
+    return text.replace(/ /gi, '&nbsp;');
 }
 
 function getShipDate(){

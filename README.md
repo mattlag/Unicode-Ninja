@@ -3,7 +3,7 @@ Easily explore the Unicode Basic Multilingual Plane - 137,374 characters of exci
 
 Useful for typeface designers, or regular humans looking for funky glyphs.
 
-The idea is to have quick access to informationa about characters you know about, and 
+The idea is to have quick access to information about characters you know about, and 
 easily discover characters you don't know about.
 
 ## Use the tool at: [http://unicode.ninja](http://unicode.ninja)
@@ -16,6 +16,3 @@ Copyright (C) 2019 Matthew LaGrandeur, released under [GPL 3.0](https://www.gnu.
 |---|
 | [Matthew LaGrandeur](http://mattlag.com/) |
 | matt[at]mattlag[dot]com |
-
-
-

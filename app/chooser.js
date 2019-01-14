@@ -93,7 +93,7 @@ function makeSingleRangeRow(rid, name, indent, group) {
     labelName = labelName.replace(/Characters/gi, 'Chars.');
     labelName = labelName.replace(/Combining/gi, 'Combo.');
     labelName = labelName.replace(/Canadian/gi, 'Can.');
-    labelName = labelName.replace(/ /gi, '&nbsp;');
+    labelName = nbsp(labelName);
 
     function makeCheckbox() {
         return `<input 

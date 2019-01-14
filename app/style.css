@@ -245,6 +245,12 @@ pre {
 */
 
 .charSearchBar {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    margin-bottom: 20px;
+}
+
+.charSearchInputGroup {
     background-color: white;
     border-radius: 3px;
     padding: 4px;
@@ -252,8 +258,7 @@ pre {
     width: 360px;
     grid-template-columns: 30px 300px 20px;
 }
-
-.searchIcon {
+.charSearchInputGroup .searchIcon {
     transform: rotate(45deg);
     font-size: 1.5em;
     width: 30px;
@@ -261,16 +266,23 @@ pre {
     color: var(--light-bg-dark);
 }
 
-#searchInput {
+.charSearchInputGroup #searchInput {
     font-size: 1.1em;
     color: var(--light-text-dark);
     border: 0px;
     margin-left: 4px;
 }
 
-.charSearchBar .actionButton {
+.charSearchInputGroup .actionButton {
     margin: 4px 4px 0px 0px;
     background-color: white;
+}
+
+.charSearchBar .charSearchStatus {
+    width: max-content;
+    color: var(--light-text-lighter);
+    font-style: italic;
+    padding: 12px 0px 0px 12px;
 }
 
 .charSearchBar .actionButton:hover {
@@ -279,25 +291,57 @@ pre {
 
 .charSearchResults {
     display: grid;
-    grid-template-columns: 24px 1fr 1fr;
+    grid-template-columns: 28px 1fr 1fr 1fr;
     grid-column-gap: 2px;
     grid-row-gap: 2px;
+    width: min-content;
+}
+
+.charSearchResults .columnHeader {
+    background-color: var(--light-bg-dark);
+    color: var(--light-text-lighter);
+    padding: 8px 8px 8px 4px;
+    font-style: italic;
+}
+
+.charSearchResults .rowWrapper {
+    display: contents;
+}
+
+.charSearchResults .rowWrapper {
+    border: 1px solid transparent;
+}
+
+.charSearchResults .rowWrapper:hover {
+    border: 1px solid var(--light-accent);
+    cursor: pointer;
+}
+
+.charSearchResults .rowWrapper:hover * {
+    cursor: pointer;
+    background-color: white;
 }
 
 .charSearchResults .charTile {
+    max-width: 28px;
     grid-column: 1;
 }
 
 .charSearchResults .charName {
     grid-column: 2;
     background-color: var(--light-bg-lighter);
-    padding: 4px 0px 0px 4px;
+    padding: 4px 8px 0px 4px;
+}
+
+.charSearchResults .codePoint {
+    background-color: var(--light-bg-lighter);
+    grid-column: 3;
 }
 
 .charSearchResults .rangeName {
-    grid-column: 3;
+    grid-column: 4;
     background-color: var(--light-bg-lighter);
-    padding: 4px 0px 0px 4px;
+    padding: 4px 8px 0px 4px;
 }
 
 #content {
@@ -379,10 +423,10 @@ pre {
 }
 
 .charTile.small {
-    min-width: 24px;
-    height: 24px;
-    line-height: 24px;
-    font-size: 22px;
+    min-width: 28px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 24px;
 }
 
 .charTile.medium {
