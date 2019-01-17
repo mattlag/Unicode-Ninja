@@ -1,6 +1,6 @@
 let app = {
-    version: '2.4.0',
-    releaseDate: 1547490000000,
+    version: '2.4.1',
+    releaseDate: 1547720000000,
     rangeCache: {},
     focusID: false,
     settings: {

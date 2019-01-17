@@ -244,7 +244,7 @@ function makeCharSearchResults() {
         con += `
         <div class="rowWrapper" onclick="tileClick('${decToHex(value.char)}');">
             ${makeTile(value.char, 'small')}
-            <div class="charName">${nbsp(value.result)}</div>
+            <div class="charName">${value.result}</div>
             <div class="codePoint"><pre>${value.char.replace('0x', 'U+')}</pre></div>
             <div class="rangeName">${nbsp(getRangeForChar(value.char).name)}</div>
         </div>
@@ -277,13 +277,9 @@ function searchCharNames(term) {
                 currPos = currName.indexOf(term);
 
                 if(currPos > -1) {
-                    currResult = '<span>';
-                    currResult += currName.substring(0, currPos);
-                    currResult += '</span><span class="highlight">';
-                    currResult += term;
-                    currResult += '</span><span>';
-                    currResult += currName.substring(currPos + term.length);
-                    currResult += '</span>';
+                    currResult = `<span>${nbsp(currName.substring(0, currPos))}</span>`;
+                    currResult += `<span class="highlight">${nbsp(term)}</span>`;
+                    currResult += `<span>${nbsp(currName.substring(currPos + term.length))}</span>`;
                     
                     results.push({char: point, result: currResult});
                     count++;
