@@ -43,6 +43,7 @@ button {
 button:hover,
 a:hover {
     cursor: pointer;
+    color: var(--light-accent);
 }
 
 canvas {
@@ -291,7 +292,7 @@ pre {
 
 .charSearchResults {
     display: grid;
-    grid-template-columns: 28px 1fr 1fr 1fr;
+    grid-template-columns: 28px repeat(100, 1fr);
     grid-column-gap: 2px;
     grid-row-gap: 2px;
     width: min-content;
@@ -302,46 +303,51 @@ pre {
     color: var(--light-text-lighter);
     padding: 8px 8px 8px 4px;
     font-style: italic;
+    font-size: 0.6em;
 }
 
 .charSearchResults .rowWrapper {
     display: contents;
 }
 
-.charSearchResults .rowWrapper {
+.charSearchResults .rowWrapper div {
     border: 1px solid transparent;
+    background-color: var(--light-bg-lighter);
+    display: table-cell;
+    vertical-align: middle;
+    max-height: 28px;
 }
 
-.charSearchResults .rowWrapper:hover {
-    border: 1px solid var(--light-accent);
-    cursor: pointer;
+.charSearchResults .rowWrapper:hover div {
+    background-color: white;
+    border: 1px solid var(--light-accent-light);
 }
 
 .charSearchResults .rowWrapper:hover * {
     cursor: pointer;
-    background-color: white;
 }
 
 .charSearchResults .charTile {
+    padding: 0 !important;
+    background-color: white !important;
     max-width: 28px;
     grid-column: 1;
 }
 
-.charSearchResults .charName {
-    grid-column: 2;
-    background-color: var(--light-bg-lighter);
-    padding: 4px 8px 0px 4px;
+.charSearchResults .charName,
+.charSearchResults .rangeName {
+    padding: 4px 4px 0px 8px;
 }
 
 .charSearchResults .codePoint {
-    background-color: var(--light-bg-lighter);
-    grid-column: 3;
+    padding: 1px 4px 0px 4px;
 }
 
-.charSearchResults .rangeName {
-    grid-column: 4;
-    background-color: var(--light-bg-lighter);
-    padding: 4px 8px 0px 4px;
+.charSearchResults .charFavorite,
+.charSearchResults .charFavorite:hover {
+    padding: 1px 4px 0px 4px;
+    border: 1px solid transparent !important;
+    background-color: var(--light-bg-lighter) !important;
 }
 
 #content {
@@ -552,4 +558,25 @@ pre {
 
 select {
     padding: 2px 0px 2px 2px;
+}
+
+.favorite,
+.addFavorite {
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+.favorite {
+    border-color: hsl(55, 67%, 67%);
+    background-color: hsl(55, 100%, 90%);
+    color: hsl(40, 50%, 50%);
+}
+
+.addFavorite {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.addFavorite:hover {
+    color: hsl(55, 100%, 30%);
 }

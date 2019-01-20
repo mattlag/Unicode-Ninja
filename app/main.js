@@ -10,6 +10,7 @@ let app = {
         selectedTab: 'Grouped',
         selectedRanges: ['r-0020-007F'],
         genericFontFamily: 'sans-serif',
+        favorites: [],
     }
 };
 
@@ -329,7 +330,9 @@ function getUnicodeName(c) {
 }
 
 function nbsp(text) {
-    return text.replace(/ /gi, '&nbsp;');
+    text = text.replace(/ /gi, '&nbsp;'); // Non-breaking space
+    text = text.replace(/-/gi, '&#8209;'); // Non-breaking hyphen
+    return text;
 }
 
 function getShipDate(){

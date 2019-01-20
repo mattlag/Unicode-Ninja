@@ -130,6 +130,10 @@ function makeCharDetail(char) {
 
     let con = `
         <h2>${unicodeName}</h2>
+        <span id="fav_${char}">
+            ${makeFavoriteButton(char)}
+        </span>
+        <br><br>
         <div class="twoColumn">
             <div class="colOne">
                 ${makeTile(char, 'large')}
@@ -140,7 +144,7 @@ function makeCharDetail(char) {
                     <span class="value"><span class="copyCode">&amp;#x${parseInt(charBase, 16).toString(16)};</span></span>
 
                     <span class="key light">${nbsp('HTML decimal entity:')}</span>
-                    <span class="value"><span class="copyCode">&amp;#x${parseInt(charBase, 16)};</span></span>
+                    <span class="value"><span class="copyCode">&amp;#${parseInt(charBase, 16)};</span></span>
 
                     ${entityName?
                         `<span class="key light">${nbsp('HTML named entity:')}</span>
@@ -229,7 +233,8 @@ function makeCharSearchResults() {
     con += 
         `<div class="charSearchStatus">
             ${isMaxed? 'Showing the first ' : ''}
-            ${results.length} result${results.length > 1? 's' : ''}
+            ${results.length} result${results.length === 1? '' : 's'}
+            <button onclick="clearSearch();">clear</button>
         </div>
     </div>`;
 
@@ -239,6 +244,7 @@ function makeCharSearchResults() {
             <div class="columnHeader">${nbsp('character name')}</div>
             <div class="columnHeader">${nbsp('code point')}</div>
             <div class="columnHeader">${nbsp('range name')}</div>
+            <div class="columnHeader">${nbsp('favorites')}</div>
     `;
     results.map(function(value) {
         con += `
@@ -247,6 +253,9 @@ function makeCharSearchResults() {
             <div class="charName">${value.result}</div>
             <div class="codePoint"><pre>${value.char.replace('0x', 'U+')}</pre></div>
             <div class="rangeName">${nbsp(getRangeForChar(value.char).name)}</div>
+        </div>
+        <div class="rowWrapper">
+            <div class="charFavorite" id="row_fav_${value.char}">${makeFavoriteButton(value.char)}</div>
         </div>
         `;
     });
