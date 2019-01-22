@@ -30,7 +30,7 @@ function makeFlatChooser() {
 
     for(let rid in unicodeBlocks){
     if(unicodeBlocks.hasOwnProperty(rid)) {
-        con += makeSingleRangeRow(rid, unicodeBlocks[rid].name);
+        con += makeSingleRangeRow(rid, unicodeBlocks[rid].name, '');
     }}
 
     return con;
@@ -53,10 +53,10 @@ function makeGroupedChooser() {
                     multisel = [];
                     for(let block in area[section][group]){
                     if(area[section][group].hasOwnProperty(block)) {
-                        subcon += makeSingleRangeRow(area[section][group][block], block, true);
+                        subcon += makeSingleRangeRow(area[section][group][block], block, '&emsp;');
                         multisel.push(area[section][group][block]);
                     }}
-                    con += makeSingleRangeRow(multisel.join('_'), group, false, true);
+                    con += makeSingleRangeRow(multisel.join('_'), group, undefined, true);
                     con += subcon;
                 }
             }}
@@ -117,14 +117,14 @@ function makeSingleRangeRow(rid, name, indent, group) {
         `;
     } else {
         return `
-            ${indent? '<div style="grid-column: 1;">&emsp;</div>' : ''}
+            ${indent !== undefined? `<div style="grid-column: 1;">${indent}</div>` : ''}
             
             ${makeCheckbox()}
             
             <label 
                 for="${cbid}" 
-                ${indent? '': ' class="spantwo"'}
                 title="${name}" 
+                ${indent || indent===''? '' : 'class="spantwo" '}
             >${labelName}</label>
 
             <div class="count" title="Character count">

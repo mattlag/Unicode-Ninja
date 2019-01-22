@@ -1,6 +1,6 @@
 let app = {
-    version: '2.4.1',
-    releaseDate: 1547720000000,
+    version: '2.4.2',
+    releaseDate: 1548190000000,
     rangeCache: {},
     focusID: false,
     settings: {
@@ -299,7 +299,9 @@ function animateLogo() {
     }
 
     function updateLogo() {
-        document.getElementById('logo').innerHTML = makeLogo(delta);
+        var logo = makeLogo(delta);
+        document.getElementById('logo').innerHTML = logo;
+        document.title = logo;
         if(delta < fancy.car.length) {
             delta++;
             delay *= 1.05;
