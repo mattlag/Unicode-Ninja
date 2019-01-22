@@ -2,15 +2,10 @@
 function makeContent() {
     let con = '';
 
-    con += makeCharSearchBar();
-
     if(app.settings.charSearch) {
         con += makeCharSearchResults();
     
     } else {
-        // closing div for searchStatus area
-        con += '</div>';
-
         for(let s=0; s<app.settings.selectedRanges.length; s++){
             con += getRangeContent(app.settings.selectedRanges[s]);
         }
@@ -191,137 +186,4 @@ function makeCharDetail(char) {
 
 function tileClick(char) {
     openDialog(makeCharDetail(char));
-}
-
-
-//
-//  Char Name Search
-//
-
-function makeCharSearchBar() {
-    // leave charSearchBar div open for searchStatus div in the grid
-    return `
-    <div class="charSearchBar">
-        <div class="charSearchInputGroup">
-            <span class="searchIcon">⚲</span>
-            <input 
-                type="text" 
-                id="searchInput" 
-                value="${app.settings.charSearch}" 
-                onkeyup="updateCharSearch(this.value);"
-                onfocus="appFocus('searchInput');"
-                onblur="appFocus(false);"
-            />
-            ${makeCloseButton('clearSearch();')}
-        </div>
-    `;
-}
-
-function clearSearch() {
-    app.settings.charSearch = '';
-    document.getElementById('searchInput').value = '';
-    redraw();
-}
-
-function makeCharSearchResults() {
-    // console.time('makeCharSearchResults');
-    let results = searchCharNames(app.settings.charSearch);
-    let con = '';
-    let isMaxed = results.length === parseInt(app.settings.maxSearchResults);
-    
-    // Close extra div from charSearchBar grid
-    con += 
-        `<div class="charSearchStatus">
-            ${isMaxed? 'Showing the first ' : ''}
-            ${results.length} result${results.length === 1? '' : 's'}
-            <button onclick="clearSearch();">clear</button>
-        </div>
-    </div>`;
-
-    con += `
-        <div class="charSearchResults">
-            <div class="columnHeader">&nbsp;</div>
-            <div class="columnHeader">${nbsp('character name')}</div>
-            <div class="columnHeader">${nbsp('code point')}</div>
-            <div class="columnHeader">${nbsp('range name')}</div>
-            `;
-            // <div class="columnHeader">${nbsp('favorites')}</div>
-    results.map(function(value) {
-        con += `
-        <div class="rowWrapper" onclick="tileClick('${decToHex(value.char)}');">
-            ${makeTile(value.char, 'small')}
-            <div class="charName">${value.result}</div>
-            <div class="codePoint"><pre>${value.char.replace('0x', 'U+')}</pre></div>
-            <div class="rangeName">${nbsp(getRangeForChar(value.char).name)}</div>
-        </div>
-        `;
-        // <div class="rowWrapper">
-        //     <div class="charFavorite" id="row_fav_${value.char}">${makeFavoriteButton(value.char)}</div>
-        // </div>
-    });
-    con += '</div>';
-    // console.timeEnd('makeCharSearchResults');
-    return con;
-}
-
-function updateCharSearch(term) {
-    app.settings.charSearch = term;
-    saveSettings();
-    redraw();
-}
-
-function searchCharNames(term) {
-    term = term.toUpperCase();
-    let count = 0;
-    let currName;
-    let currPos;
-    let results = [];
-    let currResult;
-
-    // console.time('charNameSearch');
-    for(let point in fullUnicodeNameList) {
-        if(count < app.settings.maxSearchResults) {
-            if(fullUnicodeNameList.hasOwnProperty(point)) {
-                currName = fullUnicodeNameList[point];
-                currPos = currName.indexOf(term);
-
-                if(currPos > -1) {
-                    currResult = `<span>${nbsp(currName.substring(0, currPos))}</span>`;
-                    currResult += `<span class="highlight">${nbsp(term)}</span>`;
-                    currResult += `<span>${nbsp(currName.substring(currPos + term.length))}</span>`;
-                    
-                    results.push({char: point, result: currResult});
-                    count++;
-                }
-            }
-        } else {
-            // console.timeEnd('charNameSearch');
-            return results;
-        }
-    }
-    // console.timeEnd('charNameSearch');
-    return results;
-}
-
-function findLongestName() {
-    let max = 0;
-    let result = [];
-    let currName = '';
-
-    // console.time('name');
-    for(let point in fullUnicodeNameList) {
-        if(fullUnicodeNameList.hasOwnProperty(point)) {
-            currName = fullUnicodeNameList[point];
-            if(!result[currName.length]) result[currName.length] = 1;
-            else result[currName.length]++
-
-            // if(currName.length > max) {
-            //     max = currName.length;
-            //     result.push({length: max, char: point, name: currName});
-            // }
-        }
-    }
-    // console.timeEnd('name');
-
-    return result;
 }

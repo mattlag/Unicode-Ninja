@@ -18,16 +18,13 @@ function init(){
     loadSettings();
 
     let con = `
-        <div id="tabs">${makeTabs()}</div>
         <div id="header">
             <h1 id="logo"></h1>
-            <div id="tools">
-                <button class="actionButton" onclick="openSettingsDialog();">⛭</button>
-                <button class="actionButton" onclick="openInfoDialog();">?</button>
-            </div>
         </div>
-        <div id="chooser">${makeChooser()}</div>
+        <div id="charSearchBar">${makeCharSearchBar()}</div>
+        <div id="tabs">${makeTabs()}</div>
         <div id="content">${makeContent()}</div>
+        <div id="chooser">${makeChooser()}</div>
         <div id="dialog" onclick="closeDialog();">
             <div id="dialogContent" onclick="nothing(event);"></div>
         </div>
@@ -218,10 +215,10 @@ function openInfoDialog() {
 
         <h3>App Information</h3>
         <div class="twoColumn">
-            <span class="key light">${nbsp('App Version:')}</span>
+            <span class="key light">${nbsp('App version:')}</span>
             <span class="value">${app.version}</span>
             
-            <span class="key light">${nbsp('App released on:')}</span>
+            <span class="key light">${nbsp('App updated on:')}</span>
             <span class="value">${new Date(app.releaseDate).toLocaleDateString()}</span>
             
             <span class="key light">${nbsp('Unicode data version:')}</span>
@@ -342,4 +339,27 @@ function getShipDate(){
     let prefix = parseInt(time.substr(0, 5)) * 100000000;
     let day = (parseInt(time.charAt(5)) + 1) * 10000000;
     return prefix + day;
+}
+
+function findLongestName() {
+    let max = 0;
+    let result = [];
+    let currName = '';
+
+    // console.time('name');
+    for(let point in fullUnicodeNameList) {
+        if(fullUnicodeNameList.hasOwnProperty(point)) {
+            currName = fullUnicodeNameList[point];
+            if(!result[currName.length]) result[currName.length] = 1;
+            else result[currName.length]++
+
+            // if(currName.length > max) {
+            //     max = currName.length;
+            //     result.push({length: max, char: point, name: currName});
+            // }
+        }
+    }
+    // console.timeEnd('name');
+
+    return result;
 }
