@@ -3,6 +3,7 @@
 **/
 
 :root {
+    --dark-bg-dark-alpha: hsla(210, 15%, 10%, 0.4);
     --dark-bg-dark: hsl(210, 15%, 10%);
     --dark-bg-light: hsl(210, 15%, 20%);
     --dark-bg-lighter: hsl(210, 15%, 40%);
@@ -71,8 +72,8 @@ pre {
 
 #wrapper {
     display: grid;
-    grid-template-columns: calc(min-content + 20px) 1fr;
-    grid-template-rows: min-content min-content 1fr;
+    grid-template-columns: 460px 1fr;
+    grid-template-rows: min-content 50px 1fr;
 	background-color: var(--dark-bg-dark);
 	height: 100vh;
 	max-height: 100vh;
@@ -108,19 +109,15 @@ pre {
     grid-row: 1;
     grid-column: 1;
     background-color: var(--dark-bg-dark);
-    border-left: 2px solid var(--dark-bg-dark);
-    padding-left: 20px;
-    border-top-left-radius: 15px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
-    overflow-y: visible;
-    z-index: 100;
+    box-shadow: 0px 2px 4px var(--dark-bg-dark-alpha);
+    padding: 10px 0px 0px 20px;
+    z-index: 200;
 }
 
 #header h1 {
     font-weight: bold;
     font-size: 36px;
-    color: var(--dark-accent);
-    margin: 2px 0px 12px 0px;
+    color: var(--dark-accent-light);
     display: inline-block;
 }
 
@@ -133,8 +130,12 @@ pre {
     grid-row: 2;
     grid-column: 1;
     background-color: var(--dark-bg-dark);
+    box-shadow: 0px 2px 4px var(--dark-bg-light);
     overflow: hidden;
     vertical-align: bottom;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    z-index: 100;
 }
 
 #tabs button {
@@ -147,9 +148,9 @@ pre {
     font-size: 1.1em;
     padding: 5px 15px 5px 15px;
     margin-left: 10px;
-    height: 50%;
+    height: 80%;
     position: relative;
-    top: 50%;
+    top: 20%;
     border-radius: 4px 4px 0px 0px;
 }
 
@@ -161,7 +162,21 @@ pre {
 #tabs .selected {
     background-color: var(--dark-bg-light);
     color: var(--dark-text-light);
-    border-color: var(--dark-accent);
+    border-color: var(--dark-accent-light);
+}
+
+#tabs .contentTab {
+    background-color: var(--light-bg-light);
+    color: var(--light-accent);
+    border-radius: 4px 0px 0px 4px;
+    margin-left: 30px;
+    position: relative;
+    left: 5px;
+    top: 0px;
+    height: 100%;
+    border-style: solid;
+    border-width: 0px 0px 2px 2px;
+    border-color: var(--dark-bg-dark);
 }
 
 
@@ -182,6 +197,7 @@ pre {
     grid-column-gap: 4px;
     overflow-y: scroll;
     overflow-x: hidden;
+    border-right: 2px solid var(--dark-bg-dark);
 }
 
 .spantwo {
@@ -267,10 +283,9 @@ pre {
     grid-row-end: 4;
 	grid-column: 2;
     background-color: var(--light-bg-light);
-    border-left: 2px solid var(--dark-bg-light);
-	padding: 10px 10px 20px 20px;
+	padding: 0px 10px 20px 20px;
     overflow-y: scroll;
-    z-index: 1;
+    z-index: 300;
 }
 
 #content h1,
@@ -303,7 +318,7 @@ pre {
     grid-row: 1;
     grid-column-start: 1;
     grid-column-end: 15;
-    margin-bottom: 4px;
+    margin: 4px 0px 12px 0px;
 }
 
 .contentCharBlock .actions {
@@ -407,13 +422,14 @@ pre {
     grid-column: 2;
     grid-row: 1;
     background-color: var(--light-bg-dark);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
-    border-left: 2px solid var(--dark-bg-light);
+    border-bottom: 2px solid var(--light-bg-dark);
+    box-shadow: 0px 2px 4px var(--dark-bg-dark-alpha);
     height: 100%;
     z-index: 100;
     display: grid;
     grid-template-columns: 360px 1fr;
     grid-column-gap: 20px;
+    z-index: 400;
 }
 
 .charSearchInputGroup {
@@ -455,6 +471,7 @@ pre {
     font-style: italic;
     display: table-cell;
     vertical-align: middle;
+    padding: auto;
 }
 
 .charSearchResults {
@@ -463,6 +480,7 @@ pre {
     grid-column-gap: 2px;
     grid-row-gap: 2px;
     width: min-content;
+    margin-top: 20px;
 }
 
 .charSearchResults .columnHeader {

@@ -22,6 +22,9 @@ function makeTabs() {
         <button class="${grouped? '' : 'selected'}" onclick="selectTab('Sorted');">
             Sorted
         </button>
+        <button class="contentTab">
+            ▦ Selected ranges
+        </button>
     `;
 }
 
