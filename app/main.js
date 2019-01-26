@@ -129,17 +129,21 @@ function sortSelectedRanges() {
 */
 
 function redraw(onlyContent) {
-    !onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
-    !onlyContent? document.getElementById('chooser').innerHTML = makeChooser() : false;
-    document.getElementById('content').innerHTML = makeContent();
-    
-    if(app.focusID){
-        let elem = document.getElementById(app.focusID);
-        let value = elem.value;
-        elem.focus();
-        elem.value = '';
-        elem.value = value;
-    }
+    if(app.redrawTimeout) clearTimeout(app.redrawTimeout);
+
+    app.redrawTimeout = setTimeout(function () {
+        !onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
+        !onlyContent? document.getElementById('chooser').innerHTML = makeChooser() : false;
+        document.getElementById('content').innerHTML = makeContent();
+        
+        if(app.focusID){
+            let elem = document.getElementById(app.focusID);
+            let value = elem.value;
+            elem.focus();
+            elem.value = '';
+            elem.value = value;
+        }        
+    }, 10);
 }
 
 function appFocus(id) {

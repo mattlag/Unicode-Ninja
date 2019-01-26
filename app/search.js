@@ -44,8 +44,9 @@ function makeCharSearchResults() {
             <div class="columnHeader">${nbsp('character name')}</div>
             <div class="columnHeader">${nbsp('code point')}</div>
             <div class="columnHeader">${nbsp('range name')}</div>
-            `;
-            // <div class="columnHeader">${nbsp('favorites')}</div>
+            <div class="columnHeader">${nbsp('favorites')}</div>
+    `;
+
     results.map(function(value) {
         con += `
         <div class="rowWrapper" onclick="tileClick('${decToHex(value.char)}');">
@@ -54,10 +55,10 @@ function makeCharSearchResults() {
             <div class="codePoint"><pre>${value.char.replace('0x', 'U+')}</pre></div>
             <div class="rangeName">${nbsp(getRangeForChar(value.char).name)}</div>
         </div>
+        <div class="rowWrapper">
+            <div class="charFavorite" id="row_fav_${value.char}">${makeFavoriteButton(value.char)}</div>
+        </div>
         `;
-        // <div class="rowWrapper">
-        //     <div class="charFavorite" id="row_fav_${value.char}">${makeFavoriteButton(value.char)}</div>
-        // </div>
     });
     con += '</div>';
 

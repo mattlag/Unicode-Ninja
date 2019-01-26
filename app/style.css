@@ -328,6 +328,11 @@ pre {
     grid-column-end: 18;
 }
 
+.contentCharBlock .actions .actionButton {
+    position: relative;
+    top: 8px;
+}
+
 .hex {
     background-color: var(--light-bg-dark);
     color: var(--light-text-light);
@@ -360,7 +365,7 @@ pre {
 .charTile.small {
     min-width: 28px;
     height: 28px;
-    line-height: 28px;
+    line-height: 26px;
     font-size: 24px;
 }
 
@@ -471,7 +476,7 @@ pre {
     font-style: italic;
     display: table-cell;
     vertical-align: middle;
-    padding: auto;
+    padding: 18px 0px 0px 0px;
 }
 
 .charSearchResults {
@@ -496,7 +501,9 @@ pre {
 }
 
 .charSearchResults .rowWrapper div {
-    border: 1px solid transparent;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 1px 0px 1px 0px;
     background-color: var(--light-bg-lighter);
     display: table-cell;
     vertical-align: middle;
@@ -505,7 +512,7 @@ pre {
 
 .charSearchResults .rowWrapper:hover div {
     background-color: white;
-    border: 1px solid var(--light-accent-light);
+    border-color: var(--light-accent-light);
 }
 
 .charSearchResults .rowWrapper:hover * {

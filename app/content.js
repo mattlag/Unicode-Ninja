@@ -123,13 +123,13 @@ function makeCharDetail(char) {
 
     let charBase = char.substr(2);
 
-    // <span id="fav_${char}">
-    //     ${makeFavoriteButton(char)}
-    // </span>
-    // <br><br>
     let con = `
-        <h2>${unicodeName}</h2>
-        <div class="twoColumn">
+    <h2>${unicodeName}</h2>
+    <span id="fav_${char}">
+        ${makeFavoriteButton(char)}
+    </span>
+    <br><br>
+    <div class="twoColumn">
             <div class="colOne">
                 ${makeTile(char, 'large')}
             </div>
