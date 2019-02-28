@@ -103,7 +103,7 @@ pre {
 
 /**
 	Header
-**/		
+**/
 
 #header {
 	grid-row: 1;
@@ -294,6 +294,7 @@ pre {
 	font-weight: normal;
 	font-style: italic;
 	color: var(--light-text-dark);
+	margin: 10px 0px 10px 0px;
 }
 
 .copyCode {

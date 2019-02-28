@@ -1,5 +1,5 @@
 
-function makeChooser() {
+function makeRangeChooser() {
 	let con = app.settings.selectedTab === 'Grouped'? makeGroupedChooser() : makeFlatChooser();
 
 	if(app.settings.selectedRanges.length) con += '<button class="dark" onClick="deselectAllRanges();">de-select all ranges</button><br><br>';
@@ -7,19 +7,19 @@ function makeChooser() {
 	return con;
 }
 
-function selectTab(tab) {
+function selectRangeTab(tab) {
 	app.settings.selectedTab = tab;
 	redraw();
 }
 
-function makeTabs() {
+function makeRangeTabs() {
 	let grouped = app.settings.selectedTab === 'Grouped';
 
 	return `
-		<button class="${grouped? 'selected' : ''}" onclick="selectTab('Grouped');">
+		<button class="${grouped? 'selected' : ''}" onclick="selectRangeTab('Grouped');">
 			Grouped
 		</button>
-		<button class="${grouped? '' : 'selected'}" onclick="selectTab('Sorted');">
+		<button class="${grouped? '' : 'selected'}" onclick="selectRangeTab('Sorted');">
 			Sorted
 		</button>
 		<button class="contentTab">

@@ -7,6 +7,7 @@ let app = {
 		charSearch: '',
 		rememberSettings: false,
 		maxSearchResults: 1000,
+		selectedPage: 'Welcome',
 		selectedTab: 'Grouped',
 		selectedRanges: ['r-0020-007F'],
 		genericFontFamily: 'sans-serif',
@@ -16,21 +17,10 @@ let app = {
 
 function init(){
 	loadSettings();
-
-	let con = `
-		<div id="header">
-			<h1 id="logo"></h1>
-		</div>
-		<div id="charSearchBar">${makeCharSearchBar()}</div>
-		<div id="tabs">${makeTabs()}</div>
-		<div id="content">${makeContent()}</div>
-		<div id="chooser">${makeChooser()}</div>
-		<div id="dialog" onclick="closeDialog();">
-			<div id="dialogContent" onclick="nothing(event);"></div>
-		</div>
-	`;
-
-	document.getElementById('wrapper').innerHTML = con;
+	document.getElementById('charSearchBar').innerHTML = makeCharSearchBar();
+	document.getElementById('tabs').innerHTML = makeRangeTabs();
+	// document.getElementById('content').innerHTML = makeContent();
+	document.getElementById('chooser').innerHTML = makeRangeChooser();
 	animateLogo();
 }
 
@@ -132,8 +122,8 @@ function redraw(onlyContent) {
 	if(app.redrawTimeout) clearTimeout(app.redrawTimeout);
 
 	app.redrawTimeout = setTimeout(function () {
-		!onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
-		!onlyContent? document.getElementById('chooser').innerHTML = makeChooser() : false;
+		!onlyContent? document.getElementById('tabs').innerHTML = makeRangeTabs() : false;
+		!onlyContent? document.getElementById('chooser').innerHTML = makeRangeChooser() : false;
 		document.getElementById('content').innerHTML = makeContent();
 		
 		if(app.focusID){
