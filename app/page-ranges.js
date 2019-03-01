@@ -1,29 +1,22 @@
 
-function makeContent() {
+function makePageRanges() {
 	let con = '';
 
-	if(app.settings.charSearch) {
-		con += makeCharSearchResults();
-	
-	} else {
-		for(let s=0; s<app.settings.selectedRanges.length; s++){
-			con += getRangeContent(app.settings.selectedRanges[s]);
-		}
-		
-		con += '<i class="light">add or remove ranges using the checkboxes on the left</i>';
+	for(let s=0; s<app.settings.selectedRanges.length; s++){
+		con += getRangeBlock(app.settings.selectedRanges[s]);
 	}
-
-	con += '<br><br>';
+	
+	con += '<i class="light">add or remove ranges using the checkboxes on the left</i>';
 
 	return con;
 }
 
-function getRangeContent(rid) {
-	if (!app.rangeCache[rid]) app.rangeCache[rid] = makeRangeContent(rid);
+function getRangeBlock(rid) {
+	if (!app.rangeCache[rid]) app.rangeCache[rid] = makeRange(rid);
 	return app.rangeCache[rid];
 }
 
-function makeRangeContent(rid) {
+function makeRangeBlock(rid) {
 	let range = getRange(rid);
 
 	let rangeBeginBase = decToHex(range.begin).substr(2);

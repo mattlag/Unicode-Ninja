@@ -22,9 +22,6 @@ function makeRangeTabs() {
 		<button class="${grouped? '' : 'selected'}" onclick="selectRangeTab('Sorted');">
 			Sorted
 		</button>
-		<button class="contentTab">
-			▦ Selected ranges
-		</button>
 	`;
 }
 

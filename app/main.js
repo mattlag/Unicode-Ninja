@@ -18,7 +18,7 @@ let app = {
 function init(){
 	loadSettings();
 	document.getElementById('charSearchBar').innerHTML = makeCharSearchBar();
-	document.getElementById('tabs').innerHTML = makeRangeTabs();
+	document.getElementById('tabs').innerHTML = makeTabs();
 	// document.getElementById('content').innerHTML = makeContent();
 	document.getElementById('chooser').innerHTML = makeRangeChooser();
 	animateLogo();
@@ -122,7 +122,7 @@ function redraw(onlyContent) {
 	if(app.redrawTimeout) clearTimeout(app.redrawTimeout);
 
 	app.redrawTimeout = setTimeout(function () {
-		!onlyContent? document.getElementById('tabs').innerHTML = makeRangeTabs() : false;
+		!onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
 		!onlyContent? document.getElementById('chooser').innerHTML = makeRangeChooser() : false;
 		document.getElementById('content').innerHTML = makeContent();
 		
