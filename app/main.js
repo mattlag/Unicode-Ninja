@@ -26,7 +26,17 @@ function init(){
 
 function loadSettings() {
 	let savedSettings = window.localStorage.getItem('unicode.ninja');
-	if(savedSettings) app.settings = JSON.parse(savedSettings);
+	if(savedSettings) {
+		savedSettings = JSON.parse(savedSettings);
+		app.settings.charSearch = savedSettings.charSearch || '';
+		app.settings.rememberSettings = savedSettings.rememberSettings || false;
+		app.settings.maxSearchResults = savedSettings.maxSearchResults || 1000;
+		app.settings.selectedPage = savedSettings.selectedPage || 'Welcome';
+		app.settings.selectedTab = savedSettings.selectedTab || 'Grouped';
+		app.settings.selectedRanges = savedSettings.selectedRanges || ['r-0020-007F'];
+		app.settings.genericFontFamily = savedSettings.genericFontFamily || 'sans-serif';
+		app.settings.favorites = savedSettings.favorites || [];
+	}
 }
 
 function saveSettings() {
