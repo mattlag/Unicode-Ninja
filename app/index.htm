@@ -1,36 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>unicode.ninja</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>unicode.ninja</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="main.js"></script>
-    <script src="chooser.js"></script>
-    <script src="content.js"></script>
-    <script src="search.js"></script>
-    <script src="favorites.js"></script>
-    <script src="unicodeNamesList.js"></script>
-    <script src="htmlEntityNamesList.js"></script>
-    <script src="unicodeBlocks.js"></script>
-    <script src="organizedBlocks.js"></script>
+	<script src="main.js"></script>
+	<script src="navigate.js"></script>
+	<script src="dialog.js"></script>
+	<script src="tabs-rangeChooser.js"></script>
+	<script src="page-welcome.js"></script>
+	<script src="page-ranges.js"></script>
+	<script src="page-search.js"></script>
+	<script src="page-favorites.js"></script>
+	<script src="page-settings.js"></script>
+	<script src="reference-unicodeNamesList.js"></script>
+	<script src="reference-htmlEntityNamesList.js"></script>
+	<script src="reference-unicodeBlocks.js"></script>
+	<script src="reference-organizedBlocks.js"></script>
 
-    <!-- <link rel="stylesheet" type="text/css" href="noto.css"> -->
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-
+	<!-- <link rel="stylesheet" type="text/css" href="noto.css"> -->
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body onload="init();">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132448369-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-132448369-1');
-    </script>
+	<!-- Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132448369-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-132448369-1');
+	</script>
 	<div id="wrapper">
-        loading...
+		<div id="header">
+			<h1 id="logo"></h1>
+		</div>
+		<div id="charSearchBar"></div>
+		<div id="tabs"></div>
+		<div id="content">
+			<div class="welcome">
+				<h1>Welcome to unicode.ninja</h1>
+				A tool to help explore the Unicode Basic Multilinqual Plane <pre>U+0000</pre> to <pre>U+FFFF</pre>. 
+				Roughly 137,374 characters of excitement! Probably useful for typeface designers, or regular humans 
+				looking for those funky characters that you saw on the internet that one time.
+
+				<h2>Get started</h2>
+				Select a Character Range using the checkboxes on the left, or search for characters by name using 
+				the search bar up top.  Clicking an individual character tile or row will bring up more details 
+				and releated characters.  Individual characters can be favorited so you can get back to them 
+				quickly later.
+
+			</div>
+		</div>
+		<div id="chooser"></div>
 	</div>
 </body>
 </html>
