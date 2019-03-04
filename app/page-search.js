@@ -16,6 +16,10 @@ function makeCharSearchBar() {
 	`;
 }
 
+function makeCloseButton(func) {
+	return `<button onclick="${func}" class="actionButton" title="Close">⨉</button>`;
+}
+
 function clearSearch() {
 	app.settings.charSearch = '';
 	document.getElementById('searchInput').value = '';

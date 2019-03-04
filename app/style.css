@@ -10,8 +10,9 @@
 	--dark-text-darker: hsl(210, 5%, 60%);
 	--dark-text-dark: hsl(210, 5%, 80%);
 	--dark-text-light: hsl(210, 5%, 95%);
-	--dark-accent:  hsl(340, 95%, 30%);
-	--dark-accent-light:  hsl(340, 40%, 50%);
+
+	--dark-accent: hsl(340, 95%, 30%);
+	--dark-accent-light: hsl(340, 40%, 50%);
 
 	--light-bg-darker: hsl(210, 5%, 60%);
 	--light-bg-dark: hsl(210, 5%, 80%);
@@ -20,8 +21,10 @@
 	--light-text-dark: hsl(210, 5%, 5%);
 	--light-text-light: hsl(210, 5%, 10%);
 	--light-text-lighter: hsl(210, 5%, 20%);
-	--light-accent:  hsl(340, 80%, 40%);
-	--light-accent-light:  hsl(340, 80%, 70%);
+
+	--light-accent-dark: hsl(340, 80%, 30%);
+	--light-accent: hsl(340, 80%, 50%);
+	--light-accent-light: hsl(340, 80%, 70%);
 }
 
 * {
@@ -165,9 +168,10 @@ pre {
 	border-color: var(--dark-accent-light);
 }
 
-#tabs .contentTab {
+#tabs #pageTab {
 	background-color: var(--light-bg-light);
 	color: var(--light-accent);
+	text-align: left;
 	border-radius: 4px 0px 0px 4px;
 	margin-left: 30px;
 	position: relative;
@@ -177,6 +181,10 @@ pre {
 	border-style: solid;
 	border-width: 0px 0px 2px 2px;
 	border-color: var(--dark-bg-dark);
+}
+
+#tabs #pageTab:hover {
+	color: var(--light-accent-dark);
 }
 
 
