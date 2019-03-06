@@ -4,7 +4,7 @@ app.pageTabs = {
 	'Ranges' : '▦ Selected ranges',
 	'Favorites' : '★ Favorites',
 	'Search' :  '<span class="searchIcon">⚲</span> Search results',
-	'Settings' : '⛭ Settings',
+	'Settings' : '⛭ Settings and info',
 };
 
 function makeContent() {
@@ -26,7 +26,7 @@ function makeTabs() {
 }
 
 function makePageTab() {
-	return `<button id="pageTab">${app.pageTabs[app.settings.selectedPage]}</button>`;
+	return `<button id="pageTab" onclick="showPageChooser();">${app.pageTabs[app.settings.selectedPage]}</button>`;
 }
 
 function showPageChooser() {
@@ -34,7 +34,21 @@ function showPageChooser() {
 
 	let popup = document.createElement('div');
 	popup.setAttribute('id', 'pageChooser');
+	popup.style.top = entryPoint.offsetTop + 'px';
+	popup.style.left = entryPoint.offsetLeft + entryPoint.offsetWidth + 'px';
+	popup.style.display = 'block';
+
+	function makePageChooserButton(page) {
+		return `<button onclick="navigate('${page}');">${app.pageTabs[page]}</button>`;
+	}
 
 	popup.innerHTML = `
+		${makePageChooserButton('Welcome')}
+		${makePageChooserButton('Ranges')}
+		${makePageChooserButton('Favorites')}
+		${makePageChooserButton('Search')}
+		${makePageChooserButton('Settings')}
 	`;
+
+	document.body.appendChild(popup);
 }

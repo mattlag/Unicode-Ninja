@@ -187,9 +187,25 @@ pre {
 	color: var(--light-accent-dark);
 }
 
+#pageChooser {
+	position: absolute;
+	display: none;
+	width: min-content;
+	z-index: 1000;
+	background-color: var(--light-bg-light);
+	box-shadow: 4px 4px 4px var(--dark-bg-dark-alpha);
+	margin-top: 5px;
+}
+
+#pageChooser button {
+	display: block;
+	font-size: 1.1em;
+	color: var(--light-text-light);
+	padding: 8px 12px;
+}
 
 /**
-	Chooser
+	Range Chooser
 **/
 
 #chooser {
@@ -632,6 +648,14 @@ select {
 	padding: 2px 0px 2px 2px;
 }
 
+
+/**
+	Page - Welcome
+**/
+
+.welcome {
+	max-width: 800px;
+}
 
 /**
 	Favorites
