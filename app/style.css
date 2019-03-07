@@ -24,6 +24,7 @@
 	--light-text-light: hsl(210, 5%, 10%);
 	--light-text-lighter: hsl(210, 5%, 20%);
 
+	--light-accent-darker: hsl(340, 90%, 15%);
 	--light-accent-dark: hsl(340, 80%, 30%);
 	--light-accent: hsl(340, 80%, 50%);
 	--light-accent-light: hsl(340, 80%, 70%);
@@ -43,9 +44,21 @@ body {
 }
 
 h1, h2, h3 {
+	color: var(--light-accent-darker);
 	font-weight: normal;
 	font-style: italic;
 	margin: 1px 0px 10px 0px;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+	color: var(--light-accent-dark);
+}
+
+a:hover {
+	color: var(--light-accent-light);
 }
 
 button {
@@ -139,8 +152,9 @@ li {
 	grid-row: 1;
 	grid-column: 1;
 	background-color: var(--dark-bg-dark);
+	box-shadow: 0px 15px 0px var(--dark-bg-dark);
 	padding: 10px 0px 0px 20px;
-	z-index: 400;
+	z-index: 900;
 	font-weight: bold;
 	font-size: 36px;
 	color: var(--dark-accent-light);
@@ -295,7 +309,7 @@ li {
 	border-color: transparent;
 	font-size: 1.1em;
 	padding: 5px 15px 5px 15px;
-	margin-left: 10px;
+	margin-left: 20px;
 	height: 80%;
 	position: relative;
 	top: 20%;
@@ -429,10 +443,12 @@ li {
 	color: var(--light-text-lighter);
 }
 
-.welcome h1,
-.welcome h2,
-.welcome h3 {
-	color: var(--light-accent-dark);
+.welcome div {
+	line-height: 1.4em;
+}
+
+.welcome div pre {
+	line-height: 1.1em;
 }
 
 .welcome h2,
