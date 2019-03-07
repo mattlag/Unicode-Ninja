@@ -26,7 +26,7 @@ function makeRangeTabs() {
 }
 
 function makeFlatChooser() {
-	let con = '<h2>Unicode</h2><div class="skiprow">&nbsp;</div>';
+	let con = '<h2>Unicode</h2><div class="skipRow">&nbsp;</div>';
 
 	for(let rid in unicodeBlocks){
 	if(unicodeBlocks.hasOwnProperty(rid)) {
@@ -42,7 +42,7 @@ function makeGroupedChooser() {
 		let subcon, multisel;
 		for(let section in area){
 		if(area.hasOwnProperty(section)) {
-			con += '<div class="skiprow">&nbsp;</div>';
+			con += '<div class="skipRow">&nbsp;</div>';
 			con += `<h3>${section}</h3>`;
 			for(let group in area[section]){
 			if(area[section].hasOwnProperty(group)) {
@@ -68,10 +68,10 @@ function makeGroupedChooser() {
 	return `
 		<h2>Unicode Scripts</h2>
 		${makeArea(organizedScripts)}
-		<div class="skiprow">&nbsp;</div>
-		<div class="skiprow">&nbsp;</div>
-		<div class="skiprow">&nbsp;</div>
-		<div class="skiprow">&nbsp;</div>
+		<div class="skipRow">&nbsp;</div>
+		<div class="skipRow">&nbsp;</div>
+		<div class="skipRow">&nbsp;</div>
+		<div class="skipRow">&nbsp;</div>
 		<h2>Unicode Symbols</h2>
 		${makeArea(organizedSymbols)}
 	`;
@@ -124,7 +124,7 @@ function makeSingleRangeRow(rid, name, indent, group) {
 			<label 
 				for="${cbid}" 
 				title="${name}" 
-				${indent || indent===''? '' : 'class="spantwo" '}
+				${indent || indent===''? '' : 'class="spanTwo" '}
 			>${labelName}</label>
 
 			<div class="count" title="Character count">

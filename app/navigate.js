@@ -21,14 +21,6 @@ function makeContent() {
 	return con;
 }
 
-function makeTabs() {
-	return makeRangeTabs() + makePageTab();
-}
-
-function makePageTab() {
-	return `<button id="pageTab" onclick="togglePageChooser();">${app.pageTabs[app.settings.selectedPage]}</button>`;
-}
-
 function togglePageChooser() {
 	let popup = document.getElementById('pageChooser');
 
@@ -41,8 +33,8 @@ function togglePageChooser() {
 
 	popup = document.createElement('div');
 	popup.setAttribute('id', 'pageChooser');
-	popup.style.top = entryPoint.offsetTop + 'px';
-	popup.style.left = entryPoint.offsetLeft + entryPoint.offsetWidth + 'px';
+	popup.style.top = (entryPoint.offsetTop + entryPoint.offsetHeight - 16) + 'px';
+	popup.style.left = entryPoint.offsetLeft + 'px';
 	popup.style.display = 'block';
 
 	function makePageChooserButton(page) {
@@ -82,8 +74,12 @@ function redrawContent(onlyContent) {
 	if(app.redrawTimeout) clearTimeout(app.redrawTimeout);
 
 	app.redrawTimeout = setTimeout(function () {
-		!onlyContent? document.getElementById('tabs').innerHTML = makeTabs() : false;
-		!onlyContent? document.getElementById('chooser').innerHTML = makeRangeChooser() : false;
+		!onlyContent? document.getElementById('pageTabs').innerHTML =
+			`<button id="pageTab" onclick="togglePageChooser();">${nbsp(app.pageTabs[app.settings.selectedPage])}</button>`
+			: '';
+
+		!onlyContent? document.getElementById('rangeTabs').innerHTML = makeRangeTabs() : '';
+		!onlyContent? document.getElementById('rangeChooser').innerHTML = makeRangeChooser() : '';
 		document.getElementById('content').innerHTML = makeContent();
 		
 		if(app.focusID){

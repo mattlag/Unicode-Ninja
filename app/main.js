@@ -19,9 +19,7 @@ let app = {
 function init(){
 	loadSettings();
 	document.getElementById('charSearchBar').innerHTML = makeCharSearchBar();
-	document.getElementById('tabs').innerHTML = makeTabs();
-	document.getElementById('chooser').innerHTML = makeRangeChooser();
-	document.getElementById('content').innerHTML = makeContent();
+	navigate('Welcome');
 	animateLogo();
 }
 

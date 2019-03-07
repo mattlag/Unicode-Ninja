@@ -1,5 +1,7 @@
 /**
-	Overrides
+	==================
+		Overrides
+	==================
 **/
 
 :root {
@@ -38,6 +40,12 @@
 body {
 	height: 100vh;
 	max-height: 100vh;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+	font-style: italic;
+	margin: 1px 0px 10px 0px;
 }
 
 button {
@@ -91,6 +99,15 @@ li {
 	overflow: hidden;
 }
 
+#content {
+	grid-row: 2 / 4;
+	grid-column: 2 / 4;
+	background-color: var(--light-bg-light);
+	padding: 30px 10px 20px 30px;
+	overflow-y: scroll;
+	z-index: 300;
+}
+
 .actionButton {
 	display: inline-block;
 	border: 0;
@@ -113,86 +130,59 @@ li {
 
 
 /**
-	Header
+	====================
+		Top grid row
+	====================
 **/
 
-#header {
+#logo {
 	grid-row: 1;
 	grid-column: 1;
 	background-color: var(--dark-bg-dark);
-	box-shadow: 0px 2px 4px var(--dark-bg-dark-alpha);
 	padding: 10px 0px 0px 20px;
-	z-index: 200;
-}
-
-#header h1 {
+	z-index: 400;
 	font-weight: bold;
 	font-size: 36px;
 	color: var(--dark-accent-light);
 	display: inline-block;
 }
 
+#header {
+	box-shadow: 0px 2px 4px var(--dark-bg-dark-alpha);
+	background-color: var(--light-bg-dark);
+	display: grid;
+	grid-template-columns: 260px 1fr;
+	z-index: 400;
+}
 
 /**
-	Tabs
+	Page Chooser
 **/
-
-#tabs {
-	grid-row: 2;
+#pageTabs {
+	grid-row: 1;
 	grid-column: 1;
-	background-color: var(--dark-bg-dark);
-	box-shadow: 0px 2px 4px var(--dark-bg-light);
-	overflow: hidden;
-	vertical-align: bottom;
-	display: grid;
-	grid-template-columns: 1fr 1fr 2fr;
-	z-index: 100;
 }
 
-#tabs button {
-	display: inline-block;
-	background-color: var(--dark-bg-dark);
-	color: var(--dark-text-dark);
-	border-style: solid;
-	border-width: 3px 0px 0px 0px;
-	border-color: transparent;
-	font-size: 1.1em;
-	padding: 5px 15px 5px 15px;
-	margin-left: 10px;
-	height: 80%;
-	position: relative;
-	top: 20%;
-	border-radius: 4px 4px 0px 0px;
-}
-
-#tabs button:hover {
-	cursor: pointer;
-	color: var(--dark-text-light);
-}
-
-#tabs .selected {
-	background-color: var(--dark-bg-light);
-	color: var(--dark-text-light);
-	border-color: var(--dark-accent-light);
-}
-
-#tabs #pageTab {
+#pageTab {
 	background-color: var(--light-bg-light);
 	color: var(--light-accent-dark);
-	text-align: left;
-	border-radius: 4px 0px 0px 4px;
-	margin-left: 30px;
-	position: relative;
-	left: 5px;
-	top: 0px;
-	height: 100%;
+	text-align: center;
+	border-radius: 4px 4px 0px 0px;	
 	border-style: solid;
-	border-width: 0px 0px 2px 2px;
-	border-color: var(--dark-bg-dark);
+	border-width: 3px 0px 0px 0px;
+	border-color: var(--light-accent-dark);
+	margin: 0px 30px;
+	position: relative;
+	top: 10px;
+	height: 100%;
+	width: 200px;
+	font-size: 1.2em;
+	padding: 0px 8px 10px 0px;
 }
 
-#tabs #pageTab:hover {
+#pageTab:hover {
 	color: var(--light-accent);
+	border-color: var(--light-accent);
 }
 
 #pageChooser {
@@ -201,9 +191,10 @@ li {
 	width: min-content;
 	z-index: 1000;
 	background-color: var(--light-bg-light);
-	box-shadow: 4px 4px 4px var(--dark-bg-dark-alpha);
+	box-shadow: 0px 4px 4px var(--dark-bg-dark-alpha);
 	margin-top: 5px;
-	padding: 0px 5px 5px 0px;
+	padding: 10px;
+	width: 260px;
 }
 
 #pageChooser button {
@@ -221,10 +212,119 @@ li {
 }
 
 /**
+	Char Search Area
+**/
+
+#charSearchBar {
+	grid-row: 1;
+	grid-column: 2;
+	height: 100%;
+	z-index: 100;
+	display: grid;
+	grid-template-columns: 360px 1fr;
+	grid-column-gap: 20px;
+}
+
+.charSearchInputGroup {
+	background-color: white;
+	border-radius: 3px;
+	padding: 4px;
+	margin: 10px 0px 10px 0px;
+	grid-column: 1;
+	display: grid;
+	grid-template-columns: 30px 280px 20px;
+}
+
+.charSearchInputGroup .searchIcon {
+	font-size: 1.5em;
+	width: 30px;
+	text-align: center;
+	color: var(--light-bg-dark);
+}
+
+.charSearchInputGroup #searchInput {
+	font-size: 1.1em;
+	color: var(--light-text-dark);
+	border: 0px;
+	margin-left: 4px;
+}
+
+.charSearchInputGroup .actionButton {
+	margin: 4px 4px 0px 0px;
+	background-color: white;
+}
+
+.charSearchInputGroup .actionButton:hover {
+	background-color: var(--light-accent-light);
+}
+
+#charSearchStatus {
+	grid-column: 2;
+	color: var(--light-text-lighter);
+	font-style: italic;
+	display: table-cell;
+	vertical-align: middle;
+	padding: 18px 0px 0px 0px;
+}
+
+
+/**
+	======================
+		Second grid row
+	======================
+**/
+
+#rangeTabs {
+	grid-row: 2;
+	grid-column: 1;
+	background-color: var(--dark-bg-dark);
+	box-shadow: 0px 2px 4px var(--dark-bg-light);
+	overflow: hidden;
+	vertical-align: bottom;
+	display: grid;
+	grid-template-columns: 1fr 1fr 2fr;
+	z-index: 100;
+}
+
+#rangeTabs button {
+	display: inline-block;
+	background-color: var(--dark-bg-dark);
+	color: var(--dark-text-dark);
+	border-style: solid;
+	border-width: 3px 0px 0px 0px;
+	border-color: transparent;
+	font-size: 1.1em;
+	padding: 5px 15px 5px 15px;
+	margin-left: 10px;
+	height: 80%;
+	position: relative;
+	top: 20%;
+	border-radius: 4px 4px 0px 0px;
+}
+
+#rangeTabs button:hover {
+	cursor: pointer;
+	color: var(--dark-text-light);
+}
+
+#rangeTabs .selected {
+	background-color: var(--dark-bg-light);
+	color: var(--dark-text-light);
+	border-color: var(--dark-accent-light);
+}
+
+
+/**
+	=====================
+		Main grid row
+	=====================
+**/
+
+/**
 	Range Chooser
 **/
 
-#chooser {
+#rangeChooser {
 	grid-row: 3;
 	grid-column: 1;
 	background-color: var(--dark-bg-light);
@@ -240,12 +340,12 @@ li {
 	border-right: 2px solid var(--dark-bg-dark);
 }
 
-.spantwo {
+.spanTwo {
 	grid-column: span 2;
 }
 
-#chooser h2,
-#chooser h3 {
+#rangeChooser h2,
+#rangeChooser h3 {
 	font-weight: normal;
 	font-style: italic;
 	color: var(--dark-text-dark);
@@ -253,7 +353,7 @@ li {
 	grid-column-end: 6;
 }
 
-#chooser label:hover {
+#rangeChooser label:hover {
 	color: var(--dark-text-light);
 	cursor: pointer;
 }
@@ -285,7 +385,7 @@ li {
 	grid-column: 2 / span 3;
 }
 
-.skiprow {
+.skipRow {
 	grid-column: 1 / span 5;
 	font-size: 0.2em;
 }
@@ -296,46 +396,63 @@ li {
 	color: var(--dark-text-darker);
 }
 
-#chooser pre {
+#rangeChooser pre {
 	background-color: var(--dark-bg-dark);
 	color: var(--dark-text-dark);
 }
 
-#chooser button {
+#rangeChooser button {
 	background-color: var(--dark-bg-dark);
 	color: var(--dark-text-dark);
 	margin: 12px 0px 20px 0px;
 	grid-column: 2 / span 3;
 }
 
-#chooser button:hover {
+#rangeChooser button:hover {
 	background-color: var(--dark-accent);
 	color: var(--dark-text-light);
 }
 
 
 /**
-	Content
+	=============
+		Pages
+	=============
 **/
 
-#content {
-	grid-row-start: 2;
-	grid-row-end: 4;
-	grid-column: 2;
-	background-color: var(--light-bg-light);
-	padding: 0px 10px 20px 20px;
-	overflow-y: scroll;
-	z-index: 300;
+/**
+	Page - Welcome
+**/
+
+.welcome {
+	max-width: 800px;
+	color: var(--light-text-lighter);
 }
 
-#content h1,
-#content h2,
-#content h3 {
-	font-weight: normal;
-	font-style: italic;
-	margin: 1px 0px 10px 0px;
+.welcome h1,
+.welcome h2,
+.welcome h3 {
+	color: var(--light-accent-dark);
 }
 
+.welcome h2,
+.welcome h3 {
+	margin-top: 20px !important;
+}
+
+/**
+	Page - Settings
+**/
+
+.settings {
+	max-width: 800px;
+}
+
+.value input[type=number],
+.value option {
+	width: 200px;
+	padding: 2px 0px 2px 2px;
+}
 
 /**
 	Page - Ranges
@@ -352,7 +469,7 @@ li {
 }
 
 .contentCharBlock {
-	margin: 12px 10px 20px 0px;
+	margin: 0px 10px 30px 0px;
 	display: grid;
 	grid-template-columns: repeat(17, 48px);
 	grid-column-gap: 1px;
@@ -463,68 +580,6 @@ li {
 	background-color: rgba(255, 255, 0, 0.2);
 }
 
-
-/**
-	Top Bar
-**/
-
-#charSearchBar {
-	grid-column: 2;
-	grid-row: 1;
-	background-color: var(--light-bg-dark);
-	border-bottom: 2px solid var(--light-bg-dark);
-	box-shadow: 0px 2px 4px var(--dark-bg-dark-alpha);
-	height: 100%;
-	z-index: 100;
-	display: grid;
-	grid-template-columns: 360px 1fr;
-	grid-column-gap: 20px;
-	z-index: 400;
-}
-
-.charSearchInputGroup {
-	background-color: white;
-	border-radius: 3px;
-	padding: 4px;
-	margin: 10px 0px 10px 20px;
-	grid-column: 1;
-	display: grid;
-	grid-template-columns: 30px 280px 20px;
-}
-
-.charSearchInputGroup .searchIcon {
-	font-size: 1.5em;
-	width: 30px;
-	text-align: center;
-	color: var(--light-bg-dark);
-}
-
-.charSearchInputGroup #searchInput {
-	font-size: 1.1em;
-	color: var(--light-text-dark);
-	border: 0px;
-	margin-left: 4px;
-}
-
-.charSearchInputGroup .actionButton {
-	margin: 4px 4px 0px 0px;
-	background-color: white;
-}
-
-.charSearchInputGroup .actionButton:hover {
-	background-color: var(--light-accent-light);
-}
-
-#charSearchStatus {
-	grid-column: 2;
-	color: var(--light-text-lighter);
-	font-style: italic;
-	display: table-cell;
-	vertical-align: middle;
-	padding: 18px 0px 0px 0px;
-}
-
-
 /**
 	Page - Search
 **/
@@ -589,6 +644,36 @@ li {
 	padding: 1px 4px 0px 4px;
 	border: 1px solid transparent !important;
 	background-color: var(--light-bg-lighter) !important;
+}
+
+/**
+	Page - Favorites
+**/
+
+.favorite,
+.addFavorite {
+	padding: 2px 4px;
+	border-radius: 3px;
+	border: 1px solid transparent;
+}
+
+.favorite {
+	border-color: hsl(55, 67%, 67%);
+	background-color: hsl(55, 100%, 90%);
+	color: hsl(40, 50%, 50%);
+}
+
+.favorite:hover {
+	color: hsl(40, 50%, 60%);
+	border-color: hsl(55, 67%, 80%);
+}
+
+.addFavorite {
+	background-color: rgba(0, 0, 0, 0.02);
+}
+
+.addFavorite:hover {
+	color: hsl(55, 100%, 30%);
 }
 
 
@@ -672,72 +757,4 @@ li {
 
 select {
 	padding: 2px 0px 2px 2px;
-}
-
-
-/**
-	Page - Welcome
-**/
-
-.welcome {
-	max-width: 800px;
-	padding-top: 8px;
-	color: var(--light-text-lighter);
-}
-
-.welcome h1,
-.welcome h2,
-.welcome h3 {
-	color: var(--light-accent-dark);
-}
-
-.welcome h2,
-.welcome h3 {
-	margin-top: 20px !important;
-}
-
-/**
-	Page - Settings
-**/
-
-.settings {
-	max-width: 800px;
-	padding-top: 6px;
-}
-
-.value input[type=number],
-.value option {
-	width: 200px;
-	padding: 2px 0px 2px 2px;
-}
-
-
-/**
-	Favorites
-**/
-
-.favorite,
-.addFavorite {
-	padding: 2px 4px;
-	border-radius: 3px;
-	border: 1px solid transparent;
-}
-
-.favorite {
-	border-color: hsl(55, 67%, 67%);
-	background-color: hsl(55, 100%, 90%);
-	color: hsl(40, 50%, 50%);
-}
-
-.favorite:hover {
-	color: hsl(40, 50%, 60%);
-	border-color: hsl(55, 67%, 80%);
-}
-
-.addFavorite {
-	background-color: rgba(0, 0, 0, 0.02);
-}
-
-.addFavorite:hover {
-	color: hsl(55, 100%, 30%);
 }
