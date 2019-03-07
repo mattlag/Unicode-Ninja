@@ -1,12 +1,12 @@
 function makeCharSearchBar() {
 	return `
 		<div class="charSearchInputGroup">
-			<span class="searchIcon">⚲</span>
+			<span class="searchIcon">⌕</span>
 			<input 
 				type="text" 
 				id="searchInput" 
 				value="${app.settings.charSearch}" 
-				onkeyup="updateCharSearch(this.value);"
+				onkeyup="charSearchBarOnChange(this.value);"
 				onfocus="appFocus('searchInput');"
 				onblur="appFocus(false);"
 			/>
@@ -25,11 +25,11 @@ function clearSearch() {
 	document.getElementById('searchInput').value = '';
 	document.getElementById('charSearchStatus').innerHTML = '';
 	saveSettings();
-	redraw();
+	redrawContent();
 }
 
-function makeCharSearchResults() {
-	// console.time('makeCharSearchResults');
+function makePageSearch() {
+	// console.time('makePageSearch');
 	let results = searchCharNames(app.settings.charSearch);
 	let isMaxed = results.length === parseInt(app.settings.maxSearchResults);
 	
@@ -41,44 +41,22 @@ function makeCharSearchResults() {
 		`;
 	};
 
-	let con = '';
-	con += `
-		<div class="charSearchResults">
-			<div class="columnHeader">&nbsp;</div>
-			<div class="columnHeader">${nbsp('character name')}</div>
-			<div class="columnHeader">${nbsp('code point')}</div>
-			<div class="columnHeader">${nbsp('range name')}</div>
-			<div class="columnHeader">${nbsp('favorites')}</div>
-	`;
-
-	results.map(function(value) {
-		con += `
-		<div class="rowWrapper" onclick="tileClick('${decToHex(value.char)}');">
-			${makeTile(value.char, 'small')}
-			<div class="charName">${value.result}</div>
-			<div class="codePoint"><pre>${value.char.replace('0x', 'U+')}</pre></div>
-			<div class="rangeName">${nbsp(getRangeForChar(value.char).name)}</div>
-		</div>
-		<div class="rowWrapper">
-			<div class="charFavorite" id="row_fav_${value.char}">${makeFavoriteButton(value.char)}</div>
-		</div>
-		`;
-	});
-	con += '</div>';
-
 	setTimeout(updateCharSearchStatus, 20);
 
-	// console.timeEnd('makeCharSearchResults');
-	return con;
+	// console.timeEnd('makePageSearch');
+	return makeGridView(results);
 }
 
-function updateCharSearch(term) {
+function charSearchBarOnChange(term) {
 	app.settings.charSearch = term;
 	saveSettings();
-	redraw();
+
+	app.settings.selectedPage === 'Search'? redrawContent() : navigate('Search');
 }
 
 function searchCharNames(term) {
+	if(!term) return [];
+
 	term = term.toUpperCase();
 	let count = 0;
 	let currName;

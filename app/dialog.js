@@ -1,19 +1,11 @@
 
-function openDialog(content = '', addCloseButton = false) {
+function openDialog(content = '') {
 	let dialogID = getNewDialogID();
 
 	let dialogHTML = `
 		<div class="dialogContent" onclick="event.stopPropagation();">
 			<div style="width: 100%; text-align: right;">
-				<button 
-					class="closeButton" 
-					style="
-						border-radius: 0 0 0 4px !important;
-						width: 2em; height: 2em;
-						position: relative;
-						top: -1px; left: 29px;
-					"
-				>⨉</button>
+				<button class="actionButton">⨉</button>
 			</div>
 			${content}
 		</div>
@@ -37,7 +29,7 @@ function openDialog(content = '', addCloseButton = false) {
 
 	document.body.appendChild(dialogElement);
 	
-	let closeButtons = dialogElement.querySelectorAll('.closeButton');
+	let closeButtons = dialogElement.querySelectorAll('.actionButton');
 	closeButtons.forEach(element => element.onclick = app.dialogCloseFunctions[dialogID]);
 	
 	dialogElement.onclick = app.dialogCloseFunctions[dialogID];

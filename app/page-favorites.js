@@ -1,3 +1,9 @@
+function makePageFavorites() {
+	return makeGridView(app.settings.favorites);
+}
+
+
+
 function addToFavorites(cid) {
 	if(!isFavorite(cid)) {
 		app.settings.favorites.push(cid);

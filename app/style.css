@@ -68,6 +68,14 @@ pre {
 	display: inline-block;
 }
 
+ul, ol {
+	margin-left: 20px;
+}
+
+li {
+	margin-bottom: 6px;
+}
+
 
 /**
 	Common
@@ -170,7 +178,7 @@ pre {
 
 #tabs #pageTab {
 	background-color: var(--light-bg-light);
-	color: var(--light-accent);
+	color: var(--light-accent-dark);
 	text-align: left;
 	border-radius: 4px 0px 0px 4px;
 	margin-left: 30px;
@@ -184,7 +192,7 @@ pre {
 }
 
 #tabs #pageTab:hover {
-	color: var(--light-accent-dark);
+	color: var(--light-accent);
 }
 
 #pageChooser {
@@ -195,13 +203,21 @@ pre {
 	background-color: var(--light-bg-light);
 	box-shadow: 4px 4px 4px var(--dark-bg-dark-alpha);
 	margin-top: 5px;
+	padding: 0px 5px 5px 0px;
 }
 
 #pageChooser button {
 	display: block;
-	font-size: 1.1em;
+	width: 100%;
+	text-align: left;
+	font-size: 1.2em;
 	color: var(--light-text-light);
-	padding: 8px 12px;
+	padding: 10px 24px;
+}
+
+#pageChooser button:hover {
+	background-color: var(--light-bg-lighter);
+	color: var(--light-accent-dark);
 }
 
 /**
@@ -317,9 +333,13 @@ pre {
 #content h3 {
 	font-weight: normal;
 	font-style: italic;
-	color: var(--light-text-dark);
-	margin: 10px 0px 10px 0px;
+	margin: 1px 0px 10px 0px;
 }
+
+
+/**
+	Page - Ranges
+**/
 
 .copyCode {
 	display: inline-block;
@@ -445,7 +465,7 @@ pre {
 
 
 /**
-	Search
+	Top Bar
 **/
 
 #charSearchBar {
@@ -471,8 +491,8 @@ pre {
 	display: grid;
 	grid-template-columns: 30px 280px 20px;
 }
+
 .charSearchInputGroup .searchIcon {
-	transform: rotate(45deg);
 	font-size: 1.5em;
 	width: 30px;
 	text-align: center;
@@ -504,13 +524,17 @@ pre {
 	padding: 18px 0px 0px 0px;
 }
 
+
+/**
+	Page - Search
+**/
+
 .charSearchResults {
 	display: grid;
 	grid-template-columns: 28px repeat(100, 1fr);
 	grid-column-gap: 2px;
 	grid-row-gap: 2px;
-	width: min-content;
-	margin-top: 20px;
+	margin-top: 15px;
 }
 
 .charSearchResults .columnHeader {
@@ -572,7 +596,7 @@ pre {
 	Dialog
 **/
 
-#dialog {
+.dialog {
 	display: none;
 	position: absolute;
 	top: 0;
@@ -586,7 +610,7 @@ pre {
 	transition: opacity 100ms ease-in-out;
 }
 
-#dialogContent {
+.dialogContent {
 	padding: 0px 20px 30px 30px;
 	margin: 10vh auto 0px auto;
 	max-height: 80vh;
@@ -600,18 +624,20 @@ pre {
 	transition-delay: 100ms;
 }
 
-#dialogContent h1,
-#dialogContent h2,
-#dialogContent h3 {
+.dialogContent h1,
+.dialogContent h2,
+.dialogContent h3 {
 	color: var(--light-text-lighter);
 	font-weight: normal;
 	margin-bottom: 12px;
 }
 
-#dialog .actionButton {
+.dialog .actionButton {
+	border-radius: 0 0 0 4px !important;
+	width: 2em; height: 2em;
 	position: relative;
-	left: 660px;
-	top: -10px;
+	top: -1px; 
+	left: 21px;
 }
 
 .twoColumn {
@@ -655,7 +681,36 @@ select {
 
 .welcome {
 	max-width: 800px;
+	padding-top: 8px;
+	color: var(--light-text-lighter);
 }
+
+.welcome h1,
+.welcome h2,
+.welcome h3 {
+	color: var(--light-accent-dark);
+}
+
+.welcome h2,
+.welcome h3 {
+	margin-top: 20px !important;
+}
+
+/**
+	Page - Settings
+**/
+
+.settings {
+	max-width: 800px;
+	padding-top: 6px;
+}
+
+.value input[type=number],
+.value option {
+	width: 200px;
+	padding: 2px 0px 2px 2px;
+}
+
 
 /**
 	Favorites
@@ -672,6 +727,11 @@ select {
 	border-color: hsl(55, 67%, 67%);
 	background-color: hsl(55, 100%, 90%);
 	color: hsl(40, 50%, 50%);
+}
+
+.favorite:hover {
+	color: hsl(40, 50%, 60%);
+	border-color: hsl(55, 67%, 80%);
 }
 
 .addFavorite {

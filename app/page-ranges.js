@@ -1,18 +1,19 @@
 
 function makePageRanges() {
-	let con = '';
+	let con = '<div class="ranges">';
 
 	for(let s=0; s<app.settings.selectedRanges.length; s++){
 		con += getRangeBlock(app.settings.selectedRanges[s]);
 	}
 	
-	con += '<i class="light">add or remove ranges using the checkboxes on the left</i>';
-
+	con += '<i class="light">Add or remove ranges using the checkboxes on the left.</i>';
+	con += '</div>';
+	
 	return con;
 }
 
 function getRangeBlock(rid) {
-	if (!app.rangeCache[rid]) app.rangeCache[rid] = makeRange(rid);
+	if (!app.rangeCache[rid]) app.rangeCache[rid] = makeRangeBlock(rid);
 	return app.rangeCache[rid];
 }
 
@@ -77,7 +78,7 @@ function makeRangeBlock(rid) {
 
 function clickRangeClose(rid) {
 	deselectRange(rid);
-	redraw();
+	redrawContent();
 }
 
 function makeTile(char, size) {
@@ -179,4 +180,70 @@ function makeCharDetail(char) {
 
 function tileClick(char) {
 	openDialog(makeCharDetail(char));
+}
+
+
+/*
+	Range and Character data
+*/
+
+function getRange(rid) {
+	// if(!unicodeBlocks[rid]) console.warn(`Unknown range: ${rid}`);
+	return unicodeBlocks[rid];
+}
+
+function getRangeForChar(hex) {
+	hex = parseInt(hex, 16);
+	for(let r in unicodeBlocks) {
+		if(unicodeBlocks.hasOwnProperty(r)) {
+			if(hex >= unicodeBlocks[r].begin && hex <= unicodeBlocks[r].end)
+				return unicodeBlocks[r];
+	}}
+
+	return false;
+}
+
+function getDataForChar(hex) {
+	hex = ''+hex;
+}
+
+function isRangeSelected(rid) {
+	return app.settings.selectedRanges.includes(rid);
+}
+
+function selectRange(rid) {
+	// if(typeof rid === 'string') rid = [rid];
+	rid = rid.split('_');
+	
+	rid.forEach(id => {
+		if(!isRangeSelected(id)) app.settings.selectedRanges.push(id);
+	});
+
+	sortSelectedRanges();
+	saveSettings();
+}
+
+function deselectRange(rid) {
+	// if(typeof rid === 'string') rid = [rid];
+	rid = rid.split('_');
+
+	rid.forEach(id => {
+		let i = app.settings.selectedRanges.indexOf(id);
+		if(i > -1) app.settings.selectedRanges.splice(i, 1);
+	});
+
+	sortSelectedRanges();
+	saveSettings();
+}
+
+function deselectAllRanges() {
+	app.settings.selectedRanges = [];
+	redrawContent();
+	saveSettings();
+}
+
+function sortSelectedRanges() {
+	app.settings.selectedRanges.sort(function (a, b) {
+		return parseInt(a.substr(2, 4), 16) - parseInt(b.substr(2, 4), 16);
+	});		
 }

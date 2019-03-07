@@ -9,7 +9,7 @@ function makeRangeChooser() {
 
 function selectRangeTab(tab) {
 	app.settings.selectedTab = tab;
-	redraw();
+	redrawContent();
 }
 
 function makeRangeTabs() {
@@ -151,8 +151,7 @@ function checkboxOnChange(elem){
 		deselectRange(elem.dataset.range)
 	}
 
-	redraw();
+	app.settings.selectedPage === 'Ranges'? redrawContent() : navigate('Ranges');
 
 	document.getElementById(elem.id).checked = elem.checked;
-
 }
