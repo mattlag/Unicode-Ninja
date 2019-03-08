@@ -33,7 +33,7 @@ function togglePageChooser() {
 
 	popup = document.createElement('div');
 	popup.setAttribute('id', 'pageChooser');
-	popup.style.top = (entryPoint.offsetTop + entryPoint.offsetHeight - 16) + 'px';
+	popup.style.top = (entryPoint.offsetTop + entryPoint.offsetHeight - 5) + 'px';
 	popup.style.left = entryPoint.offsetLeft + 'px';
 	popup.style.display = 'block';
 

@@ -5,29 +5,23 @@
 **/
 
 :root {
-	--dark-bg-dark-alpha: hsla(210, 15%, 10%, 0.4);
-	--dark-bg-dark: hsl(210, 15%, 10%);
-	--dark-bg-light: hsl(210, 15%, 20%);
-	--dark-bg-lighter: hsl(210, 15%, 40%);
-	--dark-text-darker: hsl(210, 5%, 60%);
-	--dark-text-dark: hsl(210, 5%, 80%);
-	--dark-text-light: hsl(210, 5%, 95%);
+	--gray-05: hsl(210, 5%, 5%);
+	--gray-10: hsl(210, 15%, 10%);
+	--gray-20: hsl(210, 15%, 20%);
+	--gray-40: hsl(210, 15%, 40%);
+	--gray-60: hsl(210, 5%, 60%);
+	--gray-80: hsl(210, 5%, 80%);
+	--gray-90: hsl(210, 5%, 90%);
+	--gray-95: hsl(210, 5%, 95%);
+	
+	--gray-10-alpha: hsla(210, 15%, 10%, 0.4);
+	--gray-90-alpha: hsla(210, 5%, 90%, 0.4);
 
-	--dark-accent: hsl(340, 95%, 30%);
-	--dark-accent-light: hsl(340, 40%, 50%);
-
-	--light-bg-darker: hsl(210, 5%, 60%);
-	--light-bg-dark: hsl(210, 5%, 80%);
-	--light-bg-light: hsl(210, 5%, 90%);
-	--light-bg-lighter: hsl(210, 5%, 95%);
-	--light-text-dark: hsl(210, 5%, 5%);
-	--light-text-light: hsl(210, 5%, 10%);
-	--light-text-lighter: hsl(210, 5%, 20%);
-
-	--light-accent-darker: hsl(340, 90%, 15%);
-	--light-accent-dark: hsl(340, 80%, 30%);
-	--light-accent: hsl(340, 80%, 50%);
-	--light-accent-light: hsl(340, 80%, 70%);
+	--accent-15: hsl(340, 90%, 15%);
+	--accent-20: hsl(340, 90%, 20%);
+	--accent-30: hsl(340, 95%, 30%);
+	--accent-50: hsl(340, 70%, 50%);
+	--accent-70: hsl(340, 60%, 70%);
 }
 
 * {
@@ -44,7 +38,7 @@ body {
 }
 
 h1, h2, h3 {
-	color: var(--light-accent-darker);
+	color: var(--accent-15);
 	font-weight: normal;
 	font-style: italic;
 	margin: 1px 0px 10px 0px;
@@ -54,25 +48,25 @@ a,
 a:link,
 a:visited,
 a:active {
-	color: var(--light-accent-dark);
+	color: var(--accent-30);
 }
 
 a:hover {
-	color: var(--light-accent-light);
+	color: var(--accent-50);
 }
 
 button {
 	padding: 4px 12px;
 	border: 1px solid transparent;
 	background-color: transparent;
-	color: var(--light-bg-darker);
+	color: var(--gray-60);
 	border-radius: 4px;
 }
 
 button:hover,
 a:hover {
 	cursor: pointer;
-	color: var(--light-accent);
+	color: var(--accent-50);
 }
 
 canvas {
@@ -80,8 +74,8 @@ canvas {
 }
 
 pre {
-	background-color: var(--light-bg-dark);
-	color: var(--light-text-dark);
+	background-color: var(--gray-80);
+	color: var(--gray-05);
 	font-family: monospace;
 	padding: 2px 4px;
 	border-radius: 3px;
@@ -106,7 +100,7 @@ li {
 	display: grid;
 	grid-template-columns: 460px 1fr;
 	grid-template-rows: min-content 50px 1fr;
-	background-color: var(--dark-bg-dark);
+	background-color: var(--gray-10);
 	height: 100vh;
 	max-height: 100vh;
 	overflow: hidden;
@@ -115,7 +109,7 @@ li {
 #content {
 	grid-row: 2 / 4;
 	grid-column: 2 / 4;
-	background-color: var(--light-bg-light);
+	background-color: var(--gray-90);
 	padding: 30px 10px 20px 30px;
 	overflow-y: scroll;
 	z-index: 300;
@@ -125,8 +119,8 @@ li {
 	display: inline-block;
 	border: 0;
 	border-radius: 50%;
-	background-color: var(--dark-bg-lighter);
-	color: var(--dark-text-dark);
+	background-color: var(--gray-40);
+	color: var(--gray-80);
 	font-size: 13px;
 	padding: 4px;
 	text-align: center;
@@ -136,7 +130,7 @@ li {
 }
 
 .actionButton:hover {
-	background-color: var(--light-accent);
+	background-color: var(--accent-50);
 	color: white;
 	cursor: pointer;
 }
@@ -151,19 +145,21 @@ li {
 #logo {
 	grid-row: 1;
 	grid-column: 1;
-	background-color: var(--dark-bg-dark);
-	box-shadow: 0px 15px 0px var(--dark-bg-dark);
+	background-color: var(--gray-10);
+	box-shadow: 0px 15px 0px var(--gray-10);
 	padding: 10px 0px 0px 20px;
 	z-index: 900;
 	font-weight: bold;
 	font-size: 36px;
-	color: var(--dark-accent-light);
+	color: var(--accent-70);
 	display: inline-block;
 }
 
 #header {
-	box-shadow: 0px 2px 4px var(--dark-bg-dark-alpha);
-	background-color: var(--light-bg-dark);
+	box-shadow: 
+		0px -2px 4px var(--gray-10-alpha) inset,
+		0px 4px 4px var(--gray-90-alpha);
+	background-color: var(--gray-80);
 	display: grid;
 	grid-template-columns: 260px 1fr;
 	z-index: 400;
@@ -178,25 +174,25 @@ li {
 }
 
 #pageTab {
-	background-color: var(--light-bg-light);
-	color: var(--light-accent-dark);
+	background-color: var(--gray-90);
+	color: var(--accent-15);
 	text-align: center;
 	border-radius: 4px 4px 0px 0px;	
 	border-style: solid;
 	border-width: 3px 0px 0px 0px;
-	border-color: var(--light-accent-dark);
+	border-color: var(--accent-15);
 	margin: 0px 30px;
 	position: relative;
 	top: 10px;
-	height: 100%;
+	height: 54px;
 	width: 200px;
 	font-size: 1.2em;
-	padding: 0px 8px 10px 0px;
+	padding: 0px 8px 0px 0px;
 }
 
 #pageTab:hover {
-	color: var(--light-accent);
-	border-color: var(--light-accent);
+	color: var(--accent-50);
+	border-color: var(--accent-50);
 }
 
 #pageChooser {
@@ -204,8 +200,8 @@ li {
 	display: none;
 	width: min-content;
 	z-index: 1000;
-	background-color: var(--light-bg-light);
-	box-shadow: 0px 4px 4px var(--dark-bg-dark-alpha);
+	background-color: var(--gray-90);
+	box-shadow: 0px 4px 4px var(--gray-10-alpha);
 	margin-top: 5px;
 	padding: 10px;
 	width: 260px;
@@ -216,13 +212,13 @@ li {
 	width: 100%;
 	text-align: left;
 	font-size: 1.2em;
-	color: var(--light-text-light);
+	color: var(--gray-10);
 	padding: 10px 24px;
 }
 
 #pageChooser button:hover {
-	background-color: var(--light-bg-lighter);
-	color: var(--light-accent-dark);
+	background-color: var(--gray-95);
+	color: var(--accent-15);
 }
 
 /**
@@ -246,35 +242,36 @@ li {
 	margin: 10px 0px 10px 0px;
 	grid-column: 1;
 	display: grid;
-	grid-template-columns: 30px 280px 20px;
+	grid-template-columns: 30px 300px 20px;
 }
 
 .charSearchInputGroup .searchIcon {
 	font-size: 1.5em;
 	width: 30px;
 	text-align: center;
-	color: var(--light-bg-dark);
+	margin-top: 2px;
+	color: var(--gray-80);
 }
 
 .charSearchInputGroup #searchInput {
 	font-size: 1.1em;
-	color: var(--light-text-dark);
+	color: var(--gray-05);
 	border: 0px;
 	margin-left: 4px;
 }
 
 .charSearchInputGroup .actionButton {
-	margin: 4px 4px 0px 0px;
+	margin: 7px 0px 0px 0px;
 	background-color: white;
 }
 
 .charSearchInputGroup .actionButton:hover {
-	background-color: var(--light-accent-light);
+	background-color: var(--accent-70);
 }
 
 #charSearchStatus {
 	grid-column: 2;
-	color: var(--light-text-lighter);
+	color: var(--gray-20);
 	font-style: italic;
 	display: table-cell;
 	vertical-align: middle;
@@ -291,8 +288,8 @@ li {
 #rangeTabs {
 	grid-row: 2;
 	grid-column: 1;
-	background-color: var(--dark-bg-dark);
-	box-shadow: 0px 2px 4px var(--dark-bg-light);
+	background-color: var(--gray-10);
+	box-shadow: 0px 2px 4px var(--gray-20);
 	overflow: hidden;
 	vertical-align: bottom;
 	display: grid;
@@ -302,8 +299,8 @@ li {
 
 #rangeTabs button {
 	display: inline-block;
-	background-color: var(--dark-bg-dark);
-	color: var(--dark-text-dark);
+	background-color: var(--gray-10);
+	color: var(--gray-80);
 	border-style: solid;
 	border-width: 3px 0px 0px 0px;
 	border-color: transparent;
@@ -318,13 +315,13 @@ li {
 
 #rangeTabs button:hover {
 	cursor: pointer;
-	color: var(--dark-text-light);
+	color: var(--gray-90);
 }
 
 #rangeTabs .selected {
-	background-color: var(--dark-bg-light);
-	color: var(--dark-text-light);
-	border-color: var(--dark-accent-light);
+	background-color: var(--gray-20);
+	color: var(--gray-90);
+	border-color: var(--accent-50);
 }
 
 
@@ -341,8 +338,8 @@ li {
 #rangeChooser {
 	grid-row: 3;
 	grid-column: 1;
-	background-color: var(--dark-bg-light);
-	color: var(--dark-text-dark);
+	background-color: var(--gray-20);
+	color: var(--gray-80);
 	padding: 20px;
 	font-size: 0.9em;
 	display: grid;
@@ -351,7 +348,7 @@ li {
 	grid-column-gap: 4px;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	border-right: 2px solid var(--dark-bg-dark);
+	border-right: 2px solid var(--gray-10);
 }
 
 .spanTwo {
@@ -362,18 +359,18 @@ li {
 #rangeChooser h3 {
 	font-weight: normal;
 	font-style: italic;
-	color: var(--dark-text-dark);
+	color: var(--gray-80);
 	grid-column-start: 1;
 	grid-column-end: 6;
 }
 
 #rangeChooser label:hover {
-	color: var(--dark-text-light);
+	color: var(--gray-90);
 	cursor: pointer;
 }
 
 .note {
-	color: var(--dark-accent-light);
+	color: var(--accent-50);
 	display: inline-block;
 	opacity: 0.8;
 	background-color: transparent;
@@ -386,9 +383,9 @@ li {
 }
 
 .note:hover {
-	background-color: var(--dark-bg-lighter);
-	color: var(--light-text-dark);
-	color: var(--light-accent-light);
+	background-color: var(--gray-40);
+	color: var(--gray-05);
+	color: var(--accent-70);
 	opacity: 1;
 	cursor: help;
 }
@@ -407,24 +404,24 @@ li {
 .count {
 	padding-right: 4px;
 	text-align: right;
-	color: var(--dark-text-darker);
+	color: var(--gray-60);
 }
 
 #rangeChooser pre {
-	background-color: var(--dark-bg-dark);
-	color: var(--dark-text-dark);
+	background-color: var(--gray-10);
+	color: var(--gray-80);
 }
 
 #rangeChooser button {
-	background-color: var(--dark-bg-dark);
-	color: var(--dark-text-dark);
+	background-color: var(--gray-10);
+	color: var(--gray-80);
 	margin: 12px 0px 20px 0px;
 	grid-column: 2 / span 3;
 }
 
 #rangeChooser button:hover {
-	background-color: var(--dark-accent);
-	color: var(--dark-text-light);
+	background-color: var(--accent-30);
+	color: var(--gray-90);
 }
 
 
@@ -440,7 +437,7 @@ li {
 
 .welcome {
 	max-width: 800px;
-	color: var(--light-text-lighter);
+	color: var(--gray-20);
 }
 
 .welcome div {
@@ -477,7 +474,7 @@ li {
 .copyCode {
 	display: inline-block;
 	background-color: white;
-	color: var(--light-text-dark);
+	color: var(--gray-05);
 	cursor: text;
 	padding: 4px;
 	font-family: monospace;
@@ -512,8 +509,8 @@ li {
 }
 
 .hex {
-	background-color: var(--light-bg-dark);
-	color: var(--light-text-light);
+	background-color: var(--gray-80);
+	color: var(--gray-10);
 	font-family: monospace;
 	padding: 4px;
 	display: table;
@@ -521,8 +518,8 @@ li {
 }
 
 .hex span {
-	background-color: var(--light-bg-dark);
-	color: var(--light-text-light);
+	background-color: var(--gray-80);
+	color: var(--gray-10);
 	display: table-cell;
 	font-family: monospace;
 	vertical-align: middle;
@@ -537,7 +534,7 @@ li {
 
 .charTile:hover {
 	cursor: pointer;
-	border-color: var(--light-accent-light);
+	border-color: var(--accent-70);
 }
 
 .charTile.small {
@@ -609,8 +606,8 @@ li {
 }
 
 .charSearchResults .columnHeader {
-	background-color: var(--light-bg-dark);
-	color: var(--light-text-lighter);
+	background-color: var(--gray-80);
+	color: var(--gray-20);
 	padding: 8px 8px 8px 4px;
 	font-style: italic;
 	font-size: 0.6em;
@@ -624,7 +621,7 @@ li {
 	border-style: solid;
 	border-color: transparent;
 	border-width: 1px 0px 1px 0px;
-	background-color: var(--light-bg-lighter);
+	background-color: var(--gray-95);
 	display: table-cell;
 	vertical-align: middle;
 	max-height: 28px;
@@ -632,7 +629,7 @@ li {
 
 .charSearchResults .rowWrapper:hover div {
 	background-color: white;
-	border-color: var(--light-accent-light);
+	border-color: var(--accent-70);
 }
 
 .charSearchResults .rowWrapper:hover * {
@@ -659,7 +656,7 @@ li {
 .charSearchResults .charFavorite:hover {
 	padding: 1px 4px 0px 4px;
 	border: 1px solid transparent !important;
-	background-color: var(--light-bg-lighter) !important;
+	background-color: var(--gray-95) !important;
 }
 
 /**
@@ -716,9 +713,9 @@ li {
 	margin: 10vh auto 0px auto;
 	max-height: 80vh;
 	width: 700px;
-	background-color: var(--light-bg-light);
+	background-color: var(--gray-90);
 	text-align: left;
-	border: 1px solid var(--dark-bg-lighter);
+	border: 1px solid var(--gray-40);
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 	opacity: 0;
 	transition: opacity 200ms ease-in-out;
@@ -728,7 +725,7 @@ li {
 .dialogContent h1,
 .dialogContent h2,
 .dialogContent h3 {
-	color: var(--light-text-lighter);
+	color: var(--gray-20);
 	font-weight: normal;
 	margin-bottom: 12px;
 }
@@ -758,12 +755,12 @@ li {
 
 .key {
 	grid-column: 1;
-	color: var(--light-text-light);
+	color: var(--gray-10);
 }
 
 .value {
 	grid-column: 2;
-	color: var(--light-text-dark);
+	color: var(--gray-05);
 	text-align: left;
 }
 
