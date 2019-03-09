@@ -5,23 +5,25 @@
 **/
 
 :root {
-	--gray-05: hsl(210, 5%, 5%);
-	--gray-10: hsl(210, 15%, 10%);
+	--gray-05: hsl(210, 30%, 5%);
+	--gray-10: hsl(210, 20%, 10%);
 	--gray-20: hsl(210, 15%, 20%);
+	--gray-30: hsl(210, 15%, 30%);
 	--gray-40: hsl(210, 15%, 40%);
+	--gray-50: hsl(210, 15%, 50%);
 	--gray-60: hsl(210, 5%, 60%);
+	--gray-70: hsl(210, 5%, 70%);
 	--gray-80: hsl(210, 5%, 80%);
 	--gray-90: hsl(210, 5%, 90%);
 	--gray-95: hsl(210, 5%, 95%);
 	
-	--gray-10-alpha: hsla(210, 15%, 10%, 0.4);
-	--gray-90-alpha: hsla(210, 5%, 90%, 0.4);
-
-	--accent-15: hsl(340, 90%, 15%);
-	--accent-20: hsl(340, 90%, 20%);
-	--accent-30: hsl(340, 95%, 30%);
-	--accent-50: hsl(340, 70%, 50%);
-	--accent-70: hsl(340, 60%, 70%);
+	--accent-15: hsl(350, 90%, 15%);
+	--accent-20: hsl(350, 90%, 20%);
+	--accent-30: hsl(350, 80%, 30%);
+	--accent-40: hsl(350, 75%, 40%);
+	--accent-50: hsl(350, 60%, 50%);
+	--accent-60: hsl(350, 50%, 60%);
+	--accent-70: hsl(350, 40%, 70%);
 }
 
 * {
@@ -100,7 +102,6 @@ li {
 	display: grid;
 	grid-template-columns: 460px 1fr;
 	grid-template-rows: min-content 50px 1fr;
-	background-color: var(--gray-10);
 	height: 100vh;
 	max-height: 100vh;
 	overflow: hidden;
@@ -142,46 +143,49 @@ li {
 	====================
 **/
 
+#header {
+	box-shadow: 
+		0px -4px 4px -4px var(--gray-30) inset,
+		0px 4px 4px var(--gray-90);
+	background-color: var(--gray-70);
+	grid-column: 1 / 4;
+	display: grid;
+	grid-template-columns: 460px 212px 1fr;
+	z-index: 400;
+}
+
 #logo {
 	grid-row: 1;
 	grid-column: 1;
-	background-color: var(--gray-10);
-	box-shadow: 0px 15px 0px var(--gray-10);
+	/* background-color: var(--gray-70); */
+	/* box-shadow: 0px -4px 4px -4px var(--gray-10) inset; */
 	padding: 10px 0px 0px 20px;
-	z-index: 900;
+	margin: 0;
+	height: 100%;
+	z-index: 500;
 	font-weight: bold;
 	font-size: 36px;
-	color: var(--accent-70);
+	color: var(--accent-40);
 	display: inline-block;
 }
 
-#header {
-	box-shadow: 
-		0px -2px 4px var(--gray-10-alpha) inset,
-		0px 4px 4px var(--gray-90-alpha);
-	background-color: var(--gray-80);
-	display: grid;
-	grid-template-columns: 260px 1fr;
-	z-index: 400;
-}
 
 /**
 	Page Chooser
 **/
 #pageTabs {
 	grid-row: 1;
-	grid-column: 1;
+	grid-column: 2;
 }
 
 #pageTab {
 	background-color: var(--gray-90);
-	color: var(--accent-15);
+	color: var(--accent-30);
 	text-align: center;
 	border-radius: 4px 4px 0px 0px;	
 	border-style: solid;
 	border-width: 3px 0px 0px 0px;
-	border-color: var(--accent-15);
-	margin: 0px 30px;
+	border-color: var(--accent-50);
 	position: relative;
 	top: 10px;
 	height: 54px;
@@ -192,7 +196,7 @@ li {
 
 #pageTab:hover {
 	color: var(--accent-50);
-	border-color: var(--accent-50);
+	border-color: var(--accent-60);
 }
 
 #pageChooser {
@@ -201,8 +205,7 @@ li {
 	width: min-content;
 	z-index: 1000;
 	background-color: var(--gray-90);
-	box-shadow: 0px 4px 4px var(--gray-10-alpha);
-	margin-top: 5px;
+	box-shadow: 4px 4px 4px -2px var(--gray-10);
 	padding: 10px;
 	width: 260px;
 }
@@ -218,7 +221,7 @@ li {
 
 #pageChooser button:hover {
 	background-color: var(--gray-95);
-	color: var(--accent-15);
+	color: var(--accent-30);
 }
 
 /**
@@ -227,7 +230,7 @@ li {
 
 #charSearchBar {
 	grid-row: 1;
-	grid-column: 2;
+	grid-column: 3;
 	height: 100%;
 	z-index: 100;
 	display: grid;
@@ -288,19 +291,20 @@ li {
 #rangeTabs {
 	grid-row: 2;
 	grid-column: 1;
-	background-color: var(--gray-10);
-	box-shadow: 0px 2px 4px var(--gray-20);
+	background-color: var(--gray-90);
+	box-shadow: 0px -4px 4px -4px var(--gray-30) inset;
 	overflow: hidden;
 	vertical-align: bottom;
 	display: grid;
 	grid-template-columns: 1fr 1fr 2fr;
-	z-index: 100;
+	z-index: 800;
+	border-right: 1px solid var(--gray-60);
 }
 
 #rangeTabs button {
 	display: inline-block;
-	background-color: var(--gray-10);
-	color: var(--gray-80);
+	background-color: transparent;
+	color: var(--gray-30);
 	border-style: solid;
 	border-width: 3px 0px 0px 0px;
 	border-color: transparent;
@@ -315,13 +319,15 @@ li {
 
 #rangeTabs button:hover {
 	cursor: pointer;
-	color: var(--gray-90);
+	color: var(--gray-10);
 }
 
-#rangeTabs .selected {
+#rangeTabs .selected,
+#rangeTabs .selected:hover {
 	background-color: var(--gray-20);
 	color: var(--gray-90);
 	border-color: var(--accent-50);
+	cursor: default;
 }
 
 
@@ -348,7 +354,7 @@ li {
 	grid-column-gap: 4px;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	border-right: 2px solid var(--gray-10);
+	border-right: 1px solid var(--gray-60);
 }
 
 .spanTwo {
@@ -711,8 +717,8 @@ li {
 .dialogContent {
 	padding: 0px 20px 30px 30px;
 	margin: 10vh auto 0px auto;
-	max-height: 80vh;
 	width: 700px;
+	max-height: 80vh;
 	background-color: var(--gray-90);
 	text-align: left;
 	border: 1px solid var(--gray-40);

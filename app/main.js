@@ -1,6 +1,6 @@
 let app = {
-	version: '2.5.0',
-	releaseDate: 1552000000000,
+	version: '2.5.1',
+	releaseDate: 1552100000000,
 	rangeCache: {},
 	focusID: false,
 	dialogCloseFunctions: {},
