@@ -180,7 +180,7 @@
 #rangesChooser {
 	background-color: var(--gray-90);
 	color: var(--gray-30);
-	border-radius: var(--radius-large) 0 0 0;
+	border-radius: var(--radius-large) var(--radius-large) 0 0;
 	font-size: 0.9em;
 	width: var(--panel-width);
 	overflow-y: auto;

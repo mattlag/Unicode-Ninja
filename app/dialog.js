@@ -50,16 +50,12 @@ function getNewDialogID() {
 }
 
 function copyText(text) {
-	const type = 'text/plain';
-	const blob = new Blob([text], { type });
-	const data = [new ClipboardItem({ [type]: blob })];
-
-	navigator.clipboard.write(data).then(
+	navigator.clipboard.writeText(text).then(
 		() => {
-			// console.log(`Copied to the clipboard: ${text}`);
+			console.log(`Copied to the clipboard: ${text}`);
 		},
 		() => {
-			// console.warn(`Copy to clipboard failed`);
+			console.warn(`Copy to clipboard failed`);
 		}
 	);
 }
