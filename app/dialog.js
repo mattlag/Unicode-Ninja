@@ -25,8 +25,6 @@ function openDialog(content = '') {
 		}, 100);
 	};
 
-	// conlog(dialogElement);
-
 	document.body.appendChild(dialogElement);
 	
 	let closeButtons = dialogElement.querySelectorAll('.actionButton');
@@ -49,4 +47,19 @@ function getNewDialogID() {
 		if(!document.getElementById('dialog-'+suffix)) return 'dialog-'+suffix;
 		suffix++;
 	}
+}
+
+function copyText(text) {
+	const type = 'text/plain';
+	const blob = new Blob([text], { type });
+	const data = [new ClipboardItem({ [type]: blob })];
+
+	navigator.clipboard.write(data).then(
+		() => {
+			// console.log(`Copied to the clipboard: ${text}`);
+		},
+		() => {
+			// console.warn(`Copy to clipboard failed`);
+		}
+	);
 }

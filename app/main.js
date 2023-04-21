@@ -1,6 +1,6 @@
 let app = {
-	version: '2.5.1',
-	releaseDate: 1552100000000,
+	version: '2.6.0',
+	releaseDate: 1682100000000,
 	rangeCache: {},
 	focusID: false,
 	dialogCloseFunctions: {},
@@ -8,18 +8,19 @@ let app = {
 		charSearch: '',
 		rememberSettings: false,
 		maxSearchResults: 1000,
-		selectedPage: 'Welcome',
+		selectedPage: 'Ranges',
 		selectedTab: 'Grouped',
 		selectedRanges: ['r-0020-007F'],
+		responsiveChooserIsOpen: false,
 		genericFontFamily: 'sans-serif',
 		favorites: [],
-	}
+	},
 };
 
 function init(){
 	loadSettings();
 	document.getElementById('charSearchBar').innerHTML = makeCharSearchBar();
-	navigate('Welcome');
+	navigate('Ranges');
 	animateLogo();
 }
 
@@ -30,7 +31,7 @@ function loadSettings() {
 		app.settings.charSearch = savedSettings.charSearch || '';
 		app.settings.rememberSettings = savedSettings.rememberSettings || false;
 		app.settings.maxSearchResults = savedSettings.maxSearchResults || 1000;
-		app.settings.selectedPage = savedSettings.selectedPage || 'Welcome';
+		app.settings.selectedPage = savedSettings.selectedPage || 'Ranges';
 		app.settings.selectedTab = savedSettings.selectedTab || 'Grouped';
 		app.settings.selectedRanges = savedSettings.selectedRanges || ['r-0020-007F'];
 		app.settings.genericFontFamily = savedSettings.genericFontFamily || 'sans-serif';
@@ -41,20 +42,6 @@ function loadSettings() {
 function saveSettings() {
 	if(!app.settings.rememberSettings) return;
 	window.localStorage.setItem('unicode.ninja', JSON.stringify(app.settings));
-}
-
-function testNoGlyph() {
-	document.getElementById('content').innerHTML +=`<br><br>
-		<div class="charTile" id="testnoglyph">&#x10FFFF;</div><br>
-		<textarea id="testtext"></textarea><br>
-		<canvas id="testcanvas"></canvas>
-	`;
-
-	let ng = document.getElementById('testnoglyph').innerHTML;
-	document.getElementById('testtext').innerHTML = ng;
-	let ctx = document.getElementById('testcanvas').getContext('2d');
-	ctx.font = "120px Arial";
-	ctx.fillText(ng, 0, 120);
 }
 
 function animateLogo() {
@@ -134,7 +121,7 @@ function nbsp(text) {
 
 function getShipDate(){
 	let time = '' + (new Date().getTime());
-	let prefix = parseInt(time.substr(0, 5)) * 100000000;
+	let prefix = parseInt(time.substring(0, 5)) * 100000000;
 	let day = (parseInt(time.charAt(5)) + 1) * 10000000;
 	return prefix + day;
 }
@@ -148,8 +135,8 @@ function findLongestName() {
 	for(let point in fullUnicodeNameList) {
 		if(fullUnicodeNameList.hasOwnProperty(point)) {
 			currName = fullUnicodeNameList[point];
-			if(!result[currName.length]) result[currName.length] = 1;
-			else result[currName.length]++
+			if (!result[currName.length]) result[currName.length] = 1;
+			else result[currName.length]++;
 
 			// if(currName.length > max) {
 			//	 max = currName.length;

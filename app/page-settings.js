@@ -1,4 +1,5 @@
 function makePageSettings() {
+	let gff = app.settings.genericFontFamily;
 	return `
 		<div class="settings">
 			<h1>Settings</h1>
@@ -7,7 +8,7 @@ function makePageSettings() {
 				<span class="value">
 					<input 
 						type="checkbox" 
-						${app.settings.rememberSettings? 'checked' : ''} 
+						${app.settings.rememberSettings ? 'checked' : ''} 
 						onchange="updateSetting('rememberSettings', this.checked);"
 					/>
 				</span>
@@ -15,18 +16,26 @@ function makePageSettings() {
 				<span class="key">${nbsp('Generic character tile font family:')}</span>
 				<span class="value">
 					<select onchange="updateSetting('genericFontFamily', this.value);">
-						<option value="serif">serif</option>
-						<option value="sans-serif">sans-serif</option>
-						<option value="monospace">monospace</option>
-						<option value="system-ui">system-ui</option>
-						<option value="cursive">cursive</option>
-						<option value="fantasy">fantasy</option>
+						<option ${gff === 'serif' ? 'selected' : ''} value="serif">Serif</option>
+						<option ${
+							gff === 'sans-serif' ? 'selected' : ''
+						} value="sans-serif">Sans-serif</option>
+						<option ${
+							gff === 'monospace' ? 'selected' : ''
+						} value="monospace">Monospace</option>
+						<option ${
+							gff === 'system-ui' ? 'selected' : ''
+						} value="system-ui">System UI</option>
+						<option ${gff === 'cursive' ? 'selected' : ''} value="cursive">Cursive</option>
+						<option ${gff === 'fantasy' ? 'selected' : ''} value="fantasy">Fantasy</option>
 					</select>
 				</span>
 
 				<span class="key">${nbsp('Maximum search results:')}</span>
 				<span class="value">
-					<input type="number" value="${app.settings.maxSearchResults}" onchange="updateSetting('maxSearchResults', this.value);"/>
+					<input type="number" value="${
+						app.settings.maxSearchResults
+					}" onchange="updateSetting('maxSearchResults', this.value);"/>
 				</span>
 
 			</div>
@@ -66,10 +75,11 @@ function updateSetting(key, value) {
 	// console.log(`Setting ${key} to ${value}`);
 	app.settings[key] = value;
 
-	if(key === 'genericFontFamily') {
+	if (key === 'genericFontFamily') {
 		app.rangeCache = [];
-		redrawContent(true);
-	} if(key === 'rememberSettings' && !value) {
+		redrawContent();
+	}
+	if (key === 'rememberSettings' && !value) {
 		window.localStorage.removeItem('unicode.ninja');
 		window.localStorage.clear();
 		// console.log('cleared local storage');

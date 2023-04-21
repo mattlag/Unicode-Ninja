@@ -1,94 +1,86 @@
-
-app.pageTabs = {
-	'Welcome' : '☺ Welcome!',
-	'Ranges' : '▦ Selected ranges',
-	'Favorites' : '★ Favorites',
-	'Search' :  '⌕ Search results',
-	'Settings' : '⛭ Settings and info',
+app.menu = {
+	Ranges: 'Unicode ranges',
+	Search: 'Search results',
+	Favorites: 'Favorites',
+	Settings: 'Settings',
 };
 
-function makeContent() {
+function makePageContent() {
 	let con = '';
-
-	if (app.settings.selectedPage === 'Search') con += makePageSearch();
-	else if (app.settings.selectedPage === 'Welcome') con += makePageWelcome();
-	else if (app.settings.selectedPage === 'Ranges') con += makePageRanges();
-	else if (app.settings.selectedPage === 'Favorites') con += makePageFavorites();
-	else if (app.settings.selectedPage === 'Settings') con += makePageSettings();
+	
+	let selectedPage = app.settings.selectedPage;
+	if (selectedPage === 'Search') con += makePageSearch();
+	else if (selectedPage === 'Ranges') con += makePageRanges();
+	else if (selectedPage === 'Favorites') con += makePageFavorites();
+	else if (selectedPage === 'Settings') con += makePageSettings();
 
 	con += '<br><br>';
 
 	return con;
 }
 
-function togglePageChooser() {
-	let popup = document.getElementById('pageChooser');
+function toggleMenu() {
+	let popup = document.getElementById('menu');
 
-	if(popup) {
+	if (popup) {
 		document.body.removeChild(popup);
 		return;
 	}
 
-	let entryPoint = document.getElementById('pageTab');
+	let entryPoint = document.getElementById('menuButton');
 
 	popup = document.createElement('div');
-	popup.setAttribute('id', 'pageChooser');
-	popup.style.top = (entryPoint.offsetTop + entryPoint.offsetHeight - 2) + 'px';
+	popup.setAttribute('id', 'menu');
+	popup.style.top = entryPoint.offsetTop + entryPoint.offsetHeight + 'px';
 	popup.style.left = entryPoint.offsetLeft + 'px';
 	popup.style.display = 'block';
 
-	function makePageChooserButton(page) {
-		return `<button onclick="navigate('${page}');">${app.pageTabs[page]}</button>`;
+	function makePageButton(page) {
+		return `<button onclick="navigate('${page}');">${nbsp(app.menu[page])}</button>`;
 	}
 
 	popup.innerHTML = `
-		${makePageChooserButton('Welcome')}
-		${makePageChooserButton('Ranges')}
-		${makePageChooserButton('Favorites')}
-		${makePageChooserButton('Search')}
-		${makePageChooserButton('Settings')}
+		${makePageButton('Ranges')}
+		${makePageButton('Search')}
+		${makePageButton('Favorites')}
+		${makePageButton('Settings')}
 	`;
 
+	popup.addEventListener('mouseleave', toggleMenu);
 	document.body.appendChild(popup);
 }
 
-function hidePageChooser() {
-	let popup = document.getElementById('pageChooser');
+function hideMenu() {
+	let popup = document.getElementById('menu');
 
-	if(popup) document.body.removeChild(popup);
+	if (popup) document.body.removeChild(popup);
 }
 
 function navigate(pageName) {
 	app.settings.selectedPage = pageName;
-	hidePageChooser();
+	hideMenu();
+	clearSearch();
 	redrawContent();
 	saveSettings();
 }
-
 
 /*
 	Making UI Content
 */
 
-function redrawContent(onlyContent) {
-	if(app.redrawTimeout) clearTimeout(app.redrawTimeout);
+function redrawContent() {
+	if (app.redrawTimeout) clearTimeout(app.redrawTimeout);
 
 	app.redrawTimeout = setTimeout(function () {
-		!onlyContent? document.getElementById('pageTabs').innerHTML =
-			`<button id="pageTab" onclick="togglePageChooser();">${nbsp(app.pageTabs[app.settings.selectedPage])}</button>`
-			: '';
+		document.getElementById('content').innerHTML = makePageContent();
 
-		!onlyContent? document.getElementById('rangeTabs').innerHTML = makeRangeTabs() : '';
-		!onlyContent? document.getElementById('rangeChooser').innerHTML = makeRangeChooser() : '';
-		document.getElementById('content').innerHTML = makeContent();
-		
-		if(app.focusID){
+		if (app.focusID) {
 			let elem = document.getElementById(app.focusID);
 			let value = elem.value;
 			elem.focus();
 			elem.value = '';
 			elem.value = value;
-		}		
+		}
 	}, 10);
 }
 

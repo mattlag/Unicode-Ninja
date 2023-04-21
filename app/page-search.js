@@ -37,7 +37,7 @@ function makePageSearch() {
 		document.getElementById('charSearchStatus').innerHTML = `
 			${isMaxed? 'Showing the first ' : ''}
 			${results.length} result${results.length === 1? '' : 's'}
-			<button onclick="clearSearch();">clear</button>
+			<button onclick="clearSearch();navigate('Ranges');">Back to Unicode ranges</button>
 		`;
 	};
 
@@ -51,7 +51,8 @@ function charSearchBarOnChange(term) {
 	app.settings.charSearch = term;
 	saveSettings();
 
-	app.settings.selectedPage === 'Search'? redrawContent() : navigate('Search');
+	if (app.settings.selectedPage === 'Search') redrawContent();
+	else navigate('Search');
 }
 
 function searchCharNames(term) {

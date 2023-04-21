@@ -2,8 +2,6 @@ function makePageFavorites() {
 	return makeGridView(app.settings.favorites);
 }
 
-
-
 function addToFavorites(cid) {
 	if(!isFavorite(cid)) {
 		app.settings.favorites.push(cid);
@@ -37,7 +35,7 @@ function makeAddFavoriteButton(cid) {
 			onClick="clickAddFavorite('${cid}');"
 			title="Click to add to favorites" 
 			>
-			☆&nbsp;<i>add&nbsp;to&nbsp;favorites</i>
+			☆&nbsp;add&nbsp;to&nbsp;favorites
 		</button>
 	`;
 }
