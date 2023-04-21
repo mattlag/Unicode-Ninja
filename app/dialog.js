@@ -52,10 +52,10 @@ function getNewDialogID() {
 function copyText(text) {
 	navigator.clipboard.writeText(text).then(
 		() => {
-			console.log(`Copied to the clipboard: ${text}`);
+			// console.log(`Copied to the clipboard: ${text}`);
 		},
 		() => {
-			console.warn(`Copy to clipboard failed`);
+			// console.warn(`Copy to clipboard failed`);
 		}
 	);
 }
