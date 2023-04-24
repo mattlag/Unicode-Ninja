@@ -1,5 +1,5 @@
 /**
-Common
+	Common
 **/
 
 #wrapper {
@@ -202,6 +202,12 @@ Common
 	max-height: calc(100vh - 60px);
 }
 
+.scrollArea {
+	max-height: calc(100vh - 70px);
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
 /**
 	=============
 		Pages
@@ -213,7 +219,7 @@ Common
 	Page - Search
 **/
 
-.charSearchResults {
+.gridContents {
 	display: grid;
 	grid-template-columns: 28px repeat(100, 1fr);
 	grid-template-columns: 28px 1fr min-content min-content min-content;
@@ -221,9 +227,10 @@ Common
 	grid-row-gap: 2px;
 	margin-right: 10px;
 	width: 100%;
+	margin-bottom: 20px;
 }
 
-.charSearchResults .columnHeader {
+.gridContents .columnHeader {
 	background-color: var(--gray-90);
 	color: var(--gray-20);
 	padding: 8px 8px 8px 4px;
@@ -232,11 +239,11 @@ Common
 	border-radius: var(--radius-small);
 }
 
-.charSearchResults .rowWrapper {
+.gridContents .rowWrapper {
 	display: contents;
 }
 
-.charSearchResults .rowWrapper div {
+.gridContents .rowWrapper div {
 	border-style: solid;
 	border-color: transparent;
 	border-width: 1px 0px 1px 0px;
@@ -246,36 +253,36 @@ Common
 	max-height: 28px;
 }
 
-.charSearchResults .rowWrapper:hover div {
+.gridContents .rowWrapper:hover div {
 	background-color: white;
 	border-color: var(--accent-70);
 }
 
-.charSearchResults .rowWrapper:hover * {
+.gridContents .rowWrapper:hover * {
 	cursor: pointer;
 }
 
-.charSearchResults .charTile {
+.gridContents .charTile {
 	padding: 0 !important;
 	background-color: white !important;
 	max-width: 28px;
 	grid-column: 1;
 }
 
-.charSearchResults .charName,
-.charSearchResults .rangeName {
+.gridContents .charName,
+.gridContents .rangeName {
 	padding: 4px 8px 0px 8px;
 }
 
-.charSearchResults .codePoint {
+.gridContents .codePoint {
 	padding: 1px 4px 0px 4px;
 }
-.charSearchResults .codePoint pre {
+.gridContents .codePoint pre {
 	margin-top: 2px;
 }
 
-.charSearchResults .charFavorite,
-.charSearchResults .charFavorite:hover {
+.gridContents .charFavorite,
+.gridContents .charFavorite:hover {
 	padding: 0px 4px 1px 4px;
 	border: 1px solid transparent !important;
 	background-color: var(--gray-95) !important;

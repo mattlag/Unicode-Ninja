@@ -107,3 +107,40 @@ ol {
 li {
 	margin-bottom: 6px;
 }
+
+/**
+	Responsive
+**/
+
+@media only screen and (max-width: 1350px) {
+	#wrapper {
+		width: 850px;
+	}
+
+	.ranges {
+		display: block !important;
+	}
+
+	#rangesChooser,
+	.chooserOptions,
+	#charSearchStatus {
+		display: none;
+	}
+
+	#responsiveRangeChooserToggle {
+		display: block !important;
+	}
+
+	.scrollArea {
+		overflow-x: auto !important;
+	}
+
+	#charSearchStatus {
+		font-size: 12px;
+		padding-top: 10px !important;
+	}
+
+	#charSearchStatus button {
+		display: none;
+	}
+}

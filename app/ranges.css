@@ -1,23 +1,3 @@
-@media only screen and (max-width: 1350px) {
-	#wrapper {
-		width: 850px;
-	}
-
-	.ranges {
-		display: block !important;
-	}
-
-	#rangesChooser,
-	.chooserOptions,
-	#charSearchStatus {
-		display: none;
-	}
-
-	#responsiveRangeChooserToggle {
-		display: block !important;
-	}
-}
-
 /**
 	Page - Ranges
 **/

@@ -1,20 +1,20 @@
-
-function makeGridView(results){
+function makeGridView(results) {
 	let char;
 	let name;
 	let con = '';
 	con += `
-		<div class="charSearchResults">
-			<div class="columnHeader">&nbsp;</div>
-			<div class="columnHeader">${nbsp('character name')}</div>
-			<div class="columnHeader">${nbsp('code point')}</div>
-			<div class="columnHeader">${nbsp('range name')}</div>
-			<div class="columnHeader">${nbsp('favorites')}</div>
+		<div class='scrollArea'>
+			<div class="gridContents">
+				<div class="columnHeader">&nbsp;</div>
+				<div class="columnHeader">${nbsp('character name')}</div>
+				<div class="columnHeader">${nbsp('code point')}</div>
+				<div class="columnHeader">${nbsp('range name')}</div>
+				<div class="columnHeader">${nbsp('favorites')}</div>
 	`;
 
-	if(results.length) {
-		results.map(function(value) {
-			if(typeof value === 'object') {
+	if (results.length) {
+		results.map(function (value) {
+			if (typeof value === 'object') {
 				char = value.char;
 				name = value.result || nbsp(getUnicodeName(char));
 			} else {
@@ -46,7 +46,7 @@ function makeGridView(results){
 			`;
 	}
 
-	con += '</div>';
+	con += '</div></div>';
 
 	return con;
 }

@@ -59,7 +59,7 @@ function hideMenu() {
 function navigate(pageName) {
 	app.settings.selectedPage = pageName;
 	hideMenu();
-	clearSearch();
+	if(pageName !== 'Search') clearSearch();
 	redrawContent();
 	saveSettings();
 }
