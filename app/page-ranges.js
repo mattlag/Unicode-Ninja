@@ -138,7 +138,7 @@ function makeCharDetail(char) {
 	let charBase = char.substring(2);
 	let charChar = String.fromCharCode(parseInt(charBase, 16));
 	let charHex = `&amp;#x${parseInt(charBase, 16).toString(16)};`;
-	let charDec = `&amp;#${parseInt(charBase, 16).toString(16)};`;
+	let charDec = `&amp;#${parseInt(charBase, 16).toString(10)};`;
 
 	let namedEntity = '';
 	if (entityName) {
