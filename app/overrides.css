@@ -47,7 +47,6 @@ body {
 	height: 100vh;
 	max-height: 100vh;
 	background-color: var(--gray-97);
-	padding: 0px auto;
 }
 
 h1,
