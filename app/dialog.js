@@ -1,4 +1,3 @@
-
 function openDialog(content = '') {
 	let dialogID = getNewDialogID();
 
@@ -10,13 +9,13 @@ function openDialog(content = '') {
 			${content}
 		</div>
 	`;
-	
+
 	let dialogElement = document.createElement('div');
 	dialogElement.setAttribute('class', 'dialog');
 	dialogElement.setAttribute('id', dialogID);
 	dialogElement.innerHTML = dialogHTML;
 
-	app.dialogCloseFunctions[dialogID] = function() {
+	app.dialogCloseFunctions[dialogID] = function () {
 		let dialog = document.getElementById(dialogID);
 		delete app.dialogCloseFunctions[dialogID];
 		dialog.style.opacity = '0';
@@ -26,25 +25,29 @@ function openDialog(content = '') {
 	};
 
 	document.body.appendChild(dialogElement);
-	
+
 	let closeButtons = dialogElement.querySelectorAll('.actionButton');
-	closeButtons.forEach(element => element.onclick = app.dialogCloseFunctions[dialogID]);
-	
+	closeButtons.forEach(
+		(element) => (element.onclick = app.dialogCloseFunctions[dialogID])
+	);
+
 	dialogElement.onclick = app.dialogCloseFunctions[dialogID];
-	
+
 	window.setTimeout(function () {
 		dialogElement.setAttribute('style', 'opacity: 1; display: grid;');
-		window.setTimeout(function(){
-			dialogElement.querySelector('.dialogContent').setAttribute('style', 'opacity: 1; display: block;');
+		window.setTimeout(function () {
+			dialogElement
+				.querySelector('.dialogContent')
+				.setAttribute('style', 'opacity: 1; display: block;');
 		}, 110);
 	}, 100);
 }
 
 function getNewDialogID() {
 	let suffix = 1;
-	
-	while(true) {
-		if(!document.getElementById('dialog-'+suffix)) return 'dialog-'+suffix;
+
+	while (true) {
+		if (!document.getElementById('dialog-' + suffix)) return 'dialog-' + suffix;
 		suffix++;
 	}
 }

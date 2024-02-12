@@ -3,7 +3,7 @@ function makePageFavorites() {
 }
 
 function addToFavorites(cid) {
-	if(!isFavorite(cid)) {
+	if (!isFavorite(cid)) {
 		app.settings.favorites.push(cid);
 		app.settings.favorites.sort(function (a, b) {
 			return parseInt(a, 16) - parseInt(b, 16);
@@ -14,7 +14,7 @@ function addToFavorites(cid) {
 function removeFromFavorites(cid) {
 	let pos = app.settings.favorites.indexOf(cid);
 
-	if(pos > -1) {
+	if (pos > -1) {
 		app.settings.favorites.splice(pos, 1);
 	}
 }
@@ -24,7 +24,7 @@ function isFavorite(cid) {
 }
 
 function makeFavoriteButton(cid) {
-	if(isFavorite(cid)) return makeCurrentFavoriteButton(cid);
+	if (isFavorite(cid)) return makeCurrentFavoriteButton(cid);
 	else return makeAddFavoriteButton(cid);
 }
 
@@ -47,8 +47,8 @@ function clickAddFavorite(cid) {
 	// Update buttons
 	let fav = document.getElementById(`fav_${cid}`);
 	let row = document.getElementById(`row_fav_${cid}`);
-	if(fav) fav.innerHTML = makeFavoriteButton(cid);
-	if(row) row.innerHTML = makeFavoriteButton(cid);
+	if (fav) fav.innerHTML = makeFavoriteButton(cid);
+	if (row) row.innerHTML = makeFavoriteButton(cid);
 }
 
 function makeCurrentFavoriteButton(cid) {
@@ -70,6 +70,6 @@ function clickRemoveFavorite(cid) {
 	// Update buttons
 	let fav = document.getElementById(`fav_${cid}`);
 	let row = document.getElementById(`row_fav_${cid}`);
-	if(fav) fav.innerHTML = makeFavoriteButton(cid);
-	if(row) row.innerHTML = makeFavoriteButton(cid);
+	if (fav) fav.innerHTML = makeFavoriteButton(cid);
+	if (row) row.innerHTML = makeFavoriteButton(cid);
 }

@@ -1,6 +1,6 @@
 let app = {
-	version: '2.6.2',
-	releaseDate: 1682360000000,
+	version: '2.6.3',
+	releaseDate: 1707768000000,
 	rangeCache: {},
 	focusID: false,
 	dialogCloseFunctions: {},
@@ -17,7 +17,7 @@ let app = {
 	},
 };
 
-function init(){
+function init() {
 	loadSettings();
 	document.getElementById('charSearchBar').innerHTML = makeCharSearchBar();
 	navigate('Ranges');
@@ -26,21 +26,24 @@ function init(){
 
 function loadSettings() {
 	let savedSettings = window.localStorage.getItem('unicode.ninja');
-	if(savedSettings) {
+	if (savedSettings) {
 		savedSettings = JSON.parse(savedSettings);
 		app.settings.charSearch = savedSettings.charSearch || '';
 		app.settings.rememberSettings = savedSettings.rememberSettings || false;
 		app.settings.maxSearchResults = savedSettings.maxSearchResults || 1000;
 		app.settings.selectedPage = savedSettings.selectedPage || 'Ranges';
 		app.settings.selectedTab = savedSettings.selectedTab || 'Grouped';
-		app.settings.selectedRanges = savedSettings.selectedRanges || ['r-0020-007F'];
-		app.settings.genericFontFamily = savedSettings.genericFontFamily || 'sans-serif';
+		app.settings.selectedRanges = savedSettings.selectedRanges || [
+			'r-0020-007F',
+		];
+		app.settings.genericFontFamily =
+			savedSettings.genericFontFamily || 'sans-serif';
 		app.settings.favorites = savedSettings.favorites || [];
 	}
 }
 
 function saveSettings() {
-	if(!app.settings.rememberSettings) return;
+	if (!app.settings.rememberSettings) return;
 	window.localStorage.setItem('unicode.ninja', JSON.stringify(app.settings));
 }
 
@@ -57,26 +60,51 @@ function animateLogo() {
 	let fancy = {
 		car: 'unicode.ninja'.split(''),
 		jay: ['j', 'ĵ', 'ǰ', 'ɉ'],
-		sub: ['̥', '̪', '͈', '̬', '̯', '͙', '̭', '', '̺', '͓', '̮', '͈', '͚', '','','','','','','','','','','','','',]
+		sub: [
+			'̥',
+			'̪',
+			'͈',
+			'̬',
+			'̯',
+			'͙',
+			'̭',
+			'',
+			'̺',
+			'͓',
+			'̮',
+			'͈',
+			'͚',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+		],
 	};
 
 	function makeLogo(delta) {
 		let mod = fancy.car.length;
 		re = '';
-	
-		for(let c=0; c<mod; c++) {
-			if(c === 7) {
+
+		for (let c = 0; c < mod; c++) {
+			if (c === 7) {
 				re += '.';
-			
 			} else if (c === 11) {
-				re += fancy.jay[(c+delta) % fancy.jay.length];
-			
+				re += fancy.jay[(c + delta) % fancy.jay.length];
 			} else {
 				re += fancy.car[c];
-				re += fancy.sub[(c+delta) % fancy.sub.length];
+				re += fancy.sub[(c + delta) % fancy.sub.length];
 			}
 		}
-	
+
 		return re;
 	}
 
@@ -84,29 +112,30 @@ function animateLogo() {
 		var logo = makeLogo(delta);
 		document.getElementById('logo').innerHTML = logo;
 		document.title = logo;
-		if(delta < fancy.car.length) {
+		if (delta < fancy.car.length) {
 			delta++;
 			delay *= 1.05;
 			window.setTimeout(updateLogo, delay);
 		}
 	}
-	
+
 	updateLogo();
 }
-
 
 /*
 	Helper Functions
 */
 
-function decToHex(d) { 
+function decToHex(d) {
 	let dr = Number(d).toString(16);
-	while(dr.length < 4) { dr = '0'+dr; }
+	while (dr.length < 4) {
+		dr = '0' + dr;
+	}
 	return '0x' + dr.toUpperCase();
 }
 
 function getUnicodeName(c) {
-	if(c.charAt(0) === '0'){
+	if (c.charAt(0) === '0') {
 		return fullUnicodeNameList[c] || '{{no name found}}';
 	} else {
 		return c;
@@ -119,11 +148,13 @@ function nbsp(text) {
 	return text;
 }
 
-function getShipDate(){
-	let time = '' + (new Date().getTime());
-	let prefix = parseInt(time.substring(0, 5)) * 100000000;
-	let day = (parseInt(time.charAt(5)) + 1) * 10000000;
-	return prefix + day;
+function getShipDate(dayOffset = 0) {
+	const shipDate = new Date();
+	shipDate.setDate(shipDate.getDate() + dayOffset);
+	shipDate.setHours(12, 0, 0, 0);
+	const result = shipDate.getTime();
+	console.log(`${new Date(result).toString()}`);
+	return result;
 }
 
 function findLongestName() {
@@ -132,8 +163,8 @@ function findLongestName() {
 	let currName = '';
 
 	// console.time('name');
-	for(let point in fullUnicodeNameList) {
-		if(fullUnicodeNameList.hasOwnProperty(point)) {
+	for (let point in fullUnicodeNameList) {
+		if (fullUnicodeNameList.hasOwnProperty(point)) {
 			currName = fullUnicodeNameList[point];
 			if (!result[currName.length]) result[currName.length] = 1;
 			else result[currName.length]++;

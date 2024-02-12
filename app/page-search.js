@@ -32,11 +32,11 @@ function makePageSearch() {
 	// console.time('makePageSearch');
 	let results = searchCharNames(app.settings.charSearch);
 	let isMaxed = results.length === parseInt(app.settings.maxSearchResults);
-	
-	let updateCharSearchStatus = function() {
+
+	let updateCharSearchStatus = function () {
 		document.getElementById('charSearchStatus').innerHTML = `
-			${isMaxed? 'Showing the first ' : ''}
-			${results.length} result${results.length === 1? '' : 's'}
+			${isMaxed ? 'Showing the first ' : ''}
+			${results.length} result${results.length === 1 ? '' : 's'}
 			<button onclick="clearSearch();navigate('Ranges');">Back to Unicode ranges</button>
 		`;
 	};
@@ -56,7 +56,7 @@ function charSearchBarOnChange(term) {
 }
 
 function searchCharNames(term) {
-	if(!term) return [];
+	if (!term) return [];
 
 	term = term.toUpperCase();
 	let count = 0;
@@ -66,18 +66,20 @@ function searchCharNames(term) {
 	let currResult;
 
 	// console.time('charNameSearch');
-	for(let point in fullUnicodeNameList) {
-		if(count < app.settings.maxSearchResults) {
-			if(fullUnicodeNameList.hasOwnProperty(point)) {
+	for (let point in fullUnicodeNameList) {
+		if (count < app.settings.maxSearchResults) {
+			if (fullUnicodeNameList.hasOwnProperty(point)) {
 				currName = fullUnicodeNameList[point];
 				currPos = currName.indexOf(term);
 
-				if(currPos > -1) {
+				if (currPos > -1) {
 					currResult = `<span>${nbsp(currName.substring(0, currPos))}</span>`;
 					currResult += `<span class="highlight">${nbsp(term)}</span>`;
-					currResult += `<span>${nbsp(currName.substring(currPos + term.length))}</span>`;
-					
-					results.push({char: point, result: currResult});
+					currResult += `<span>${nbsp(
+						currName.substring(currPos + term.length)
+					)}</span>`;
+
+					results.push({ char: point, result: currResult });
 					count++;
 				}
 			}

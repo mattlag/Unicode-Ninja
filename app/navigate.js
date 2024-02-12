@@ -7,7 +7,7 @@ app.menu = {
 
 function makePageContent() {
 	let con = '';
-	
+
 	let selectedPage = app.settings.selectedPage;
 	if (selectedPage === 'Search') con += makePageSearch();
 	else if (selectedPage === 'Ranges') con += makePageRanges();
@@ -36,7 +36,9 @@ function toggleMenu() {
 	popup.style.display = 'block';
 
 	function makePageButton(page) {
-		return `<button onclick="navigate('${page}');">${nbsp(app.menu[page])}</button>`;
+		return `<button onclick="navigate('${page}');">${nbsp(
+			app.menu[page]
+		)}</button>`;
 	}
 
 	popup.innerHTML = `
@@ -59,7 +61,7 @@ function hideMenu() {
 function navigate(pageName) {
 	app.settings.selectedPage = pageName;
 	hideMenu();
-	if(pageName !== 'Search') clearSearch();
+	if (pageName !== 'Search') clearSearch();
 	redrawContent();
 	saveSettings();
 }
