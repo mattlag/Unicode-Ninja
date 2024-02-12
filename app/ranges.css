@@ -163,7 +163,6 @@
 	border-radius: var(--radius-large) var(--radius-large) 0 0;
 	font-size: 0.9em;
 	width: var(--panel-width);
-	overflow-y: auto;
 }
 
 .responsiveRangesWrapper {
@@ -206,7 +205,7 @@
 
 .rangeGrid {
 	display: grid;
-	grid-template-columns: min-content 20px 1fr 70px 70px;
+	grid-template-columns: min-content 20px 50% 70px 100px;
 	grid-row-gap: 6px;
 	grid-column-gap: 4px;
 	margin: 10px;

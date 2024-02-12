@@ -28,7 +28,7 @@ Overrides
 	--accent-60: hsl(var(--accent-hue), 50%, 60%);
 	--accent-70: hsl(var(--accent-hue), 40%, 70%);
 
-	--panel-width: 450px;
+	--panel-width: 480px;
 	--radius-large: 8px;
 	--radius-medium: 4px;
 	--radius-small: 2px;
@@ -47,7 +47,6 @@ body {
 	height: 100vh;
 	max-height: 100vh;
 	background-color: var(--gray-97);
-	padding: 0px auto;
 }
 
 h1,
