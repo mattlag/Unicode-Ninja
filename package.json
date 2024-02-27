@@ -1,0 +1,11 @@
+{
+  "prettier": {
+    "printWidth": 400,
+    "useTabs": true
+  },
+  "cspell": {
+    "ignorePaths": [
+      "./app/reference-*"
+    ]
+  }
+}
