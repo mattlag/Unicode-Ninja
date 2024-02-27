@@ -24,7 +24,7 @@ function makeRangesDisplay() {
 	`;
 
 	if (app.settings.selectedRanges.length === 0) {
-		con += nbsp('<i>Select ranges to view them here</i>');
+		con += nbsp("<i>Select ranges to view them here</i>");
 	}
 
 	for (let s = 0; s < app.settings.selectedRanges.length; s++) {
@@ -43,10 +43,10 @@ function makeRangeBlock(rid) {
 	let range = getRange(rid);
 
 	let rangeBeginBase = decToHex(range.begin).substring(2);
-	if (rangeBeginBase === '0020') rangeBeginBase = '0000';
+	if (rangeBeginBase === "0020") rangeBeginBase = "0000";
 
 	let wikiHREF = `https://www.wikipedia.org/wiki/`;
-	wikiHREF += `${range.name.replace(/ /gi, '_')}_(Unicode_block)`;
+	wikiHREF += `${range.name.replace(/ /gi, "_")}_(Unicode_block)`;
 	let unicodeHREF = `https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf`;
 	let con = `
 		<div class="contentCharBlock">
@@ -80,8 +80,10 @@ function makeRangeBlock(rid) {
 
 	for (let c = range.begin * 1; c <= range.end * 1; c++) {
 		if (c % 16 === 0) {
+			let prefix = decToHex(c);
+			prefix = prefix.substring(2, prefix.length - 1);
 			con += `
-				<div class="hex"><span>${decToHex(c).substring(2, 5)}-</span></div>
+				<div class="hex"><span>${prefix}-</span></div>
 			`;
 		}
 
@@ -99,19 +101,17 @@ function clickRangeClose(rid) {
 }
 
 function makeTile(char, size) {
-	size = size || 'medium';
+	size = size || "medium";
 	let name = getUnicodeName(char);
 	let con = `<div class="charTile ${size} noChar" title="No character encoded\nat this code point">&nbsp;</div>`;
 
-	if (name !== '{{no name found}}') {
+	if (name !== "{{no name found}}") {
 		con = `
 			<div 
 				class="charTile ${size}" 
-				style="font-family: ${app.settings.genericFontFamily};${
-			name === '<control>' ? ' color: #EEE;"' : '"'
-		} 
-				title="${getUnicodeName(char)}\n${char.replace('0x', 'U+')}"
-				${size === 'medium' ? `onClick="tileClick('${char}');"` : ''}
+				style="font-family: ${app.settings.genericFontFamily};${name === "<control>" ? ' color: #EEE;"' : '"'} 
+				title="${getUnicodeName(char)}\n${char.replace("0x", "U+")}"
+				${size === "medium" ? `onClick="tileClick('${char}');"` : ""}
 			>&#${char.substring(1)};</div>
 		`;
 	}
@@ -129,7 +129,7 @@ function makeCharDetail(char) {
 	let rangeBeginBase = decToHex(range.begin).substring(2);
 	// console.log(`rangeBeginBase: ${rangeBeginBase}`);
 
-	let unicodeName = getUnicodeName(char).replace('<', '&lt;');
+	let unicodeName = getUnicodeName(char).replace("<", "&lt;");
 	// console.log(`name: ${name}`);
 
 	let entityName = htmlEntityNameList[char];
@@ -140,11 +140,11 @@ function makeCharDetail(char) {
 	let charHex = `&amp;#x${parseInt(charBase, 16).toString(16)};`;
 	let charDec = `&amp;#${parseInt(charBase, 16).toString(10)};`;
 
-	let namedEntity = '';
+	let namedEntity = "";
 	if (entityName) {
 		namedEntity = `
 			<span class="key light">
-				${nbsp('HTML named entity:')}
+				${nbsp("HTML named entity:")}
 			</span>
 			<span class="value">
 				<span class="copyCode">&amp;${entityName};</span>
@@ -162,14 +162,14 @@ function makeCharDetail(char) {
 	<br><br><br>
 	<div class="twoColumn">
 			<div class="colOne">
-				${makeTile(char, 'large')}
+				${makeTile(char, "large")}
 			</div>
 			<div class="colTwo">
 				<div class="twoColumn">
-					<span class="key light">${nbsp('HTML hex entity:')}</span>
+					<span class="key light">${nbsp("HTML hex entity:")}</span>
 					<span class="value"><span class="copyCode">${charHex}</span></span>
 
-					<span class="key light">${nbsp('HTML decimal entity:')}</span>
+					<span class="key light">${nbsp("HTML decimal entity:")}</span>
 					<span class="value"><span class="copyCode">${charDec}</span></span>
 
 					${namedEntity}
@@ -179,33 +179,28 @@ function makeCharDetail(char) {
 		<br><br>
 		<h3>Unicode information</h3>
 		<div class="twoColumn">
-			<span class="key light">${nbsp('Unicode code point:')}</span>
+			<span class="key light">${nbsp("Unicode code point:")}</span>
 			<span class="value"><pre>U+${charBase}</pre></span>
 
-			<span class="key light">${nbsp('Member of range:')}</span>
+			<span class="key light">${nbsp("Member of range:")}</span>
 			<span class="value">
-				<pre>U+${decToHex(range.begin).substring(2)} - U+${decToHex(
-		range.end
-	).substring(2)}</pre>
+				<pre>U+${decToHex(range.begin).substring(2)} - U+${decToHex(range.end).substring(2)}</pre>
 				<span style="vertical-align: bottom; margin:2px; 0px 0px 10px;">
 					${range.name}
 				</span>
 			</span>
 
-			<span class="key light">${nbsp('More Info from Wikipedia:')}</span>
+			<span class="key light">${nbsp("More Info from Wikipedia:")}</span>
 			<span class="value">
 				<a
-					href="https://www.wikipedia.org/wiki/${range.name.replace(
-						/ /gi,
-						'_'
-					)}_(Unicode_block)" 
+					href="https://www.wikipedia.org/wiki/${range.name.replace(/ /gi, "_")}_(Unicode_block)" 
 					target="_new" 
 					title="Wikipedia Link">
-					wikipedia.org/wiki/${range.name.replace(/ /gi, '_')}_(Unicode_block)
+					wikipedia.org/wiki/${range.name.replace(/ /gi, "_")}_(Unicode_block)
 				</a>
 			</span>
 
-			<span class="key light">${nbsp('More Info from Unicode:')}</span>
+			<span class="key light">${nbsp("More Info from Unicode:")}</span>
 			<span class="value">
 				<a href="https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf" 
 					target="_new" 
@@ -236,8 +231,7 @@ function getRangeForChar(hex) {
 	hex = parseInt(hex, 16);
 	for (let r in unicodeBlocks) {
 		if (unicodeBlocks.hasOwnProperty(r)) {
-			if (hex >= unicodeBlocks[r].begin && hex <= unicodeBlocks[r].end)
-				return unicodeBlocks[r];
+			if (hex >= unicodeBlocks[r].begin && hex <= unicodeBlocks[r].end) return unicodeBlocks[r];
 		}
 	}
 
@@ -245,7 +239,7 @@ function getRangeForChar(hex) {
 }
 
 function getDataForChar(hex) {
-	hex = '' + hex;
+	hex = "" + hex;
 }
 
 function isRangeSelected(rid) {
@@ -254,7 +248,8 @@ function isRangeSelected(rid) {
 
 function selectRange(rid) {
 	// if(typeof rid === 'string') rid = [rid];
-	rid = rid.split('_');
+	console.log(`selectRange: ${rid}`);
+	rid = rid.split("_");
 
 	rid.forEach((id) => {
 		if (!isRangeSelected(id)) app.settings.selectedRanges.push(id);
@@ -266,7 +261,7 @@ function selectRange(rid) {
 
 function deselectRange(rid) {
 	// if(typeof rid === 'string') rid = [rid];
-	rid = rid.split('_');
+	rid = rid.split("_");
 
 	rid.forEach((id) => {
 		let i = app.settings.selectedRanges.indexOf(id);
@@ -285,15 +280,15 @@ function deselectAllRanges() {
 
 function sortSelectedRanges() {
 	app.settings.selectedRanges.sort(function (a, b) {
-		return parseInt(a.substring(2, 6), 16) - parseInt(b.substring(2, 6), 16);
+		return parseInt(a.substring(2), 16) - parseInt(b.substring(2), 16);
 	});
 }
 
 function toggleResponsiveRangeChooser() {
-	let main = document.getElementById('content');
-	let button = document.getElementById('responsiveRangeChooserToggle');
+	let main = document.getElementById("content");
+	let button = document.getElementById("responsiveRangeChooserToggle");
 
-	if (button.innerText === 'Show range chooser') {
+	if (button.innerText === "Show range chooser") {
 		main.innerHTML = `
 			<button id="responsiveRangeChooserToggle" onClick="toggleResponsiveRangeChooser();">
 				Show selected ranges
@@ -310,6 +305,6 @@ function toggleResponsiveRangeChooser() {
 		app.settings.responsiveChooserIsOpen = true;
 	} else {
 		app.settings.responsiveChooserIsOpen = false;
-		navigate('Ranges');
+		navigate("Ranges");
 	}
 }

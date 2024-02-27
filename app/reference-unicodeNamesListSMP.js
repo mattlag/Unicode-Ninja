@@ -1,4 +1,4 @@
-const unicodeNamesSMP = {
+const unicodeNamesListSMP = {
 	"0x10000": "Linear B Syllable B008 A",
 	"0x10001": "Linear B Syllable B038 E",
 	"0x10002": "Linear B Syllable B028 I",
