@@ -2,17 +2,11 @@
 	Common
 **/
 
-#wrapper {
-	display: grid;
-	grid-template-rows: 50px 1fr;
-	row-gap: 20px;
-	height: 100vh;
-	max-height: 100vh;
+#content {
 	max-width: 1350px;
-	overflow: hidden;
 	margin: 0px auto;
+	padding-top: 70px;
 }
-
 
 .actionButton {
 	display: inline-block;
@@ -34,7 +28,6 @@
 	cursor: pointer;
 }
 
-
 /**
 	====================
 		Top grid row
@@ -42,10 +35,19 @@
 **/
 
 #header {
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	z-index: 400;
+	height: 70px;
+	background-color: var(--gray-97);
+}
+
+.headerContent {
+	margin: 0px auto;
+	max-width: 1350px;
 	display: grid;
 	grid-template-columns: min-content max-content 1fr;
-	z-index: 400;
-	height: 50px;
 	padding-top: 20px;
 }
 
@@ -61,7 +63,6 @@
 	color: var(--accent-40);
 	display: inline-block;
 }
-
 
 /**
 	Page Chooser
@@ -190,16 +191,15 @@
 	padding: 5px 0px 0px 0px;
 }
 
-
 /**
 	======================
 		Page content
 	======================
 **/
 #content {
-	overflow: hidden;
+	/* overflow: hidden; */
 	z-index: 300;
-	max-height: calc(100vh - 60px);
+	/* max-height: calc(100vh - 60px); */
 }
 
 .scrollArea {
@@ -213,7 +213,6 @@
 		Pages
 	=============
 **/
-
 
 /**
 	Page - Search
@@ -331,7 +330,7 @@
 	padding: 10px;
 }
 
-.value input[type=number],
+.value input[type="number"],
 .value option {
 	width: 200px;
 	padding: 2px 0px 2px 2px;
@@ -364,7 +363,7 @@
 	background-color: var(--gray-90);
 	text-align: left;
 	border: 1px solid var(--gray-40);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.0);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0);
 	opacity: 0;
 	transition: opacity 200ms ease-in-out;
 	transition-delay: 100ms;
@@ -381,7 +380,8 @@
 
 .dialog .actionButton {
 	border-radius: 50%;
-	width: 2em; height: 2em;
+	width: 2em;
+	height: 2em;
 	position: relative;
 	left: 18px;
 	top: 2px;
@@ -429,7 +429,7 @@
 	width: 200px;
 }
 
-.value input[type='checkbox'] {
+.value input[type="checkbox"] {
 	width: 20px;
 	height: 20px;
 }

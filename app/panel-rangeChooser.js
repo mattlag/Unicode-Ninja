@@ -1,10 +1,13 @@
 function makeRangeChooser() {
-	let con = "";
 	let grouped = app.settings.selectedTab === "Grouped";
-	con += '<div class="rangeGrid">';
-	con += grouped ? makeGroupedChooser() : makeFlatChooser();
-	con += "</div>";
-
+	let con = `
+		<div class="scrollArea"><div class="rangeGrid">
+		${grouped ? makeGroupedChooser() : makeFlatChooser()}
+		</div></div>
+		<div class="chooserOptions">
+			${makeChooserOptions()}
+		</div>
+	`;
 	return con;
 }
 
@@ -150,19 +153,25 @@ function checkboxOnChange(elem) {
 	// console.log('checkboxOnChange');
 	// console.log(elem.dataset.range);
 	// let selected = document.getElementById('checkbox_'+range.name).checked;
-
+	const rangeID = elem.dataset.range;
 	if (elem.checked) {
 		// console.log('is selected');
-		selectRange(elem.dataset.range);
+		selectRange(rangeID);
 	} else {
 		// console.log('is NOT selected');
-		deselectRange(elem.dataset.range);
+		deselectRange(rangeID);
 	}
 
 	if (!app.settings.responsiveChooserIsOpen) {
-		if (app.settings.selectedPage === "Ranges") redrawContent();
+		// if (app.settings.selectedPage === "Ranges") redrawContent();
+		if (app.settings.selectedPage === "Ranges") redrawRangesDisplay();
 		else navigate("Ranges");
 
 		document.getElementById(elem.id).checked = elem.checked;
+	}
+
+	if (elem.checked) {
+		const block = document.getElementById(rangeID);
+		block.scrollIntoView({ behavior: "smooth", alignToTop: false });
 	}
 }

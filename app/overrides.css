@@ -47,6 +47,8 @@ body {
 	height: 100vh;
 	max-height: 100vh;
 	background-color: var(--gray-97);
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 h1,
@@ -112,9 +114,9 @@ li {
 **/
 
 @media only screen and (max-width: 1350px) {
-	#wrapper {
+	/* #wrapper {
 		width: 850px;
-	}
+	} */
 
 	.ranges {
 		display: block !important;

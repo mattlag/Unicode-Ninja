@@ -86,6 +86,11 @@ function redrawContent() {
 	}, 10);
 }
 
+function redrawRangesDisplay() {
+	const rangesArea = document.getElementById('rangesDisplay'); 
+	rangesArea.innerHTML = makeRangesDisplay();
+}
+
 function appFocus(id) {
 	app.focusID = id;
 	// console.log(`Focused on ${app.focusID}`);

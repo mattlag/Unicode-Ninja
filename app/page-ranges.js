@@ -1,16 +1,13 @@
 function makePageRanges() {
 	let con = `
-	<div class="ranges">
+
 		<div id="rangesChooser">
 			${makeRangeChooser()}
-		</div>
-		<div class="chooserOptions">
-			${makeChooserOptions()}
 		</div>
 		<div id="rangesDisplay">
 			${makeRangesDisplay()}
 		</div>
-	</div>
+
 	`;
 
 	return con;
@@ -49,7 +46,7 @@ function makeRangeBlock(rid) {
 	wikiHREF += `${range.name.replace(/ /gi, "_")}_(Unicode_block)`;
 	let unicodeHREF = `https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf`;
 	let con = `
-		<div class="contentCharBlock">
+		<div class="contentCharBlock" id="${rid}">
 			<h3 class="title">
 				${range.name}
 				<a href="${wikiHREF}" target="_new" title="Wikipedia Link" class="titleLink">Wikipedia</a>
