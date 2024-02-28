@@ -256,6 +256,14 @@ function selectRange(rid) {
 	saveSettings();
 }
 
+function selectAllRanges() {
+	Object.keys(unicodeBlocks).forEach((id) => {
+		if (!isRangeSelected(id)) app.settings.selectedRanges.push(id);
+	});
+
+	redrawContent();
+}
+
 function deselectRange(rid) {
 	// if(typeof rid === 'string') rid = [rid];
 	rid = rid.split("_");

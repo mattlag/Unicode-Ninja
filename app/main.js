@@ -104,12 +104,56 @@ function decToHex(d) {
 	return "0x" + dr.toUpperCase();
 }
 
-function getUnicodeName(c) {
-	if (c.charAt(0) === "0") {
-		return unicodeNamesListBMP[c] || unicodeNamesListSMP[c] || "{{no name found}}";
+// function getUnicodeName(c) {
+// 	if (c.charAt(0) === "0") {
+// 		return unicodeNamesListBMP[c] || unicodeNamesListSMP[c] || "{{no name found}}";
+// 	} else {
+// 		return c;
+// 	}
+// }
+
+function getUnicodeName(codePoint) {
+	// log('getUnicodeName', 'start');
+	// log('passed ' + codePoint);
+
+	let codePointSuffix = codePoint.substr(2);
+	// log('normalized ' + codePoint);
+
+	let name;
+	const chn = codePoint * 1;
+
+	if ((chn >= 0x4e00 && chn < 0xa000) || (chn >= 0x20000 && chn < 0x323af)) {
+		name = `CJK Unified Ideograph ${codePointSuffix}`;
+	} else if (chn < 0xffff) {
+		name = unicodeNamesListBMP[codePoint] || "{{no name found}}";
+	} else if (chn >= 0x18b00 && chn <= 0x18cd5) {
+		name = `Khitan Small Script Character ${codePointSuffix}`;
+	} else if (chn >= 0x18800 && chn <= 0x18aff) {
+		name = `Tangut Component ${chn - 0x18800 + 1}`;
+	} else if (chn >= 0x1b170 && chn <= 0x1b2fb) {
+		name = `Nushu Character ${codePointSuffix}`;
+	} else if (chn < 0x1fbf9) {
+		name = unicodeNamesListSMP[codePoint] || "{{no name found}}";
+	} else if (chn < 0x1ffff) {
+		let block = getParentRange(codePoint);
+		if (block) name = `${block.name} ${codePointSuffix}`;
+		else name = "{{no name found}}";
 	} else {
-		return c;
+		name = "{{no name found}}";
 	}
+
+	// log(`name: ${name}`);
+	// log('getUnicodeName', 'end');
+	return name;
+}
+
+function getParentRange(char) {
+	for (blockID in unicodeBlocks) {
+		if (char <= unicodeBlocks[blockID].end && char >= unicodeBlocks[blockID].begin) {
+			return unicodeBlocks[blockID];
+		}
+	}
+	return false;
 }
 
 function nbsp(text) {

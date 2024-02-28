@@ -96,6 +96,8 @@ function makeSingleRangeRow(rid, name, indent, group) {
 	let labelName = name;
 	labelName = labelName.replace(/Extended/gi, "Ext.");
 	labelName = labelName.replace(/Miscellaneous/gi, "Misc.");
+	labelName = labelName.replace(/Mathematical/gi, "Math.");
+	labelName = labelName.replace(/Punctuation/gi, "Punct.");
 	labelName = labelName.replace(/Supplemental/gi, "Supp.");
 	labelName = labelName.replace(/Supplement/gi, "Supp.");
 	labelName = labelName.replace(/Unified/gi, "Uni.");
