@@ -21,6 +21,11 @@ function init() {
 	loadSettings();
 	document.getElementById("charSearchBar").innerHTML = makeCharSearchBar();
 	navigate("Ranges");
+	window.addEventListener('resize', () => {
+		if (app.settings.responsiveChooserIsOpen) {
+			toggleResponsiveRangeChooser();
+		}
+	})
 	animateLogo();
 }
 

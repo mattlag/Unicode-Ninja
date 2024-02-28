@@ -1,9 +1,10 @@
 function makeRangeChooser() {
 	let grouped = app.settings.selectedTab === "Grouped";
 	let con = `
-		<div class="scrollArea"><div class="rangeGrid">
+		<div class="rangeGrid">
 		${grouped ? makeGroupedChooser() : makeFlatChooser()}
-		</div></div>
+		<br>
+		</div>
 		<div class="chooserOptions">
 			${makeChooserOptions()}
 		</div>
@@ -153,27 +154,15 @@ function makeSingleRangeRow(rid, name, indent, group) {
 
 function checkboxOnChange(elem) {
 	// console.log('checkboxOnChange');
-	// console.log(elem.dataset.range);
-	// let selected = document.getElementById('checkbox_'+range.name).checked;
 	const rangeID = elem.dataset.range;
+	// console.log(rangeID);
 	if (elem.checked) {
-		// console.log('is selected');
 		selectRange(rangeID);
 	} else {
-		// console.log('is NOT selected');
 		deselectRange(rangeID);
 	}
 
 	if (!app.settings.responsiveChooserIsOpen) {
-		// if (app.settings.selectedPage === "Ranges") redrawContent();
-		if (app.settings.selectedPage === "Ranges") redrawRangesDisplay();
-		else navigate("Ranges");
-
-		document.getElementById(elem.id).checked = elem.checked;
-	}
-
-	if (elem.checked) {
-		const block = document.getElementById(rangeID);
-		block.scrollIntoView({ behavior: "smooth", alignToTop: false });
+		if (app.settings.selectedPage !== "Ranges") navigate("Ranges");
 	}
 }

@@ -27,8 +27,6 @@ function makeGridView(results) {
 				<div class="charName">${name}</div>
 				<div class="codePoint"><pre>${char.replace("0x", "U+")}</pre></div>
 				<div class="rangeName">${nbsp(getRangeForChar(char).name)}</div>
-			</div>
-			<div class="rowWrapper">
 				<div class="charFavorite" id="row_fav_${char}">${makeFavoriteButton(char)}</div>
 			</div>
 			`;

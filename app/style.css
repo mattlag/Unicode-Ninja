@@ -6,6 +6,7 @@
 	max-width: 1350px;
 	margin: 0px auto;
 	padding-top: 70px;
+	z-index: 300;
 }
 
 .actionButton {
@@ -192,23 +193,6 @@
 }
 
 /**
-	======================
-		Page content
-	======================
-**/
-#content {
-	/* overflow: hidden; */
-	z-index: 300;
-	/* max-height: calc(100vh - 60px); */
-}
-
-.scrollArea {
-	max-height: calc(100vh - 70px);
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-/**
 	=============
 		Pages
 	=============
@@ -271,6 +255,7 @@
 .gridContents .charName,
 .gridContents .rangeName {
 	padding: 4px 8px 0px 8px;
+	text-overflow: ellipsis;
 }
 
 .gridContents .codePoint {

@@ -1,6 +1,5 @@
 function makePageRanges() {
 	let con = `
-
 		<div id="rangesChooser">
 			${makeRangeChooser()}
 		</div>
@@ -53,7 +52,7 @@ function makeRangeBlock(rid) {
 				<a href="${unicodeHREF}" target="_new" title="Unicode Link" class="titleLink">Unicode</a>
 			</h3>
 			<div class="actions">
-				${makeCloseButton(`clickRangeClose('${rid}');`)}
+				${makeCloseButton(`deselectRange('${rid}');`)}
 			</div>
 
 			<div class="hex">&nbsp;</div>
@@ -92,9 +91,11 @@ function makeRangeBlock(rid) {
 	return con;
 }
 
-function clickRangeClose(rid) {
-	deselectRange(rid);
-	redrawContent();
+function animateRemove(element) {
+	let seconds = 0.3;
+	element.style.transition = "opacity " + seconds + "s ease";
+	element.style.opacity = 0;
+	setTimeout(() => element.parentNode.removeChild(element), 300);
 }
 
 function makeTile(char, size) {
@@ -244,16 +245,18 @@ function isRangeSelected(rid) {
 }
 
 function selectRange(rid) {
-	// if(typeof rid === 'string') rid = [rid];
-	console.log(`selectRange: ${rid}`);
-	rid = rid.split("_");
+	// console.log(`selectRange: ${rid}`);
 
-	rid.forEach((id) => {
-		if (!isRangeSelected(id)) app.settings.selectedRanges.push(id);
-	});
+	if (!isRangeSelected(rid)) app.settings.selectedRanges.push(rid);
 
 	sortSelectedRanges();
+	redrawContent();
 	saveSettings();
+
+	window.setTimeout(() => {
+		const block = document.getElementById(rid);
+		block.scrollIntoView({ behavior: "smooth", alignToTop: false });
+	}, 100);
 }
 
 function selectAllRanges() {
@@ -265,14 +268,12 @@ function selectAllRanges() {
 }
 
 function deselectRange(rid) {
-	// if(typeof rid === 'string') rid = [rid];
-	rid = rid.split("_");
+	// console.log(`deselectRange: ${rid}`);
+	let i = app.settings.selectedRanges.indexOf(rid);
+	if (i > -1) app.settings.selectedRanges.splice(i, 1);
 
-	rid.forEach((id) => {
-		let i = app.settings.selectedRanges.indexOf(id);
-		if (i > -1) app.settings.selectedRanges.splice(i, 1);
-	});
-
+	let charBlock = document.getElementById(rid);
+	animateRemove(charBlock);
 	sortSelectedRanges();
 	saveSettings();
 }

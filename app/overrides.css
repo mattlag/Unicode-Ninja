@@ -113,27 +113,36 @@ li {
 	Responsive
 **/
 
-@media only screen and (max-width: 1350px) {
-	/* #wrapper {
-		width: 850px;
-	} */
-
-	.ranges {
-		display: block !important;
-	}
-
+@media only screen and (max-width: 1360px) {
 	#rangesChooser,
 	.chooserOptions,
 	#charSearchStatus {
-		display: none;
+		display: none !important;
+	}
+
+	#content,
+	.headerContent {
+		width: 890px !important;
+		margin: 0px auto !important;
+	}
+
+	#rangesDisplay {
+		margin-left: 0px !important;
+		padding-left: 0px !important;
+	}
+
+	.responsiveRangesWrapper {
+		display: grid !important;
 	}
 
 	#responsiveRangeChooserToggle {
 		display: block !important;
 	}
 
-	.scrollArea {
-		overflow-x: auto !important;
+	.responsiveRangesChooser .rangeGrid {
+		margin: 0px 0px 0px 10px !important;
+		max-height: calc(100vh - 140px) !important;
+		grid-template-columns: min-content 20px 65% 70px 100px;
 	}
 
 	#charSearchStatus {
@@ -143,5 +152,15 @@ li {
 
 	#charSearchStatus button {
 		display: none;
+	}
+
+	.gridContents .rowWrapper {
+		max-width: 890px;
+	}
+
+	.gridContents .rowWrapper .charName {
+		max-width: 480px;
+		text-overflow: ellipsis;
+		overflow-x: hidden;
 	}
 }
