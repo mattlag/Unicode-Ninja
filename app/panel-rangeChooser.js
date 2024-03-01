@@ -46,6 +46,7 @@ function makeFlatChooser() {
 
 function makeGroupedChooser() {
 	function makeArea(area) {
+		console.log(area);
 		let con = "";
 		let sub, multiSelect;
 		for (let section in area) {
@@ -79,17 +80,17 @@ function makeGroupedChooser() {
 
 	return `
 		<h2>Unicode Scripts</h2>
-		${makeArea(organizedScripts)}
+		${makeArea(organizedScriptsV2)}
 		<div class="skipRow">&nbsp;</div>
 		<div class="skipRow">&nbsp;</div>
 		<h2>Unicode Symbols</h2>
-		${makeArea(organizedSymbols)}
+		${makeArea(organizedSymbolsV2)}
 	`;
 }
 
 function makeSingleRangeRow(rid, name, indent, group) {
-	// console.log('makeSingleRow');
-	// console.log(`\t rid: ${typeof rid} ${rid}`);
+	console.log('makeSingleRow');
+	console.log(`\t rid: ${typeof rid} ${rid}`);
 
 	let checkboxID = `checkbox_${group ? "g_" : ""}${name.replace(/ /gi, "_")}`;
 	let range = getRange(rid) || false;

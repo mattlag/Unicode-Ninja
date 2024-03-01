@@ -1,7 +1,9 @@
 {
   "prettier": {
     "printWidth": 400,
-    "useTabs": true
+    "useTabs": true,
+    "singleQuote": true,
+    "quoteProps": "consistent"
   },
   "cspell": {
     "ignorePaths": [
