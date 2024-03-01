@@ -5,15 +5,9 @@ const organizedScriptsV2 = {
 			'Armenian Ligatures': 'r-FB13-FB17',
 		},
 		'Carian': 'r-102A0-102DF',
-		'Caucasian Albanian': {
-			'Caucasian Albanian': 'r-10530-1056F',
-		},
-		'Cypriot Syllabary': {
-			'Cypriot Syllabary': 'r-10800-1083F',
-		},
-		'Cypro-Minoan': {
-			'Cypro-Minoan': 'r-12F90-12FFF',
-		},
+		'Caucasian Albanian': 'r-10530-1056F',
+		'Cypriot Syllabary': 'r-10800-1083F',
+		'Cypro-Minoan': 'r-12F90-12FFF',
 		'Cyrillic': {
 			'Cyrillic': 'r-0400-04FF',
 			'Cyrillic Supplement': 'r-0500-052F',
@@ -56,44 +50,28 @@ const organizedScriptsV2 = {
 			'Phonetic Extensions': 'r-1D00-1D7F',
 			'Phonetic Extensions Supplement': 'r-1D80-1DBF',
 		},
-		'Linear A': {
-			'Linear A': 'r-10600-1077F',
-			'Linear B': {
-				'Linear B Syllabary': 'r-10000-1007F',
-				'Linear B Ideograms': 'r-10080-100FF',
-				'Aegean Numbers': 'r-10100-1013F',
-			},
+		'Linear A': 'r-10600-1077F',
+		'Linear B': {
+			'Linear B Syllabary': 'r-10000-1007F',
+			'Linear B Ideograms': 'r-10080-100FF',
+			'Aegean Numbers': 'r-10100-1013F',
 		},
 		'Lycian': 'r-10280-1029F',
 		'Lydian': 'r-10920-1093F',
 		'Ogham': 'r-1680-169F',
-		'Old Hungarian': {
-			'Old Hungarian': 'r-10C80-10CFF',
-		},
-		'Old Italic': {
-			'Old Italic': 'r-10300-1032F',
-		},
-		'Old Permic': {
-			'Old Permic': 'r-10350-1037F',
-		},
-		'Phaistos Disc': {
-			'Phaistos Disc': 'r-101D0-101FF',
-		},
+		'Old Hungarian': 'r-10C80-10CFF',
+		'Old Italic': 'r-10300-1032F',
+		'Old Permic': 'r-10350-1037F',
+		'Phaistos Disc': 'r-101D0-101FF',
 		'Runic': 'r-16A0-16FF',
 		'Shavian': 'r-10450-1047F',
 		'Vithkuqi': 'r-10570-105BF',
 	},
 
 	'Modifier Letters': {
-		'Modifier Tone Letters': {
-			'Modifier Tone Letters': 'r-A700-A71F',
-		},
-		'Spacing Modifier Letters': {
-			'Spacing Modifier Letters': 'r-02B0-02FF',
-		},
-		'Superscripts and Subscripts': {
-			'Superscripts and Subscripts': 'r-2070-209F',
-		},
+		'Modifier Tone Letters': 'r-A700-A71F',
+		'Spacing Modifier Letters': 'r-02B0-02FF',
+		'Superscripts and Subscripts': 'r-2070-209F',
 	},
 
 	'Combining Marks': {
@@ -102,12 +80,8 @@ const organizedScriptsV2 = {
 			'Combining Diacritical Marks Extended': 'r-1AB0-1AFF',
 			'Combining Diacritical Marks Supplement': 'r-1DC0-1DFF',
 		},
-		'Combining Diacritical Marks for Symbols': {
-			'Combining Diacritical Marks for Symbols': 'r-20D0-20FF',
-		},
-		'Combining Half Marks': {
-			'Combining Half Marks': 'r-FE20-FE2F',
-		},
+		'Combining Diacritical Marks for Symbols': 'r-20D0-20FF',
+		'Combining Half Marks': 'r-FE20-FE2F',
 	},
 
 	'Miscellaneous': {
@@ -122,9 +96,7 @@ const organizedScriptsV2 = {
 			'Bamum': 'r-A6A0-A6FF',
 			'Bamum Supplement': 'r-16800-16A3F',
 		},
-		'Bassa Vah': {
-			'Bassa Vah': 'r-16AD0-16AFF',
-		},
+		'Bassa Vah': 'r-16AD0-16AFF',
 		'Coptic': {
 			'Coptic': 'r-2C80-2CFF',
 			'Coptic in Greek block': 'r-03E2-03EF',
@@ -142,12 +114,10 @@ const organizedScriptsV2 = {
 			'Ethiopic Extended-B': 'r-1E7E0-1E7FF',
 		},
 		'Medefaidrin': 'r-16E40-16E9F',
-		'Mende Kikakui': {
-			'Mende Kikakui': 'r-1E800-1E8DF',
-			'Meroitic': {
-				'Meroitic Cursive': 'r-109A0-109FF',
-				'Meroitic Hieroglyphs': 'r-10980-1099F',
-			},
+		'Mende Kikakui': 'r-1E800-1E8DF',
+		'Meroitic': {
+			'Meroitic Cursive': 'r-109A0-109FF',
+			'Meroitic Hieroglyphs': 'r-10980-1099F',
 		},
 		'N&quot;Ko': 'r-07C0-07FF',
 		'Osmanya': 'r-10480-104AF',
@@ -168,9 +138,7 @@ const organizedScriptsV2 = {
 			'Arabic Presentation Forms-A': 'r-FB50-FDFF',
 			'Arabic Presentation Forms-B': 'r-FE70-FEFF',
 		},
-		'Aramaic, Imperial': {
-			'Aramaic, Imperial': 'r-10840-1085F',
-		},
+		'Aramaic, Imperial': 'r-10840-1085F',
 		'Avestan': 'r-10B00-10B3F',
 		'Chorasmian': 'r-10FB0-10FDF',
 		'Cuneiform': {
@@ -188,18 +156,10 @@ const organizedScriptsV2 = {
 		},
 		'Mandaic': 'r-0840-085F',
 		'Nabataean': 'r-10880-108AF',
-		'Old North Arabian': {
-			'Old North Arabian': 'r-10A80-10A9F',
-		},
-		'Old South Arabian': {
-			'Old South Arabian': 'r-10A60-10A7F',
-		},
-		'Pahlavi, Inscriptional': {
-			'Pahlavi, Inscriptional': 'r-10B60-10B7F',
-		},
-		'Pahlavi, Psalter': {
-			'Pahlavi, Psalter': 'r-10B80-10BAF',
-		},
+		'Old North Arabian': 'r-10A80-10A9F',
+		'Old South Arabian': 'r-10A60-10A7F',
+		'Pahlavi, Inscriptional': 'r-10B60-10B7F',
+		'Pahlavi, Psalter': 'r-10B80-10BAF',
 		'Palmyrene': 'r-10860-1087F',
 		'Parthian, Inscriptional': 'r-10B40-10B5F',
 		'Phoenician': 'r-10900-1091F',
@@ -230,9 +190,7 @@ const organizedScriptsV2 = {
 
 	'South Asian Scripts': {
 		'Ahom': 'r-11700-1174F',
-		'Bengali and Assamese': {
-			'Bengali and Assamese': 'r-0980-09FF',
-		},
+		'Bengali and Assamese': 'r-0980-09FF',
 		'Bhaiksuki': 'r-11C00-11C6F',
 		'Brahmi': 'r-11000-1107F',
 		'Chakma': 'r-11100-1114F',
@@ -241,9 +199,7 @@ const organizedScriptsV2 = {
 			'Devanagari Extended': 'r-A8E0-A8FF',
 			'Devanagari Extended-A': 'r-11B00-11B5F',
 		},
-		'Dives Akuru': {
-			'Dives Akuru': 'r-11900-1195F',
-		},
+		'Dives Akuru': 'r-11900-1195F',
 		'Dogra': 'r-11800-1184F',
 		'Grantha': 'r-11300-1137F',
 		'Gujarati': 'r-0A80-0AFF',
@@ -320,21 +276,21 @@ const organizedScriptsV2 = {
 	},
 
 	'Indonesian &amp; Philippine Scripts': {
-		'Balinese': 'r-1B00-1B7F',
-		'Batak': 'r-1BC0-1BFF',
-		'Buginese': 'r-1A00-1A1F',
-		'Buhid': 'r-1740-175F',
-		'Hanunoo': 'r-1720-173F',
-		'Javanese': 'r-A980-A9DF',
-		'Kawi': 'r-11F00-11F5F',
-		'Makasar': 'r-11EE0-11EFF',
-		'Rejang': 'r-A930-A95F',
-		'Sundanese': {
+		Balinese: 'r-1B00-1B7F',
+		Batak: 'r-1BC0-1BFF',
+		Buginese: 'r-1A00-1A1F',
+		Buhid: 'r-1740-175F',
+		Hanunoo: 'r-1720-173F',
+		Javanese: 'r-A980-A9DF',
+		Kawi: 'r-11F00-11F5F',
+		Makasar: 'r-11EE0-11EFF',
+		Rejang: 'r-A930-A95F',
+		Sundanese: {
 			'Sundanese': 'r-1B80-1BBF',
 			'Sundanese Supplement': 'r-1CC0-1CCF',
 		},
-		'Tagalog': 'r-1700-171F',
-		'Tagbanwa': 'r-1760-177F',
+		Tagalog: 'r-1700-171F',
+		Tagbanwa: 'r-1760-177F',
 	},
 
 	'East Asian Scripts': {
@@ -520,13 +476,13 @@ const organizedSymbolsV2 = {
 			'Miscellaneous Mathematical Symbols-B': 'r-2980-29FF',
 			'Floors and Ceilings': 'r-2308-230B',
 			'Invisible Operators': 'r-2061-2064',
-			'Geometric Shapes': {
-				'Geometric Shapes': 'r-25A0-25FF',
-				'Additional Shapes': 'r-2B00-2BFF',
-				'Box Drawing': 'r-2500-257F',
-				'Block Elements': 'r-2580-259F',
-				'Geometric Shapes Extended': 'r-1F780-1F7FF',
-			},
+		},
+		'Geometric Shapes': {
+			'Geometric Shapes': 'r-25A0-25FF',
+			'Additional Shapes': 'r-2B00-2BFF',
+			'Box Drawing': 'r-2500-257F',
+			'Block Elements': 'r-2580-259F',
+			'Geometric Shapes Extended': 'r-1F780-1F7FF',
 		},
 	},
 
@@ -560,11 +516,7 @@ const organizedSymbolsV2 = {
 			'Playing Cards': 'r-1F0A0-1F0FF',
 			'Card suits': 'r-2660-2667',
 		},
-	},
-
-	'Miscellaneous Symbols and Arrows': 'r-2B00-2BFF',
-
-	'Symbols for Legacy Computing': {
+		'Miscellaneous Symbols and Arrows': 'r-2B00-2BFF',
 		'Symbols for Legacy Computing': 'r-1FB00-1FBFF',
 		'Yijing Symbols': {
 			'Yijing Mono-, Di- and Trigrams': 'r-2600-26FF',
