@@ -45,7 +45,8 @@ function makeRangeBlock(rid) {
 	wikiHREF += `${range.name.replace(/ /gi, '_')}_(Unicode_block)`;
 	let unicodeHREF = `https://www.unicode.org/charts/PDF/U${rangeBeginBase}.pdf`;
 	let con = `
-		<div class="contentCharBlock" id="${rid}">
+		<div class="rangeDisplayCard" id="${rid}">
+			<div class="rangeDisplayCard-header">
 			<h3 class="title">
 				${range.name}
 				<a href="${wikiHREF}" target="_new" title="Wikipedia Link" class="titleLink">Wikipedia</a>
@@ -54,39 +55,38 @@ function makeRangeBlock(rid) {
 			<div class="actions">
 				${makeCloseButton(`deselectRange('${rid}');`)}
 			</div>
-
-			<div class="hex">&nbsp;</div>
-			<div class="hex">0</div>
-			<div class="hex">1</div>
-			<div class="hex">2</div>
-			<div class="hex">3</div>
-			<div class="hex">4</div>
-			<div class="hex">5</div>
-			<div class="hex">6</div>
-			<div class="hex">7</div>
-			<div class="hex">8</div>
-			<div class="hex">9</div>
-			<div class="hex">A</div>
-			<div class="hex">B</div>
-			<div class="hex">C</div>
-			<div class="hex">D</div>
-			<div class="hex">E</div>
-			<div class="hex">F</div>
-	`;
+			</div>
+			<div class="rangeDisplayCard-content">
+<div class="hex">&nbsp;</div>
+<div class="hex">0</div>
+<div class="hex">1</div>
+<div class="hex">2</div>
+<div class="hex">3</div>
+<div class="hex">4</div>
+<div class="hex">5</div>
+<div class="hex">6</div>
+<div class="hex">7</div>
+<div class="hex">8</div>
+<div class="hex">9</div>
+<div class="hex">A</div>
+<div class="hex">B</div>
+<div class="hex">C</div>
+<div class="hex">D</div>
+<div class="hex">E</div>
+<div class="hex">F</div>
+`;
 
 	for (let c = range.begin * 1; c <= range.end * 1; c++) {
 		if (c % 16 === 0) {
 			let prefix = decToHex(c);
 			prefix = prefix.substring(2, prefix.length - 1);
-			con += `
-				<div class="hex"><span>${prefix}-</span></div>
-			`;
+			con += `<div class="hex"><span>${prefix}-</span></div>`;
 		}
 
 		con += makeTile(decToHex(c));
 	}
 
-	con += `</div>`;
+	con += `</div></div>`;
 
 	return con;
 }
@@ -101,17 +101,21 @@ function animateRemove(element) {
 function makeTile(char, size) {
 	size = size || 'medium';
 	let name = getUnicodeName(char);
-	let con = `<div class="charTile ${size} noChar" title="No character encoded\nat this code point">&nbsp;</div>`;
+	let con = `<div
+		class="charTile ${size} noChar" 
+		title="No character encoded\nat this code point"
+	>&nbsp;</div>`;
 
 	if (name !== '{{no name found}}') {
-		con = `
-			<div 
-				class="charTile ${size}" 
-				style="font-family: ${app.settings.genericFontFamily};${name === '<control>' ? ' color: #EEE;"' : '"'} 
-				title="${getUnicodeName(char)}\n${char.replace('0x', 'U+')}"
-				${size === 'medium' ? `onClick="tileClick('${char}');"` : ''}
-			>&#${char.substring(1)};</div>
-		`;
+		let htmlDisplayChar = `&#${char.substring(1)};`;
+		if (isWhitespace(char)) htmlDisplayChar = '&nbsp;';
+
+		con = `<div 
+			class="charTile ${size}" 
+			style="font-family: ${app.settings.genericFontFamily};${name === '<control>' ? ' color: #EEE;"' : '"'} 
+			title="${getUnicodeName(char)}\n${char.replace('0x', 'U+')}"
+			${size === 'medium' ? `onClick="tileClick('${char}');"` : ''}
+		>${htmlDisplayChar}</div>`;
 	}
 
 	return con;

@@ -123,6 +123,54 @@ label {
 	Responsive
 **/
 
+@media only screen and (max-width: 890px) {
+	body {
+		padding-left: 10px;
+	}
+
+	#header {
+		left: 10px !important;
+	}
+
+	#charSearchBar {
+		display: none !important;
+	}
+
+	#content,
+	#rangesDisplay {
+		width: 100% !important;
+		max-width: 100vh !important;
+		min-width: 48px !important;
+	}
+
+	#rangesDisplay {
+		padding-right: 10px;
+	}
+
+	.rangeDisplayCard {
+		display: block;
+	}
+
+	.rangeDisplayCard-content {
+		display: block !important;
+		text-align: left;
+		width: 100%;
+	}
+
+	.rangeDisplayCard-content .charTile {
+		display: inline-block;
+		margin: 0px 5px 5px 0px !important;
+	}
+
+	.hex {
+		display: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+}
+
 @media only screen and (max-width: 1360px) {
 	#rangesChooser,
 	.chooserOptions,
@@ -132,7 +180,7 @@ label {
 
 	#content,
 	.headerContent {
-		width: 890px !important;
+		width: 850px;
 		margin: 0px auto !important;
 	}
 
@@ -165,7 +213,7 @@ label {
 	}
 
 	.gridContents .rowWrapper {
-		max-width: 890px;
+		max-width: 850px;
 	}
 
 	.gridContents .rowWrapper .charName {

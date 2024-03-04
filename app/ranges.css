@@ -12,12 +12,10 @@
 	min-width: 80px;
 }
 
-.contentCharBlock {
+.rangeDisplayCard {
 	margin: 0px 0px 30px 0px;
 	scroll-margin-top: 70px;
-	display: grid;
-	grid-template-columns: repeat(17, 48px);
-	width: 850px;
+	max-width: 850px;
 	grid-column-gap: 1px;
 	grid-row-gap: 1px;
 	background-color: var(--gray-95);
@@ -25,21 +23,26 @@
 	padding: 10px;
 }
 
-.contentCharBlock .title {
-	grid-row: 1;
-	grid-column-start: 1;
-	grid-column-end: 15;
+.rangeDisplayCard-header {
+	display: grid;
+	grid-template-columns: 1fr 30px;
+	margin-bottom: 10px;
+}
+
+.rangeDisplayCard-content {
+	display: grid;
+	grid-template-columns: repeat(17, 48px);
+}
+
+.rangeDisplayCard .title {
 	margin: 0px 0px 5px 0px;
 }
 
-.contentCharBlock .actions {
+.rangeDisplayCard .actions {
 	text-align: right;
-	grid-row: 1;
-	grid-column-start: 15;
-	grid-column-end: 18;
 }
 
-.contentCharBlock .actions .actionButton {
+.rangeDisplayCard .actions .actionButton {
 	position: relative;
 	top: 2px;
 }
