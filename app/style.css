@@ -315,7 +315,7 @@
 	padding: 10px;
 }
 
-.value input[type="number"],
+.value input[type='number'],
 .value option {
 	width: 200px;
 	padding: 2px 0px 2px 2px;
@@ -325,45 +325,49 @@
 	Dialog
 **/
 
-.dialog {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
-	background-color: rgba(255, 255, 255, 0.8);
+dialog {
 	text-align: center;
 	z-index: 1000;
-	opacity: 0;
-	transition: opacity 100ms ease-in-out;
-}
-
-.dialogContent {
 	padding: 0px 20px 30px 30px;
-	margin: 10vh auto 0px auto;
 	width: 700px;
 	height: min-content;
 	max-height: 80vh;
+	overflow-y: auto;
+	margin: 10vh auto 0px auto;
 	background-color: var(--gray-90);
 	text-align: left;
 	border: 1px solid var(--gray-40);
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0);
-	opacity: 0;
-	transition: opacity 200ms ease-in-out;
-	transition-delay: 100ms;
 	border-radius: var(--radius-large);
 }
 
-.dialogContent h1,
-.dialogContent h2,
-.dialogContent h3 {
+dialog[open],
+::backdrop {
+	animation: fadeIn 200ms ease-in forwards;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+::backdrop {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+dialog h1,
+dialog h2,
+dialog h3 {
 	color: var(--gray-20);
 	font-weight: normal;
 	margin-bottom: 12px;
 }
 
-.dialog .actionButton {
+dialog .actionButton {
 	border-radius: 50%;
 	width: 2em;
 	height: 2em;
@@ -373,7 +377,7 @@
 	color: var(--gray-30);
 }
 
-.dialog .actionButton:hover {
+dialog .actionButton:hover {
 	color: var(--gray-90);
 }
 
@@ -414,7 +418,12 @@
 	width: 200px;
 }
 
-.value input[type="checkbox"] {
+.value label {
+	position: relative;
+	top: -3px;
+}
+
+.value input[type='checkbox'] {
 	width: 20px;
 	height: 20px;
 }

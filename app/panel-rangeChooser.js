@@ -167,7 +167,7 @@ function checkboxOnChange(elem) {
 		deselectRange(rangeID);
 	}
 
-	if (!app.settings.responsiveChooserIsOpen) {
+	if (!app.settings.responsiveChooserIsOpen && !isDialogOpen()) {
 		if (app.settings.selectedPage !== 'Ranges') navigate('Ranges');
 	}
 }
