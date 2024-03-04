@@ -15,9 +15,11 @@ function openDialog(content = '') {
 	let closeButton = dialogElement.querySelector('.actionButton');
 	closeButton.addEventListener('click', () => {
 		dialogElement.close();
+		document.body.removeChild(dialogElement);
 	});
 	dialogElement.addEventListener('click', () => {
 		dialogElement.close();
+		document.body.removeChild(dialogElement);
 	});
 
 	dialogElement.showModal();
