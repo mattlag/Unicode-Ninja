@@ -14,6 +14,8 @@ function makeRangeChooser() {
 
 function selectRangeTab(tab) {
 	app.settings.selectedTab = tab;
+	let chooserScrollArea = document.querySelector('.rangeGrid');
+	chooserScrollArea.scrollTop = 0;
 	redrawContent();
 }
 
@@ -33,9 +35,11 @@ function makeChooserOptions() {
 }
 
 function makeFlatChooser() {
-	let con = '<h2>Unicode</h2>';
-
+	let con = '<h2>Basic Multilingual Plane</h2>';
 	for (let rid in unicodeBlocks) {
+		if (unicodeBlocks[rid].begin === 0x10000) con += '<h2>Supplementary Multilingual Plane</h2>';
+		if (unicodeBlocks[rid].begin === 0x20000) con += '<h2>Supplementary Ideographic Plane</h2>';
+		if (unicodeBlocks[rid].begin === 0x30000) con += '<h2>Tertiary Ideographic Plane</h2>';
 		if (unicodeBlocks.hasOwnProperty(rid)) {
 			con += makeSingleRangeRow(rid, unicodeBlocks[rid].name, '');
 		}
@@ -121,6 +125,8 @@ function makeSingleRangeRow(rid, name, indent, group) {
 
 	let nonstandardNote = '<div class="note" title="Default sans-serif font may not\nbe able to display this range">⊘</div>';
 	let noGlyphsNote = '<div class="note" title="Range contains no characters\nwith visible shapes.">⊝</div>';
+	let subRangeNote = '<div class="note" title="This is a sub-group of a larger Unicode Range.\nThe larger / parent Unicode Range will be shown.">⬙</div>';
+
 	if (group) {
 		return `
 			${makeCheckbox()}
@@ -145,6 +151,7 @@ function makeSingleRangeRow(rid, name, indent, group) {
 			<div class="count" title="Character count">
 				${range && range.nonstandard ? nonstandardNote : ''}
 				${range && range.noGlyphs ? noGlyphsNote : ''}
+				${rid.startsWith('s-') ? subRangeNote : ''}
 				${range ? parseInt(range.end) - parseInt(range.begin) + 1 : ''}
 			</div>
 

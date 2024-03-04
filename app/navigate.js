@@ -36,9 +36,7 @@ function toggleMenu() {
 	popup.style.display = 'block';
 
 	function makePageButton(page) {
-		return `<button onclick="navigate('${page}');">${nbsp(
-			app.menu[page]
-		)}</button>`;
+		return `<button onclick="navigate('${page}');">${nbsp(app.menu[page])}</button>`;
 	}
 
 	popup.innerHTML = `
@@ -72,9 +70,21 @@ function navigate(pageName) {
 
 function redrawContent() {
 	if (app.redrawTimeout) clearTimeout(app.redrawTimeout);
+	const onRanges = app.settings.selectedPage === 'Ranges';
+
+	let chooserScrollTop = 0;
+	if (onRanges) {
+		let chooserScrollArea = document.querySelector('.rangeGrid');
+		if (chooserScrollArea) chooserScrollTop = chooserScrollArea.scrollTop;
+	}
 
 	app.redrawTimeout = setTimeout(function () {
 		document.getElementById('content').innerHTML = makePageContent();
+
+		if (chooserScrollTop) {
+			let chooserScrollArea = document.querySelector('.rangeGrid');
+			chooserScrollArea.scrollTop = chooserScrollTop;
+		}
 
 		if (app.focusID) {
 			let elem = document.getElementById(app.focusID);
@@ -87,7 +97,7 @@ function redrawContent() {
 }
 
 function redrawRangesDisplay() {
-	const rangesArea = document.getElementById('rangesDisplay'); 
+	const rangesArea = document.getElementById('rangesDisplay');
 	rangesArea.innerHTML = makeRangesDisplay();
 }
 

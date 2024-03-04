@@ -113,7 +113,7 @@
 
 .titleLink {
 	font-size: 0.6em;
-	font-family: "Times New Roman", Times, serif;
+	font-family: 'Times New Roman', Times, serif;
 	opacity: 0.4;
 	text-decoration: none;
 	margin-left: 10px;
@@ -202,7 +202,7 @@
 .rangeGrid {
 	display: grid;
 	grid-template-columns: min-content 20px 50% 70px 100px;
-	grid-row-gap: 6px;
+	grid-row-gap: 8px;
 	grid-column-gap: 4px;
 	margin: 0px 0px 0px 10px;
 	max-height: calc(100vh - 70px);
@@ -215,7 +215,8 @@
 }
 
 .rangeGrid h2 {
-	margin: 10px 0px 5px 0px;
+	font-size: 1.5em;
+	margin: 10px 0px 0px 0px;
 }
 
 .rangeGrid h3 {
@@ -256,7 +257,7 @@
 }
 
 .group {
-	font-size: 1.2em;
+	/* font-size: 1.2em; */
 	font-style: italic;
 	grid-column: 2 / span 3;
 }

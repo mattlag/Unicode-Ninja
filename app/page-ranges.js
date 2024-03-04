@@ -221,8 +221,16 @@ function tileClick(char) {
 */
 
 function getRange(rid) {
-	// if(!unicodeBlocks[rid]) console.warn(`Unknown range: ${rid}`);
-	return unicodeBlocks[rid];
+	if (unicodeBlocks[rid]) {
+		return unicodeBlocks[rid];
+	} else {
+		// console.warn(`Unknown range: ${rid}`);
+		let subBegin = rid.split('-')[1];
+		let charDec = parseInt(`0x${subBegin}`, 16);
+		let parentRange = getParentRange(charDec);
+		// return { begin: 0x0020, end: 0x007f, name: "Basic Latin" };
+		return parentRange;
+	}
 }
 
 function getRangeForChar(hex) {
@@ -241,20 +249,29 @@ function getDataForChar(hex) {
 }
 
 function isRangeSelected(rid) {
-	return app.settings.selectedRanges.includes(rid);
+	let selections = app.settings.selectedRanges;
+	// console.log(`rid: ${rid}`);
+	// console.log(selections);
+	// console.log(`isRangeSelected ${rid}: returning ${selections.includes(rid)}`);
+	return selections.includes(rid);
 }
 
 function selectRange(rid) {
 	// console.log(`selectRange: ${rid}`);
+	rid = rid.split("_");
 
-	if (!isRangeSelected(rid)) app.settings.selectedRanges.push(rid);
+	let lastID = rid.at(-1);
+
+	rid.forEach((id) => {
+		if (!isRangeSelected(id)) app.settings.selectedRanges.push(id);
+	});
 
 	sortSelectedRanges();
 	redrawContent();
 	saveSettings();
 
 	window.setTimeout(() => {
-		const block = document.getElementById(rid);
+		const block = document.getElementById(lastID);
 		block.scrollIntoView({ behavior: "smooth", alignToTop: false });
 	}, 100);
 }
@@ -269,11 +286,16 @@ function selectAllRanges() {
 
 function deselectRange(rid) {
 	// console.log(`deselectRange: ${rid}`);
-	let i = app.settings.selectedRanges.indexOf(rid);
-	if (i > -1) app.settings.selectedRanges.splice(i, 1);
 
-	let charBlock = document.getElementById(rid);
-	animateRemove(charBlock);
+	rid = rid.split("_");
+
+	rid.forEach((id) => {
+		let i = app.settings.selectedRanges.indexOf(id);
+		if (i > -1) app.settings.selectedRanges.splice(i, 1);
+		let charBlock = document.getElementById(rid);
+		animateRemove(charBlock);
+	});
+
 	sortSelectedRanges();
 	saveSettings();
 }

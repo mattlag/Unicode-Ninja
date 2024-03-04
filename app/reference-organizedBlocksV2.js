@@ -2,7 +2,7 @@ const organizedScriptsV2 = {
 	'European Scripts': {
 		'Armenian': {
 			'Armenian': 'r-0530-058F',
-			'Armenian Ligatures': 'r-FB13-FB17',
+			'Armenian Ligatures': 's-FB13-FB17',
 		},
 		'Carian': 'r-102A0-102DF',
 		'Caucasian Albanian': 'r-10530-1056F',
@@ -33,8 +33,8 @@ const organizedScriptsV2 = {
 			'Ancient Greek Numbers': 'r-10140-1018F',
 		},
 		'Latin': {
-			'Latin': 'r-0000-007F',
-			'Basic Latin (ASCII)': 'r-0000-007F',
+			'Basic Latin Controls': 'r-0000-001F',
+			'Basic Latin': 'r-0020-007F',
 			'Latin-1 Supplement': 'r-0080-00FF',
 			'Latin Extended-A': 'r-0100-017F',
 			'Latin Extended-B': 'r-0180-024F',
@@ -44,8 +44,8 @@ const organizedScriptsV2 = {
 			'Latin Extended-F': 'r-10780-107BF',
 			'Latin Extended-G': 'r-1DF00-1DFFF',
 			'Latin Extended Additional': 'r-1E00-1EFF',
-			'Latin Ligatures': 'r-FB00-FB06',
-			'Fullwidth Latin Letters': 'r-FF00-FF5E',
+			'Latin Ligatures': 's-FB00-FB06',
+			'Fullwidth Latin Letters': 's-FF00-FF5E',
 			'IPA Extensions': 'r-0250-02AF',
 			'Phonetic Extensions': 'r-1D00-1D7F',
 			'Phonetic Extensions Supplement': 'r-1D80-1DBF',
@@ -86,7 +86,6 @@ const organizedScriptsV2 = {
 
 	'Miscellaneous': {
 		'Alphabetic Presentation Forms': 'r-FB00-FB4F',
-		'ASCII Characters': 'r-0000-007F',
 		'Halfwidth and Fullwidth Forms': 'r-FF00-FFEF',
 	},
 
@@ -99,7 +98,7 @@ const organizedScriptsV2 = {
 		'Bassa Vah': 'r-16AD0-16AFF',
 		'Coptic': {
 			'Coptic': 'r-2C80-2CFF',
-			'Coptic in Greek block': 'r-03E2-03EF',
+			'Coptic in Greek block': 's-03E2-03EF',
 			'Coptic Epact Numbers': 'r-102E0-102FF',
 		},
 		'Egyptian Hieroglyphs': {
@@ -133,7 +132,7 @@ const organizedScriptsV2 = {
 			'Arabic': 'r-0600-06FF',
 			'Arabic Supplement': 'r-0750-077F',
 			'Arabic Extended-A': 'r-08A0-08FF',
-			'Arabic Extended-B': 'r-0870-089F',
+			'Arabic Extended-B': 's-0870-089F',
 			'Arabic Extended-C': 'r-10EC0-10EFF',
 			'Arabic Presentation Forms-A': 'r-FB50-FDFF',
 			'Arabic Presentation Forms-B': 'r-FE70-FEFF',
@@ -152,7 +151,7 @@ const organizedScriptsV2 = {
 		'Hatran': 'r-108E0-108FF',
 		'Hebrew': {
 			'Hebrew': 'r-0590-05FF',
-			'Hebrew Presentation Forms': 'r-FB1D-FB4F',
+			'Hebrew Presentation Forms': 's-FB1D-FB4F',
 		},
 		'Mandaic': 'r-0840-085F',
 		'Nabataean': 'r-10880-108AF',
@@ -325,7 +324,7 @@ const organizedScriptsV2 = {
 			'Hangul Jamo Extended-A': 'r-A960-A97F',
 			'Hangul Jamo Extended-B': 'r-D7B0-D7FF',
 			'Hangul Compatibility Jamo': 'r-3130-318F',
-			'Halfwidth Jamo': 'r-FFA0-FFDC',
+			'Halfwidth Jamo': 's-FFA0-FFDC',
 		},
 		'Hangul Syllables': 'r-AC00-D7AF',
 		'Hiragana': 'r-3040-309F',
@@ -337,7 +336,7 @@ const organizedScriptsV2 = {
 		'Katakana': {
 			'Katakana': 'r-30A0-30FF',
 			'Katakana Phonetic Extensions': 'r-31F0-31FF',
-			'Halfwidth Katakana': 'r-FF65-FF9F',
+			'Halfwidth Katakana': 's-FF65-FF9F',
 		},
 		'Khitan Small Script': 'r-18B00-18CFF',
 		'Lisu': {
@@ -349,7 +348,7 @@ const organizedScriptsV2 = {
 		'Tangut': {
 			'Tangut': 'r-17000-187FF',
 			'Tangut Components': 'r-18800-18AFF',
-			'Tangut Supplement': 'r-18D00-18D08',
+			'Tangut Supplement': 's-18D00-18D08',
 		},
 		'Yi': {
 			'Yi Syllables': 'r-A000-A48F',
@@ -392,7 +391,7 @@ const organizedSymbolsV2 = {
 		'General Punctuation': {
 			'General Punctuation': 'r-2000-206F',
 			'ASCII Punctuation': 'r-0021-007F',
-			'Latin-1 Punctuation': 'r-00A1-00BF',
+			'Latin-1 Punctuation': 's-00A1-00BF',
 			'Supplemental Punctuation': 'r-2E00-2E7F',
 		},
 		'CJK Symbols and Punctuation': {
@@ -401,7 +400,7 @@ const organizedSymbolsV2 = {
 		},
 		'CJK Compatibility Forms': {
 			'CJK Compatibility Forms': 'r-FE30-FE4F',
-			'Fullwidth ASCII Punctuation': 'r-FF01-FF60',
+			'Fullwidth ASCII Punctuation': 's-FF01-FF60',
 			'Halfwidth and Fullwidth Forms': 'r-FF00-FFEF',
 			'Small Form Variants': 'r-FE50-FE6F',
 			'Vertical Forms': 'r-FE10-FE1F',
@@ -430,17 +429,14 @@ const organizedSymbolsV2 = {
 	},
 
 	'Technical Symbols': {
-		'APL symbols': 'r-2336-237A',
+		'APL symbols': 's-2336-237A',
 		'Control Pictures': 'r-2400-243F',
 		'Miscellaneous Technical': 'r-2300-23FF',
 		'Optical Character Recognition (OCR)': 'r-2440-245F',
 	},
 
 	'Numbers &amp; Digits': {
-		'ASCII Digits': {
-			'ASCII Digits': 'r-0030-0039',
-			'Fullwidth ASCII Digits': 'r-FF10-FF19',
-		},
+		'Fullwidth ASCII Digits': 's-FF10-FF19',
 		'Common Indic Number Forms': 'r-A830-A83F',
 		'Coptic Epact Numbers': 'r-102E0-102FF',
 		'Counting Rod Numerals': 'r-1D360-1D37F',
@@ -474,8 +470,8 @@ const organizedSymbolsV2 = {
 			'Supplemental Mathematical Operators': 'r-2A00-2AFF',
 			'Miscellaneous Mathematical Symbols-A': 'r-27C0-27EF',
 			'Miscellaneous Mathematical Symbols-B': 'r-2980-29FF',
-			'Floors and Ceilings': 'r-2308-230B',
-			'Invisible Operators': 'r-2061-2064',
+			'Floors and Ceilings': 's-2308-230B',
+			'Invisible Operators': 's-2061-2064',
 		},
 		'Geometric Shapes': {
 			'Geometric Shapes': 'r-25A0-25FF',
@@ -504,17 +500,17 @@ const organizedSymbolsV2 = {
 		'Ancient Symbols': 'r-10190-101CF',
 		'Currency Symbols': {
 			'Currency Symbols': 'r-20A0-20CF',
-			'Yen, Pound and Cent': 'r-00A2-00A5',
+			'Yen, Pound and Cent': 's-00A2-00A5',
 		},
 		'Game Symbols': {
-			'Chess': 'r-26C0-26C3',
-			'Checkers/Draughts': 'r-2654-265F',
+			'Chess': 's-26C0-26C3',
+			'Checkers/Draughts': 's-2654-265F',
 			'Chess Symbols': 'r-1FA00-1FA6F',
 			'Domino Tiles': 'r-1F030-1F09F',
-			'Japanese Chess': 'r-2616-2617',
+			'Japanese Chess': 's-2616-2617',
 			'Mahjong Tiles': 'r-1F000-1F02F',
 			'Playing Cards': 'r-1F0A0-1F0FF',
-			'Card suits': 'r-2660-2667',
+			'Card suits': 's-2660-2667',
 		},
 		'Miscellaneous Symbols and Arrows': 'r-2B00-2BFF',
 		'Symbols for Legacy Computing': 'r-1FB00-1FBFF',
@@ -528,26 +524,20 @@ const organizedSymbolsV2 = {
 	'Specials': {
 		'Controls': {
 			'Controls C0': 'r-0000-001F',
-			'Controls C1': 'r-0080-009F',
+			'Controls C1': 's-0080-009F',
 			'Layout Controls': 'r-2000-206F',
-			'Invisible Operators': 'r-2061-2064',
+			'Invisible Operators': 's-2061-2064',
 		},
 		'Specials': 'r-FFF0-FFFF',
-		'Tags': 'r-E0000-E007F',
+		'Tags': 's-E0000-E007F',
 		'Variation Selectors': {
 			'Variation Selectors': 'r-FE00-FE0F',
-			'Variation Selectors Supplement': 'r-E0100-E01EF',
+			'Variation Selectors Supplement': 's-E0100-E01EF',
 		},
-	},
-
-	'Private Use': {
-		'Private Use Area': 'r-E000-F8FF',
-		'Supplementary Private Use Area-A': 'r-F0000-FFFFD',
-		'Supplementary Private Use Area-B': 'r-100000-10FFFD',
 	},
 
 	'Surrogates': {
-		'High Surrogates': 'r-D800-DBFF',
+		'High Surrogates': 's-D800-DBFF',
 		'Low Surrogates': 'r-DC00-DFFF',
 	},
 };

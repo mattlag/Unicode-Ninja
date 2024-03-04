@@ -109,6 +109,16 @@ li {
 	margin-bottom: 6px;
 }
 
+input[type='checkbox'] {
+	width: 1.4em;
+	height: 1.4em;
+}
+
+label {
+	vertical-align: middle;
+	line-height: 1.4em;
+}
+
 /**
 	Responsive
 **/
