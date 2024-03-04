@@ -78,16 +78,13 @@ function makeGroupedChooser() {
 				con += '<div class="skipRow">&nbsp;</div>';
 			}
 		}
-		con += '<br><br>';
 		return con;
 	}
 
 	return `
-		<h2>Unicode Scripts</h2>
+		<h2>Scripts</h2>
 		${makeArea(organizedScriptsV2)}
-		<div class="skipRow">&nbsp;</div>
-		<div class="skipRow">&nbsp;</div>
-		<h2>Unicode Symbols</h2>
+		<h2>Symbols</h2>
 		${makeArea(organizedSymbolsV2)}
 	`;
 }

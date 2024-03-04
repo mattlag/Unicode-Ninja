@@ -17,15 +17,9 @@ function makePageSettings() {
 				<span class="value">
 					<select onchange="updateSetting('genericFontFamily', this.value);">
 						<option ${gff === 'serif' ? 'selected' : ''} value="serif">Serif</option>
-						<option ${
-							gff === 'sans-serif' ? 'selected' : ''
-						} value="sans-serif">Sans-serif</option>
-						<option ${
-							gff === 'monospace' ? 'selected' : ''
-						} value="monospace">Monospace</option>
-						<option ${
-							gff === 'system-ui' ? 'selected' : ''
-						} value="system-ui">System UI</option>
+						<option ${gff === 'sans-serif' ? 'selected' : ''} value="sans-serif">Sans-serif</option>
+						<option ${gff === 'monospace' ? 'selected' : ''} value="monospace">Monospace</option>
+						<option ${gff === 'system-ui' ? 'selected' : ''} value="system-ui">System UI</option>
 						<option ${gff === 'cursive' ? 'selected' : ''} value="cursive">Cursive</option>
 						<option ${gff === 'fantasy' ? 'selected' : ''} value="fantasy">Fantasy</option>
 					</select>
@@ -33,9 +27,7 @@ function makePageSettings() {
 
 				<span class="key">${nbsp('Maximum search results:')}</span>
 				<span class="value">
-					<input type="number" value="${
-						app.settings.maxSearchResults
-					}" onchange="updateSetting('maxSearchResults', this.value);"/>
+					<input type="number" value="${app.settings.maxSearchResults}" onchange="updateSetting('maxSearchResults', this.value);"/>
 				</span>
 
 			</div>
@@ -43,7 +35,7 @@ function makePageSettings() {
 			<br><br><br>
 			<h1>Info</h1>
 			<h2>unicode.ninja</h2>
-			A tool to help explore the Unicode® Basic Multilingual Plane <pre>0000-ffff</pre>. 
+			A tool to help explore Unicode® characters and ranges. 
 			Unicode is a registered trademark of Unicode, Inc.  More information can be found at 
 			<a href="https://www.unicode.org/" target="_new">unicode.org</a>.
 
@@ -65,8 +57,9 @@ function makePageSettings() {
 				<span class="value">${new Date(app.releaseDate).toLocaleDateString()}</span>
 				
 				<span class="key light">${nbsp('Unicode data version:')}</span>
-				<span class="value">v11.0.0 - 2018 June 5th</span>
+				<span class="value">v15.1.0 published 2023-09-06</span>
 			</div>
+			<br>
 		</div>
 	`;
 }
