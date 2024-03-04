@@ -1,6 +1,6 @@
 # unicode.ninja
 
-Easily explore the Unicode Basic Multilingual Plane - 137,374 characters of excitement!
+Easily explore Unicode characters and ranges. Now supporting Unicode planes 0, 1, 2, and 3!
 
 Useful for typeface designers, or regular humans looking for funky glyphs.
 

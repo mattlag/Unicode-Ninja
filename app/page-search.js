@@ -29,7 +29,6 @@ function clearSearch() {
 }
 
 function makePageSearch() {
-	// console.time('makePageSearch');
 	let results = searchCharNames(app.settings.charSearch);
 	let isMaxed = results.length === parseInt(app.settings.maxSearchResults);
 
@@ -42,8 +41,6 @@ function makePageSearch() {
 	};
 
 	setTimeout(updateCharSearchStatus, 20);
-
-	// console.timeEnd('makePageSearch');
 	return makeGridView(results);
 }
 

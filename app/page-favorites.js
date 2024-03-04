@@ -52,15 +52,13 @@ function clickAddFavorite(cid) {
 }
 
 function makeCurrentFavoriteButton(cid) {
-	return `
-		<button 
-			class="favorite" 
-			onClick="clickRemoveFavorite('${cid}');"
-			title="Favorited\nClick to un-favorite" 
-			>
-			★&nbsp;favorite
-		</button>
-	`;
+	return `<button 
+		class="favorite" 
+		onClick="clickRemoveFavorite('${cid}');"
+		title="Favorited\nClick to un-favorite" 
+		>
+		★&nbsp;favorite
+	</button>`;
 }
 
 function clickRemoveFavorite(cid) {

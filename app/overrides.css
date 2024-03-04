@@ -126,6 +126,7 @@ label {
 @media only screen and (max-width: 890px) {
 	body {
 		padding-left: 10px;
+		overflow-x: auto;
 	}
 
 	#header {
@@ -140,7 +141,7 @@ label {
 	#rangesDisplay {
 		width: 100% !important;
 		max-width: 100vh !important;
-		min-width: 48px !important;
+		min-width: 200px !important;
 	}
 
 	#rangesDisplay {

@@ -309,6 +309,7 @@
 	width: 40%;
 	color: var(--gray-30);
 }
+
 .chooserOptions button:hover {
 	color: var(--accent-30);
 	background-color: var(--gray-80);

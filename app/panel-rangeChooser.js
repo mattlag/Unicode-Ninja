@@ -158,9 +158,7 @@ function makeSingleRangeRow(rid, name, indent, group) {
 }
 
 function checkboxOnChange(elem) {
-	// console.log('checkboxOnChange');
 	const rangeID = elem.dataset.range;
-	// console.log(rangeID);
 	if (elem.checked) {
 		selectRange(rangeID);
 	} else {

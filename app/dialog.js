@@ -23,7 +23,6 @@ function openDialog(content = '') {
 	dialogElement.showModal();
 }
 
-
 function isDialogOpen() {
 	return !!document.querySelector('dialog');
 }

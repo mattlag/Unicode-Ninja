@@ -75,7 +75,6 @@ function updateSetting(key, value) {
 	if (key === 'rememberSettings' && !value) {
 		window.localStorage.removeItem('unicode.ninja');
 		window.localStorage.clear();
-		// console.log('cleared local storage');
 	}
 
 	saveSettings();

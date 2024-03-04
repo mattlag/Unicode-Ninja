@@ -2,13 +2,12 @@ function makeGridView(results) {
 	let char;
 	let name;
 	let con = '';
-	con += `
-		<div class="gridContents">
-			<div class="columnHeader">&nbsp;</div>
-			<div class="columnHeader">${nbsp('character name')}</div>
-			<div class="columnHeader">${nbsp('code point')}</div>
-			<div class="columnHeader">${nbsp('range name')}</div>
-			<div class="columnHeader">${nbsp('favorites')}</div>
+	con += `<div class="gridContents">
+		<div class="columnHeader">&nbsp;</div>
+		<div class="columnHeader">${nbsp('character name')}</div>
+		<div class="columnHeader">${nbsp('code point')}</div>
+		<div class="columnHeader">${nbsp('range name')}</div>
+		<div class="columnHeader">${nbsp('favorites')}</div>
 	`;
 
 	if (results.length) {

@@ -103,5 +103,4 @@ function redrawRangesDisplay() {
 
 function appFocus(id) {
 	app.focusID = id;
-	// console.log(`Focused on ${app.focusID}`);
 }

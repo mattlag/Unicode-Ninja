@@ -1,13 +1,13 @@
 {
-  "prettier": {
-    "printWidth": 400,
-    "useTabs": true,
-    "singleQuote": true,
-    "quoteProps": "consistent"
-  },
-  "cspell": {
-    "ignorePaths": [
-      "./app/reference-*"
-    ]
-  }
+	"prettier": {
+		"printWidth": 400,
+		"useTabs": true,
+		"singleQuote": true,
+		"quoteProps": "consistent"
+	},
+	"cspell": {
+		"ignorePaths": [
+			"./app/reference-*"
+		]
+	}
 }

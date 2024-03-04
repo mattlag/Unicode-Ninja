@@ -57,24 +57,24 @@ function makeRangeBlock(rid) {
 			</div>
 			</div>
 			<div class="rangeDisplayCard-content">
-<div class="hex">&nbsp;</div>
-<div class="hex">0</div>
-<div class="hex">1</div>
-<div class="hex">2</div>
-<div class="hex">3</div>
-<div class="hex">4</div>
-<div class="hex">5</div>
-<div class="hex">6</div>
-<div class="hex">7</div>
-<div class="hex">8</div>
-<div class="hex">9</div>
-<div class="hex">A</div>
-<div class="hex">B</div>
-<div class="hex">C</div>
-<div class="hex">D</div>
-<div class="hex">E</div>
-<div class="hex">F</div>
-`;
+				<div class="hex">&nbsp;</div>
+				<div class="hex">0</div>
+				<div class="hex">1</div>
+				<div class="hex">2</div>
+				<div class="hex">3</div>
+				<div class="hex">4</div>
+				<div class="hex">5</div>
+				<div class="hex">6</div>
+				<div class="hex">7</div>
+				<div class="hex">8</div>
+				<div class="hex">9</div>
+				<div class="hex">A</div>
+				<div class="hex">B</div>
+				<div class="hex">C</div>
+				<div class="hex">D</div>
+				<div class="hex">E</div>
+				<div class="hex">F</div>
+			`;
 
 	for (let c = range.begin * 1; c <= range.end * 1; c++) {
 		if (c % 16 === 0) {
