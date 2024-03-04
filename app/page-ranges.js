@@ -123,7 +123,7 @@ function makeCharDetail(char) {
 	let range = getRangeForChar(char);
 	if (range.begin === 32) range.begin = 0x0000;
 	// console.log(`range: ${JSON.stringify(range)}`);
-	const checkboxID = `checkbox_${range.name.replace(/ /gi, '_')}`;
+	const checkboxID = `dialog-checkbox_${range.name.replace(/ /gi, '_')}`;
 
 	let rangeBeginBase = decToHex(range.begin).substring(2);
 	// console.log(`rangeBeginBase: ${rangeBeginBase}`);
@@ -286,7 +286,7 @@ function selectRange(rid) {
 	});
 
 	sortSelectedRanges();
-	if (!isDialogOpen()) redrawContent();
+	redrawContent();
 	saveSettings();
 
 	if (!isDialogOpen()) {
