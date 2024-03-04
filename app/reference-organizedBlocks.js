@@ -1,7 +1,6 @@
-
 const organizedScripts = {
 	'European Scripts': {
-		'Latin': {
+		Latin: {
 			'Basic Latin Controls': 'r-0000-001F',
 			'Basic Latin': 'r-0020-007F',
 			'Latin-1 Supplement': 'r-0080-00FF',
@@ -15,26 +14,26 @@ const organizedScripts = {
 			'Phonetic Extensions': 'r-1D00-1D7F',
 			'Phonetic Extensions Supplement': 'r-1D80-1DBF',
 		},
-		'Armenian': 'r-0530-058F',
-		'Cyrillic': {
+		Armenian: 'r-0530-058F',
+		Cyrillic: {
 			'Cyrillic': 'r-0400-04FF',
 			'Cyrillic Supplement': 'r-0500-052F',
 			'Cyrillic Extended-A': 'r-2DE0-2DFF',
 			'Cyrillic Extended-B': 'r-A640-A69F',
 			'Cyrillic Extended-C': 'r-1C80-1C8F',
 		},
-		'Georgian': {
+		Georgian: {
 			'Georgian': 'r-10A0-10FF',
 			'Georgian Extended': 'r-1C90-1CBF',
 			'Georgian Supplement': 'r-2D00-2D2F',
 		},
-		'Glagolitic': 'r-2C00-2C5F',
-		'Greek': {
+		Glagolitic: 'r-2C00-2C5F',
+		Greek: {
 			'Greek': 'r-0370-03FF',
 			'Greek Extended': 'r-1F00-1FFF',
 		},
-		'Ogham': 'r-1680-169F',
-		'Runic': 'r-16A0-16FF',
+		Ogham: 'r-1680-169F',
+		Runic: 'r-16A0-16FF',
 	},
 
 	'Modifier Letters': {
@@ -54,31 +53,31 @@ const organizedScripts = {
 	},
 
 	'African Scripts': {
-		'Bamum': 'r-A6A0-A6FF',
-		'Coptic': 'r-2C80-2CFF',
-		'Ethiopic': {
+		Bamum: 'r-A6A0-A6FF',
+		Coptic: 'r-2C80-2CFF',
+		Ethiopic: {
 			'Ethiopic': 'r-1200-137F',
 			'Ethiopic Supplement': 'r-1380-139F',
 			'Ethiopic Extended': 'r-2D80-2DDF',
 			'Ethiopic Extended-A': 'r-AB00-AB2F',
 		},
-		'NKo': 'r-07C0-07FF',
-		'Tifinagh': 'r-2D30-2D7F',
-		'Vai': 'r-A500-A63F',
+		NKo: 'r-07C0-07FF',
+		Tifinagh: 'r-2D30-2D7F',
+		Vai: 'r-A500-A63F',
 	},
 
 	'Middle Eastern Scripts': {
-		'Arabic': {
+		Arabic: {
 			'Arabic': 'r-0600-06FF',
 			'Arabic Supplement': 'r-0750-077F',
 			'Arabic Extended-A': 'r-08A0-08FF',
 			'Arabic Presentation Forms-A': 'r-FB50-FDFF',
 			'Arabic Presentation Forms-B': 'r-FE70-FEFF',
 		},
-		'Hebrew': 'r-0590-05FF',
-		'Mandaic': 'r-0840-085F',
-		'Samaritan': 'r-0800-083F',
-		'Syriac': {
+		Hebrew: 'r-0590-05FF',
+		Mandaic: 'r-0840-085F',
+		Samaritan: 'r-0800-083F',
+		Syriac: {
 			'Syriac': 'r-0700-074F',
 			'Syriac Supplement': 'r-0860-086F',
 		},
@@ -138,19 +137,19 @@ const organizedScripts = {
 	},
 
 	'Indonesia &amp; Oceania Scripts': {
-		'Balinese': 'r-1B00-1B7F',
-		'Batak': 'r-1BC0-1BFF',
-		'Buginese': 'r-1A00-1A1F',
-		'Buhid': 'r-1740-175F',
-		'Hanunoo': 'r-1720-173F',
-		'Javanese': 'r-A980-A9DF',
-		'Rejang': 'r-A930-A95F',
-		'Sundanese': {
+		Balinese: 'r-1B00-1B7F',
+		Batak: 'r-1BC0-1BFF',
+		Buginese: 'r-1A00-1A1F',
+		Buhid: 'r-1740-175F',
+		Hanunoo: 'r-1720-173F',
+		Javanese: 'r-A980-A9DF',
+		Rejang: 'r-A930-A95F',
+		Sundanese: {
 			'Sundanese': 'r-A930-A95F',
 			'Sundanese Supplement': 'r-1CC0-1CCF',
 		},
-		'Tagalog': 'r-1700-171F',
-		'Tagbanwa': 'r-1760-177F',
+		Tagalog: 'r-1700-171F',
+		Tagbanwa: 'r-1760-177F',
 	},
 
 	'East Asian Scripts': {

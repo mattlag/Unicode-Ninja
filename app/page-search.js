@@ -10,7 +10,7 @@ function makeCharSearchBar() {
 				onfocus="appFocus('searchInput');"
 				onblur="appFocus(false);"
 			/>
-			${makeCloseButton("clearSearch();")}
+			${makeCloseButton('clearSearch();')}
 		</div>
 		<div id="charSearchStatus"></div>
 	`;
@@ -21,9 +21,9 @@ function makeCloseButton(func) {
 }
 
 function clearSearch() {
-	app.settings.charSearch = "";
-	document.getElementById("searchInput").value = "";
-	document.getElementById("charSearchStatus").innerHTML = "";
+	app.settings.charSearch = '';
+	document.getElementById('searchInput').value = '';
+	document.getElementById('charSearchStatus').innerHTML = '';
 	saveSettings();
 	redrawContent();
 }
@@ -34,9 +34,9 @@ function makePageSearch() {
 	let isMaxed = results.length === parseInt(app.settings.maxSearchResults);
 
 	let updateCharSearchStatus = function () {
-		document.getElementById("charSearchStatus").innerHTML = `
-			${isMaxed ? "Showing the first " : ""}
-			${results.length} result${results.length === 1 ? "" : "s"}
+		document.getElementById('charSearchStatus').innerHTML = `
+			${isMaxed ? 'Showing the first ' : ''}
+			${results.length} result${results.length === 1 ? '' : 's'}
 			<button onclick="clearSearch();navigate('Ranges');">Back to Unicode ranges</button>
 		`;
 	};
@@ -51,8 +51,8 @@ function charSearchBarOnChange(term) {
 	app.settings.charSearch = term;
 	saveSettings();
 
-	if (app.settings.selectedPage === "Search") redrawContent();
-	else navigate("Search");
+	if (app.settings.selectedPage === 'Search') redrawContent();
+	else navigate('Search');
 }
 
 function searchCharNames(term) {
