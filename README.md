@@ -1,4 +1,4 @@
-# unicode.ninja
+# Unicode Ninja
 
 Easily explore Unicode characters and ranges. Now supporting Unicode planes 0, 1, 2, and 3!
 
@@ -11,7 +11,7 @@ easily discover characters you don't know about.
 
 # License & Copyright
 
-Copyright © 2024 Matthew LaGrandeur
+Copyright © 2026 Matthew LaGrandeur
 
 Released under [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
 

@@ -1,0 +1,234 @@
+/* ==========================================================================
+   tokens.css — reset, design tokens, themes, base typography
+   ========================================================================== */
+
+:root {
+	color-scheme: light dark;
+
+	/* Type */
+	--font-ui: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+
+	/* Radii — surfaces (tiles, cards, inputs) stay near-square for a modern look;
+	   buttons & pills use --r-pill. */
+	--r-sm: 2px;
+	--r-md: 3px;
+	--r-lg: 4px;
+	--r-pill: 999px;
+
+	/* Layout */
+	--topbar-h: 60px;
+	--rail-w: clamp(264px, 24vw, 340px);
+	--maxw: 1500px;
+
+	/* Motion */
+	--ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+	--dur: 160ms;
+
+	/* Accent — hue, saturation & lightness drive every accent color across both
+	   themes. Override via [data-accent='...'] presets below. Default: indigo. */
+	--accent-h: 245;
+	--accent-s: 78%;
+	--accent-l: 56%;
+	--accent-s-dark: 90%;
+
+	/* Light theme */
+	--bg: hsl(225 24% 98%);
+	--bg-grad: radial-gradient(1200px 600px at 100% -10%, hsl(var(--accent-h) 80% 97%), transparent 60%);
+	--surface: hsl(0 0% 100%);
+	--surface-2: hsl(225 22% 96%);
+	--elevated: hsl(0 0% 100%);
+	--border: hsl(225 18% 90%);
+	--border-strong: hsl(225 15% 82%);
+	--text: hsl(225 30% 12%);
+	--text-2: hsl(225 12% 42%);
+	--text-3: hsl(225 10% 60%);
+	--accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+	--accent-2: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) - 8%));
+	/* Differentiated light→dark stops (matches the generated favicon). */
+	--accent-grad-1: hsl(var(--accent-h) calc(var(--accent-s) + 6%) calc(var(--accent-l) + 22%));
+	--accent-grad-2: hsl(var(--accent-h) calc(var(--accent-s) + 10%) calc(var(--accent-l) - 26%));
+	--accent-soft: hsl(var(--accent-h) 80% 96%);
+	--on-accent: hsl(0 0% 100%);
+	--tile-bg: hsl(0 0% 100%);
+	--tile-border: hsl(225 18% 91%);
+	--star: hsl(43 96% 50%);
+	--mark: hsl(48 100% 70% / 0.5);
+	--shadow-sm: 0 1px 2px hsl(225 30% 20% / 0.06), 0 1px 3px hsl(225 30% 20% / 0.06);
+	--shadow-md: 0 4px 12px hsl(225 30% 20% / 0.08), 0 2px 4px hsl(225 30% 20% / 0.05);
+	--shadow-lg: 0 18px 50px hsl(225 35% 18% / 0.18), 0 6px 16px hsl(225 30% 20% / 0.1);
+	--topbar-bg: hsl(225 24% 98% / 0.78);
+}
+
+/* Accent presets — set only hue & saturation; lightness comes from the theme. */
+[data-accent='indigo'] {
+	--accent-h: 245;
+	--accent-s: 78%;
+	--accent-l: 56%;
+	--accent-s-dark: 90%;
+}
+[data-accent='rose'] {
+	--accent-h: 344;
+	--accent-s: 72%;
+	--accent-l: 53%;
+	--accent-s-dark: 80%;
+}
+[data-accent='orange'] {
+	--accent-h: 24;
+	--accent-s: 82%;
+	--accent-l: 47%;
+	--accent-s-dark: 88%;
+}
+[data-accent='teal'] {
+	--accent-h: 180;
+	--accent-s: 68%;
+	--accent-l: 38%;
+	--accent-s-dark: 60%;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--bg: hsl(228 20% 8%);
+		--bg-grad: radial-gradient(1200px 600px at 100% -10%, hsl(var(--accent-h) 60% 16%), transparent 60%);
+		--surface: hsl(228 17% 12%);
+		--surface-2: hsl(228 15% 15%);
+		--elevated: hsl(228 16% 14%);
+		--border: hsl(228 12% 22%);
+		--border-strong: hsl(228 10% 32%);
+		--text: hsl(225 24% 94%);
+		--text-2: hsl(225 12% 68%);
+		--text-3: hsl(225 10% 50%);
+		--accent: hsl(var(--accent-h) var(--accent-s-dark) 72%);
+		--accent-2: hsl(var(--accent-h) var(--accent-s-dark) 80%);
+		--accent-grad-1: hsl(var(--accent-h) calc(var(--accent-s-dark) + 6%) 94%);
+		--accent-grad-2: hsl(var(--accent-h) calc(var(--accent-s-dark) + 10%) 46%);
+		--accent-soft: hsl(var(--accent-h) 40% 22%);
+		--on-accent: hsl(228 35% 8%);
+		--tile-bg: hsl(228 15% 16%);
+		--tile-border: hsl(228 12% 24%);
+		--star: hsl(43 90% 62%);
+		--mark: hsl(48 90% 60% / 0.32);
+		--shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.3);
+		--shadow-md: 0 6px 16px hsl(0 0% 0% / 0.4);
+		--shadow-lg: 0 24px 60px hsl(0 0% 0% / 0.55);
+		--topbar-bg: hsl(228 20% 8% / 0.72);
+	}
+}
+
+[data-theme='dark'] {
+	--bg: hsl(228 20% 8%);
+	--bg-grad: radial-gradient(1200px 600px at 100% -10%, hsl(var(--accent-h) 60% 16%), transparent 60%);
+	--surface: hsl(228 17% 12%);
+	--surface-2: hsl(228 15% 15%);
+	--elevated: hsl(228 16% 14%);
+	--border: hsl(228 12% 22%);
+	--border-strong: hsl(228 10% 32%);
+	--text: hsl(225 24% 94%);
+	--text-2: hsl(225 12% 68%);
+	--text-3: hsl(225 10% 50%);
+	--accent: hsl(var(--accent-h) var(--accent-s-dark) 72%);
+	--accent-2: hsl(var(--accent-h) var(--accent-s-dark) 80%);
+	--accent-grad-1: hsl(var(--accent-h) calc(var(--accent-s-dark) + 6%) 94%);
+	--accent-grad-2: hsl(var(--accent-h) calc(var(--accent-s-dark) + 10%) 46%);
+	--accent-soft: hsl(var(--accent-h) 40% 22%);
+	--on-accent: hsl(228 35% 8%);
+	--tile-bg: hsl(228 15% 16%);
+	--tile-border: hsl(228 12% 24%);
+	--star: hsl(43 90% 62%);
+	--mark: hsl(48 90% 60% / 0.32);
+	--shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.3);
+	--shadow-md: 0 6px 16px hsl(0 0% 0% / 0.4);
+	--shadow-lg: 0 24px 60px hsl(0 0% 0% / 0.55);
+	--topbar-bg: hsl(228 20% 8% / 0.72);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	font-family: var(--font-ui);
+	font-size: 15px;
+	line-height: 1.5;
+	color: var(--text);
+	background: var(--bg);
+	background-image: var(--bg-grad);
+	background-attachment: fixed;
+	font-optical-sizing: auto;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	padding-top: var(--topbar-h);
+}
+
+body.no-scroll {
+	overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.2;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--text);
+}
+
+a {
+	color: var(--accent);
+	text-decoration: none;
+}
+a:hover {
+	color: var(--accent-2);
+	text-decoration: underline;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+code,
+kbd,
+pre {
+	font-family: var(--font-mono);
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--on-accent);
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}

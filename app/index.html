@@ -1,19 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<title>unicode.ninja</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Explore every Unicode range, preview characters in your own typeface, and copy the exact glyph, HTML entity, or code point you need. A tool for designers and curious humans." />
+		<meta name="theme-color" content="#ffffff" />
 
-		<script src="main.js"></script>
-		<script src="navigate.js"></script>
-		<script src="dialog.js"></script>
-		<script src="grid.js"></script>
-		<script src="panel-rangeChooser.js"></script>
-		<script src="page-ranges.js"></script>
-		<script src="page-search.js"></script>
-		<script src="page-favorites.js"></script>
-		<script src="page-settings.js"></script>
+		<!-- Favicon is generated at runtime from the active accent color (see nav.js).
+		     A transparent placeholder prevents a default /favicon.ico request. -->
+		<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" />
+
+		<!-- Inter — modern UI typeface (SIL Open Font License). -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" />
+
+		<link rel="stylesheet" href="css/tokens.css" />
+		<link rel="stylesheet" href="css/app.css" />
+
+		<!-- Reference data: classic scripts, loaded before the app module so its
+		     top-level consts are available to the ES modules via the shared
+		     global lexical environment. -->
 		<script src="reference-unicodeNamesListBMP.js"></script>
 		<script src="reference-unicodeNamesListSMP.js"></script>
 		<script src="reference-htmlEntityNamesList.js"></script>
@@ -21,12 +29,6 @@
 		<script src="reference-organizedBlocks.js"></script>
 		<script src="reference-organizedBlocksV2.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="overrides.css" />
-		<link rel="stylesheet" type="text/css" href="style.css" />
-		<link rel="stylesheet" type="text/css" href="ranges.css" />
-	</head>
-
-	<body onload="init();">
 		<!-- Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132448369-1"></script>
 		<script>
@@ -37,13 +39,11 @@
 			gtag('js', new Date());
 			gtag('config', 'UA-132448369-1');
 		</script>
-		<div id="header">
-			<div class="headerContent">
-				<button id="menuButton" onclick="toggleMenu();">&#x23ba;<br />&#x23bb;<br />&#x23bc;</button>
-				<h1 id="logo"></h1>
-				<div id="charSearchBar"></div>
-			</div>
-		</div>
-		<div id="content"></div>
+
+		<script type="module" src="js/main.js"></script>
+	</head>
+
+	<body>
+		<div id="app"></div>
 	</body>
 </html>
