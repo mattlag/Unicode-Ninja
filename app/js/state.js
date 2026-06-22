@@ -4,8 +4,8 @@
 
 const STORAGE_KEY = 'unicode.ninja';
 
-export const APP_VERSION = '4.3.3';
-export const RELEASE_DATE = new Date(2026, 5, 18).getTime();
+export const APP_VERSION = '4.3.4';
+export const RELEASE_DATE = new Date(2026, 5, 22).getTime();
 export const UNICODE_DATA_VERSION = 'v15.1.0 published 2023-09-06';
 
 const defaults = {

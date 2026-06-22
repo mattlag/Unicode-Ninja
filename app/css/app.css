@@ -1233,6 +1233,59 @@ code.copyable:hover {
 	font-size: 0.92rem;
 }
 
+/* Family card — sibling Glyphr Studio projects. */
+.settings-card--family p {
+	color: var(--text-2);
+	margin-bottom: 4px;
+	font-size: 0.92rem;
+}
+.family-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 14px;
+	margin-top: 16px;
+}
+.family-link {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	padding: 16px 12px;
+	text-decoration: none;
+	color: var(--text);
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+	border-radius: var(--r-md);
+	transition:
+		border-color var(--dur) var(--ease),
+		background var(--dur) var(--ease),
+		transform var(--dur) var(--ease);
+}
+.family-link:hover {
+	border-color: var(--accent);
+	background: var(--accent-soft);
+	transform: translateY(-2px);
+}
+.family-link__img {
+	width: 48px;
+	height: 48px;
+	/* Logos are black-on-transparent PNGs; flip to white in dark themes. */
+	transition: filter var(--dur) var(--ease);
+}
+.family-link__name {
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+[data-theme='dark'] .family-link__img {
+	filter: invert(1);
+}
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) .family-link__img {
+		filter: invert(1);
+	}
+}
+
 /* --------------------------------------------------------------------------
    Landing
    -------------------------------------------------------------------------- */

@@ -1,4 +1,13 @@
 {
+	"name": "unicode-ninja",
+	"version": "4.3.4",
+	"private": true,
+	"scripts": {
+		"dev": "live-server app --port=3000 --wait=200"
+	},
+	"devDependencies": {
+		"live-server": "^1.2.2"
+	},
 	"prettier": {
 		"printWidth": 400,
 		"useTabs": true,
@@ -7,7 +16,7 @@
 	},
 	"cspell": {
 		"ignorePaths": [
-			"./app/reference-*"
+			"./app/ref/reference-*"
 		]
 	}
 }

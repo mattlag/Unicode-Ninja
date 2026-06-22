@@ -212,3 +212,14 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+#############
+## Node
+#############
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.pnpm-debug.log*
