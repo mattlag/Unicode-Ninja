@@ -105,7 +105,7 @@ export function renderTopNav() {
 	return `
 	<header class="topbar">
 		<div class="topbar__inner">
-			<button type="button" class="wordmark" data-action="nav" data-route="landing" aria-label="unicode.ninja home">
+			<button type="button" class="wordmark" data-action="nav" data-route="landing" aria-label="unicode ninja home">
 				unicode<span class="wordmark__dot">.</span>ninja
 			</button>
 			<nav class="topnav" aria-label="Primary">

@@ -90,7 +90,7 @@ export function renderSettings() {
 
 		<section class="settings-card settings-card--about">
 		<h2>About</h2>
-		<p><strong>unicode.ninja</strong> — a tool to explore Unicode® characters and ranges. Unicode is a registered trademark of Unicode, Inc. Learn more at <a href="https://www.unicode.org/" target="_blank" rel="noopener">unicode.org ↗</a>.Created by Matt LaGrandeur.</p>
+		<p><strong>Unicode Ninja</strong> — a tool to explore Unicode® characters and ranges. Unicode is a registered trademark of Unicode, Inc. Learn more at <a href="https://www.unicode.org/" target="_blank" rel="noopener">unicode.org ↗</a>. Created by Matt LaGrandeur.</p>
 			<dl class="kv kv--about">
 			<dt>App version</dt><dd>v${esc(APP_VERSION)}</dd>
 			<dt>Updated</dt><dd>${new Date(RELEASE_DATE).toLocaleDateString()}</dd>

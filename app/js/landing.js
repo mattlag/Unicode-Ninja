@@ -52,7 +52,6 @@ export function renderLanding() {
 	return `
 	<div class="landing">
 		<section class="landing__hero">
-			<p class="landing__eyebrow">Unicode, beautifully explorable</p>
 			<h1 class="landing__title">unicode<span class="landing__dot">${DOT_GLYPHS[0] || '.'}</span>ninja</h1>
 			<p class="landing__tagline">Browse every Unicode range, preview characters in your own typeface, and grab the exact glyph, entity, or code point you need.</p>
 			<div class="landing__actions">
